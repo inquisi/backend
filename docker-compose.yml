@@ -1,0 +1,14 @@
+# Service name
+backend:
+  # Build at the current directory
+  build: .
+  # Command to run once image is built
+  command: /bin/bash docker-compose.backend.sh
+  # Open ports 3000 (backend) and 3001 (remote debugging for RubyMine)
+  ports:
+   - "3000:3000"
+   - "3001:3001"
+  # Mount the host's ./ directory to the container's /opt/backend
+  # This allows the files at ./ (this application) to be seen an updated in real time by the container at /opt/backend
+  volumes:
+   - .:/opt/backend
