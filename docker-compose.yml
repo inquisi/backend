@@ -8,7 +8,23 @@ backend:
   ports:
    - "3000:3000"
    - "3001:3001"
+  # link to other containers
+  links:
+    - mysql
   # Mount the host's ./ directory to the container's /opt/backend
   # This allows the files at ./ (this application) to be seen an updated in real time by the container at /opt/backend
+  # Mount the directory as readonly (ro) on the container
   volumes:
    - .:/opt/backend
+   - ./app:/opt/backend/app:ro
+   - ./config:/opt/backend/config:ro
+  environment:
+    MYSQL_DATABASE: inquisi_development
+# Database
+mysql:
+  image: mysql:5.6
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: inquisi1837
+    MYSQL_DATABASE: inquisi_development

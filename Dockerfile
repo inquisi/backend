@@ -1,13 +1,13 @@
 # Use the rails image as a base
 FROM rails:4.2.1
 
-# cd into /tmp
-WORKDIR /tmp
-
 # Add the Gemfile and run `bundle install` to install dependencies
 # This step is done separately so that it can take advantage of Docker's cache
-ADD Gemfile Gemfile
-ADD Gemfile.lock Gemfile.lock
+
+# cd into /tmp
+WORKDIR /tmp
+COPY Gemfile Gemfile
+COPY Gemfile.lock Gemfile.lock
 RUN bundle install
 
 # Install the ruby-debug-ide gem so that RubyMine can connect to this Docker container
