@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="MySQL - inquisi_development@localhost" uuid="2ee058cb-6e04-4212-b5cb-28ec13ee909c">
-      <secret-storage>memory</secret-storage>
+    <data-source name="MySQL - inquisi_development@localhost" uuid="54af67fd-0493-4b8c-8553-25f1b9e3f1df">
+      <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
       <schema-pattern>inquisi_development.*</schema-pattern>
       <default-schemas>inquisi_development.*</default-schemas>

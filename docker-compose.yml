@@ -16,8 +16,6 @@ backend:
   # Mount the directory as readonly (ro) on the container
   volumes:
    - .:/opt/backend
-   - ./app:/opt/backend/app:ro
-   - ./config:/opt/backend/config:ro
   environment:
     MYSQL_DATABASE: inquisi_development
 # Database
