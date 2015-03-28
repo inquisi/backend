@@ -4,3 +4,6 @@ rvm:
 # Specify bundler args so that travis ignores Gemfile.lock and does not add
 # the `--deployment` flag to the `bundle install` command it runs to install gems
 bundler_args: " "
+notifications:
+  email: false
+  slack: inquisi:tN28qlf1uc3wVDVt0Uqvucha#backend
