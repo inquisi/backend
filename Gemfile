@@ -8,3 +8,9 @@ gem 'mysql2'
 
 gem 'jbuilder', '~> 1.2'
 # gem 'bcrypt-ruby', '~> 3.0.0'
+
+gem 'rspec-rails'
+gem 'rspec'
+group :test do
+  gem 'rake'
+end
