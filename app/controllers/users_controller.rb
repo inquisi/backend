@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.find(1)
+    render json: { message: "hello world!" }
   end
 
   # GET /users/1

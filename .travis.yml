@@ -6,4 +6,8 @@ rvm:
 bundler_args: " "
 notifications:
   email: false
+  # Our slack key -> backend channel
+  # Might want to make this secret/encoded
   slack: inquisi:tN28qlf1uc3wVDVt0Uqvucha#backend
+# Cache `bundle install` on travis
+cache: bundler
