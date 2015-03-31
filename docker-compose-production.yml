@@ -1,0 +1,23 @@
+# Service name
+backend:
+  # Build at the current directory
+  build: ./production-backend
+  # link to other containers
+  links:
+    - mysql
+  environment:
+    MYSQL_DATABASE: inquisi_development
+# Database
+mysql:
+  image: mysql:5.6
+  environment:
+    MYSQL_ROOT_PASSWORD: inquisi1837
+    MYSQL_DATABASE: inquisi_development
+# Web Server
+nginx:
+  build: ./production-nginx
+  ports:
+    - "80:80"
+  links:
+    - backend
+  command: nginx
