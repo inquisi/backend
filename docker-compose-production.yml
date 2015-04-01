@@ -9,7 +9,7 @@ backend:
     MYSQL_DATABASE: inquisi_development
 # Database
 mysql:
-  image: ./production-mysql
+  build: ./production-mysql
   environment:
     MYSQL_ROOT_PASSWORD: inquisi1837
     MYSQL_DATABASE: inquisi_development
