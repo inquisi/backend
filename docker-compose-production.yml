@@ -8,7 +8,7 @@ backend:
     - nginxmod
   environment:
     MYSQL_DATABASE: inquisi_development
-  command: rails s
+  command: /bin/bash production-backend/docker-compose.backend.sh
 # Database
 mysql:
   build: ./production-mysql
