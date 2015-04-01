@@ -7,7 +7,6 @@ backend:
     - mysql
   environment:
     MYSQL_DATABASE: inquisi_development
-    VIRTUAL_HOST: api.inquisi.io
   command: /bin/bash production-backend/docker-compose.backend.sh
 # Database
 mysql:
