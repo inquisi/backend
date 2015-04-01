@@ -23,5 +23,3 @@ nginxmod:
   command: nginx
   links:
     - backend
-  volumes:
-    - /var/run/docker.sock:/tmp/docker.sock
