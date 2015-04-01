@@ -5,6 +5,7 @@ backend:
   # link to other containers
   links:
     - mysql
+    - nginxmod
   environment:
     MYSQL_DATABASE: inquisi_development
   command: rails s
@@ -19,6 +20,4 @@ nginxmod:
   build: ./production-nginx
   ports:
     - "80:80"
-  links:
-    - backend
   command: nginx
