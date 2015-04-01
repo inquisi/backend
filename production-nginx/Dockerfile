@@ -1,4 +1,4 @@
-FROM nginx:1.7.11
+FROM jwilder/nginx-proxy
 
 RUN apt-get update && apt-get install git -y
 
@@ -10,5 +10,5 @@ WORKDIR backend
 
 RUN git pull
 
-RUN cp ./production-nginx/nginx.conf /etc/nginx/nginx.conf
+RUN cp ./production-nginx/nginx.conf /etc/nginx/conf.d/nginx.conf
 
