@@ -1,0 +1,4 @@
+# This is a mysql config file for use in production
+
+[mysqld]
+innodb_buffer_pool_size = 10M
