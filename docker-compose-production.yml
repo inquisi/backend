@@ -10,7 +10,7 @@ backend:
   command: rails s
 # Database
 mysql:
-  image: mysql:5.6
+  build: ./production-mysql
   environment:
     MYSQL_ROOT_PASSWORD: inquisi1837
     MYSQL_DATABASE: inquisi_development

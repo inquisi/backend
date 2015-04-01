@@ -1,4 +1,4 @@
-FROM nginx:1.7.11
+FROM mysql:5.6
 
 RUN apt-get update && apt-get install git -y
 
@@ -10,5 +10,4 @@ WORKDIR backend
 
 RUN git pull
 
-RUN cp ./production-nginx/nginx.conf /etc/nginx/nginx.conf
-
+RUN cp ./production-mysql/production.cnf /etc/mysql/conf.d/production.cnf
