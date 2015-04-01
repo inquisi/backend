@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'rspec-rails'
 gem 'rspec'
+gem 'devise'
 group :test do
   gem 'rake'
 end
