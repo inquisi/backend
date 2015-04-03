@@ -1,7 +1,8 @@
 Backend::Application.routes.draw do
-  get 'welcome/index'
-
-  resources :users
+  post 'login' => 'users#login'
+  post 'logout' => 'users#logout'
+  post 'signup' => 'users#signup'
+  root 'todo#todo'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -17,13 +18,6 @@ Backend::Application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-
-  Rails.application.routes.draw do
-
-    resources :articles
-
-    root 'welcome#index'
-  end
 
   # Example resource route with options:
   #   resources :products do

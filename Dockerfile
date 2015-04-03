@@ -11,7 +11,7 @@ COPY Gemfile.lock Gemfile.lock
 RUN bundle install
 
 # Install the ruby-debug-ide gem so that RubyMine can connect to this Docker container
-RUN gem install ruby-debug-ide
+RUN gem install ruby-debug-ide rails-api
 
 WORKDIR /opt/backend/
 

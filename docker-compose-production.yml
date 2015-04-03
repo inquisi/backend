@@ -13,10 +13,10 @@ mysql:
   build: ./production-mysql
   environment:
     MYSQL_ROOT_PASSWORD: inquisi1837
-    MYSQL_DATABASE: inquisi_development
+    MYSQL_DATABASE: inquisi_production
 # Web Server
 nginxmod:
-  build: ./production-nginx
+  build: ./production-haproxy
   ports:
     - "80:80"
   command: nginx

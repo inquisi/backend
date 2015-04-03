@@ -7,11 +7,13 @@ gem 'rails', '4.2'
 gem 'mysql2'
 
 gem 'jbuilder', '~> 1.2'
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'email_validator'
 
 gem 'rspec-rails'
 gem 'rspec'
-gem 'devise'
+gem "factory_girl_rails", "~> 4.0"
+gem 'guard-rspec'
 group :test do
   gem 'rake'
 end
