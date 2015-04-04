@@ -24,8 +24,12 @@ FactoryGirl.define do
     email "cody.sehl@gmail.com"
     password "password"
 
-    factory :signup_user do
+    factory :user_with_password_confirmation do
       password_confirmation "password"
+    end
+
+    factory :user_with_token do
+      token "token"
     end
   end
 end

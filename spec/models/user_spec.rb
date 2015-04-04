@@ -28,4 +28,11 @@ RSpec.describe User, type: :model do
     user = build(:user, password: "")
     expect(user.save).to be false
   end
+
+  it "should generate a uuid token after it has been saved" do
+    user = build(:user)
+    expect(user.token).to eql(nil)
+    user.save
+    expect(user.token).not_to eql(nil)
+  end
 end
