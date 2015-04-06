@@ -1,12 +1,12 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: <%= ENV['BACKEND_MYSQL_1_ENV_MYSQL_DATABASE'] %>
+  database: inquisi_development
   pool: 5
-  host: mysql
-  port: <%= ENV['BACKEND_MYSQL_1_PORT_3306_TCP_PORT'] %>
+  host: localhost
+  port: 3306
   username: root
-  password: <%= ENV['BACKEND_MYSQL_1_ENV_MYSQL_ROOT_PASSWORD'] %>
+  password: root
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -16,12 +16,12 @@ test:
   encoding: utf8
   database: inquisi_test
   pool: 5
-  host: mysql
-  port: <%= ENV['BACKEND_MYSQL_1_PORT_3306_TCP_PORT'] %>
+  host: localhost
+  port: 3306
   username: root
-  password: <%= ENV['BACKEND_MYSQL_1_ENV_MYSQL_ROOT_PASSWORD'] %>
+  password: root
 #
-test:
+production:
   adapter: mysql2
   encoding: utf8
   database: <%= ENV['BACKEND_MYSQL_1_ENV_MYSQL_DATABASE'] %>
