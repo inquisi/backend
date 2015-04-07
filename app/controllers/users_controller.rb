@@ -5,7 +5,7 @@ class UsersController < ApplicationController
       # Does session even work for APIs?
       # If a user signs up properly, they should essentially log in
       # Send them a response as if they just logged in
-      render 'users/login'
+      render 'users/token'
     else
       render json: {errors: @user.errors}
     end
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   def login
     @user = User.find_by_email(params[:email])
     if(@user.present? and @user.authenticate(params[:password]))
-      render 'users/login'
+      render 'users/token'
     else
       render json: {errors: {message: "Email or password incorrect"}}
     end
