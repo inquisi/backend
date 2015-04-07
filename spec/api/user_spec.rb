@@ -27,7 +27,7 @@ RSpec.describe 'User API', type: :request do
   end
 
   describe '/login' do
-    it 'should should return a user token json if login successful' do
+    it ' should return a user token json if login successful' do
       user = create(:user)
       post '/login', attributes_for(:user).extract!(:email, :password)
 
@@ -48,5 +48,17 @@ RSpec.describe 'User API', type: :request do
       expect(response.body).to eql({status: 'failure', message: 'Email or password is incorrect', data: ""}.to_json)
     end
   end
+  describe '/logout' do
 
+    it 'should return a user token json of 0 if logout successful' do
+      post '/logout', attributes_for(:user)
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+      expect(JSON.parse(response.body)["data"]).to include("user")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("token")
+      expect(response.body).to eql({status: 'success', message: '', data: {user: {token: '0'} } }.to_json)
+
+    end
+  end
 end
