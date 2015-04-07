@@ -7,7 +7,8 @@ class UsersController < ApplicationController
       # Send them a response as if they just logged in
       render 'users/token'
     else
-      render json: {errors: @user.errors}
+      @message = @user.errors.full_messages[0]
+      render 'layouts/failure'
     end
   end
 
@@ -16,8 +17,10 @@ class UsersController < ApplicationController
     if(@user.present? and @user.authenticate(params[:password]))
       render 'users/token'
     else
-      render json: {errors: {message: "Email or password incorrect"}}
+      @message = "Email or password is incorrect"
+      render 'layouts/failure'
     end
+
   end
 
   # How would logout work with angular/token auth?
