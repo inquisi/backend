@@ -1,2 +1,6 @@
 class CourseController < ApplicationController
+
+
+	
+	
 end

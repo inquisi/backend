@@ -23,10 +23,8 @@ class UsersController < ApplicationController
 
   end
 
-  # How would logout work with angular/token auth?
-  # def logout
-  #
-  # end
+ #Logout handled on front end
+ 
 
 private
   # Strong parameters

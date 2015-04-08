@@ -7,7 +7,7 @@ gem 'rails', '4.2'
 gem 'mysql2'
 
 gem 'rabl'
-gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby'
 gem 'email_validator'
 
 gem 'rspec-rails'

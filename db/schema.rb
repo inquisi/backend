@@ -11,7 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402203850) do
+ActiveRecord::Schema.define(version: 20150408200709) do
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "organizations_users", id: false, force: :cascade do |t|
+    t.integer "user_id",         limit: 4, null: false
+    t.integer "organization_id", limit: 4, null: false
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",      limit: 255
@@ -24,6 +46,7 @@ ActiveRecord::Schema.define(version: 20150402203850) do
     t.boolean  "trial",           limit: 1
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "organization_id", limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
