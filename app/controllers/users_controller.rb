@@ -24,13 +24,9 @@ class UsersController < ApplicationController
   end
 
   # How would logout work with angular/token auth?
-  def logout
-  #Send a token of 0, thus invalidating future calls from that client
-    #if hit logout button
-#    if()
-#       @token = 0
-      render 'users/tokenZero'
-  end
+  # def logout
+  #
+  # end
 
 private
   # Strong parameters
