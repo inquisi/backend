@@ -1,7 +1,13 @@
 # This is a file that defines mock data for testing
 # through the use of 'factories' and the 'factory_girl' gem
 
-FactoryGirl.define do
+FactoryGirl.define do  factory :session do
+    
+  end
+  factory :course do
+    
+  end
+
   # Examples!
 
 
