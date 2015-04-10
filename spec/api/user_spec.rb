@@ -49,4 +49,42 @@ RSpec.describe 'User API', type: :request do
     end
   end
 
+  describe '/user' do
+    it 'should should return a student user json if given valid token' do
+      user = create(:user_with_booleans_student)
+      get '/user', attributes_for(:user).extract!(:token)
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+      expect(JSON.parse(response.body)["data"]).to include("user")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("email")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("first_name")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("last_name")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("role")
+
+      expect(JSON.parse(response.body)["data"]["user"]).not_to include("token")
+
+    end
+
+    it 'should should return an instructor user json if given valid token' do
+      user = create(:user_with_booleans_instructor)
+      get '/user', attributes_for(:user).extract!(:token)
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+      expect(JSON.parse(response.body)["data"]).to include("user")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("email")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("first_name")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("last_name")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("role")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("organization")
+      
+      expect(JSON.parse(response.body)["data"]["user"]).not_to include("token")
+      
+    end
+
+  end
+
 end

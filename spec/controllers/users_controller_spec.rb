@@ -18,9 +18,13 @@ RSpec.describe UsersController, type: :controller do
   #
   # end
 
-  # describe "logout" do
-  #   it 'should ' do
-  #
+
+  # User Info request 
+  # describe "info" do
+  #   it "should return user info from the given token in an organized format" do
+            
   #   end
   # end
+
+
 end

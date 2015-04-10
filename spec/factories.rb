@@ -5,9 +5,11 @@ FactoryGirl.define do
   factory :organization do
     name "Inquisi"
   end
+
   factory :session do
     
   end
+  
   factory :course do
     title "test"
   end

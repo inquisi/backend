@@ -37,6 +37,19 @@ class UsersController < ApplicationController
 
   end
 
+  def show
+    @user = User.find_by_token(params[:token])
+    if(@user.present? )
+      render 'users/show'
+    else
+      @message = "Invalid User"
+      render 'layouts/failure'
+    end
+
+  end
+
+
+
  #Logout handled on front end
 
   private
