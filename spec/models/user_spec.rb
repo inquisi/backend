@@ -4,35 +4,43 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it "should require a first and last name" do
-    user = build(:user, first_name: "", last_name: "")
+    user = build(:user_with_booleans_student, first_name: "", last_name: "")
     expect(user.save).to be false
   end
 
   it "should require an email" do
-    user = build(:user, email: "")
+    user = build(:user_with_booleans_student, email: "")
     expect(user.save).to be false
   end
 
   it "should require a unique email" do
-    user = create(:user, email: "test@test.com")
-    user2 = build(:user, email: "test@test.com")
+    puts attributes_for(:user_with_booleans_student)
+    user = create(:user_with_booleans_student, email: "test@test.com")
+    user2 = build(:user_with_booleans_student, email: "test@test.com")
     expect(user2.save).to be false
   end
 
   it "should require a valid email" do
-    user = build(:user, email: "abcd")
+    user = build(:user_with_booleans_student, email: "abcd")
     expect(user.save).to be false
   end
 
   it "should require a password" do
-    user = build(:user, password: "")
+    user = build(:user_with_booleans_student, password: "")
     expect(user.save).to be false
   end
 
   it "should generate a uuid token after it has been saved" do
-    user = build(:user)
+    user = build(:user_with_booleans_student)
     expect(user.token).to eql(nil)
     user.save
     expect(user.token).not_to eql(nil)
   end
+
+  it "should require either a student or instructor" do
+    user = build(:user)
+    expect(user.save).to be false
+  end
+
+
 end

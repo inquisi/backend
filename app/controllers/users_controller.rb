@@ -1,6 +1,20 @@
 class UsersController < ApplicationController
   def signup
     @user = User.new(user_params)
+    #Change role to boolean
+
+    if(params[:role] == "instructor")
+      @user.student = false
+      @user.instructor = true
+    elsif (params[:role] == "student")
+      @user.student = true
+      @user.instructor = false
+    else
+      #Error Case
+      @user.student = nil
+      @user.instructor = nil
+    end
+
     if @user.save
       # Does session even work for APIs?
       # If a user signs up properly, they should essentially log in
@@ -24,9 +38,8 @@ class UsersController < ApplicationController
   end
 
  #Logout handled on front end
- 
 
-private
+  private
   # Strong parameters
   # Filter out unwanted parameters so we can use mass assignment
   def user_params

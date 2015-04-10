@@ -5,7 +5,7 @@ RSpec.describe 'User API', type: :request do
 
   describe "/signup" do
     it "should return a user token json if signup successful" do
-      post '/signup', attributes_for(:user_with_password_confirmation)
+      post '/signup', attributes_for(:user_with_password_confirmation).merge(attributes_for(:user_with_role_student))
 
       expect(JSON.parse(response.body)).to include("status")
       expect(JSON.parse(response.body)).to include("message")
@@ -18,7 +18,7 @@ RSpec.describe 'User API', type: :request do
     end
 
     it "should return an error if signup unsuccessful" do
-      user_hash = attributes_for(:user_with_password_confirmation)
+      user_hash = attributes_for(:user_with_password_confirmation).merge(attributes_for(:user_with_role_student))
       user_hash[:email] = ""
       post '/signup', user_hash
 
@@ -28,7 +28,7 @@ RSpec.describe 'User API', type: :request do
 
   describe '/login' do
     it 'should should return a user token json if login successful' do
-      user = create(:user)
+      user = create(:user_with_booleans_student)
       post '/login', attributes_for(:user).extract!(:email, :password)
 
       expect(JSON.parse(response.body)).to include("status")

@@ -25,11 +25,6 @@ ActiveRecord::Schema.define(version: 20150408200709) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "organizations_users", id: false, force: :cascade do |t|
-    t.integer "user_id",         limit: 4, null: false
-    t.integer "organization_id", limit: 4, null: false
-  end
-
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -41,8 +36,8 @@ ActiveRecord::Schema.define(version: 20150408200709) do
     t.string   "email",           limit: 255
     t.string   "password_digest", limit: 255
     t.string   "token",           limit: 255
-    t.boolean  "student",         limit: 1
-    t.boolean  "instructor",      limit: 1
+    t.boolean  "student",         limit: 1,   null: false
+    t.boolean  "instructor",      limit: 1,   null: false
     t.boolean  "trial",           limit: 1
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
