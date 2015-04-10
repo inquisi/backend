@@ -14,7 +14,6 @@ RSpec.describe User, type: :model do
   end
 
   it "should require a unique email" do
-    puts attributes_for(:user_with_booleans_student)
     user = create(:user_with_booleans_student, email: "test@test.com")
     user2 = build(:user_with_booleans_student, email: "test@test.com")
     expect(user2.save).to be false

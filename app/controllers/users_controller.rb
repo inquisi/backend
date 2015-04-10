@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     if(@user.present? and @user.authenticate(params[:password]))
       render 'users/token'
     else
-      @pmessage = "Email or password is incorrect"
+      @message = "Email or password is incorrect"
       render 'layouts/failure'
     end
 

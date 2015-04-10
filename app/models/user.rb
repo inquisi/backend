@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   def generate_token
     self.token = SecureRandom.uuid
-    self.save
+    # self.save
   end
 
 private

@@ -9,7 +9,7 @@ node (:data) do
  			organization: @user.organization,
  			role: "instructor"
  		}
- 	elsif (@user.student == true)
+ 	else
  		attribute user: { 
  			first_name: @user.first_name, last_name: @user.last_name, 
 			email: @user.email,
