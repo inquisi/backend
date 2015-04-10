@@ -17,3 +17,7 @@ gem 'guard-rspec'
 group :test do
   gem 'rake'
 end
+
+group :development do
+  gem 'rack-cors'
+end
