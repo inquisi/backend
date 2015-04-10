@@ -21,4 +21,12 @@ Backend::Application.configure do
 
   # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
+
+  # Allow cross origin requests for development server
+  config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :put, :delete]
+      end
+    end
 end
