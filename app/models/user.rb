@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   validates :role, inclusion: { in: ['Student', 'Instructor'], message: "is required."} 
 
   before_validation :capitalize_role
-  after_create :generate_token
+  before_save :generate_token
 
   def generate_token
     self.token = SecureRandom.uuid

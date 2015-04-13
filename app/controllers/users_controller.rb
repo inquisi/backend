@@ -1,12 +1,8 @@
 class UsersController < ApplicationController
   def signup
     @user = User.new(user_params)
-    #Change role to boolean
 
     if @user.save
-      # Does session even work for APIs?
-      # If a user signs up properly, they should essentially log in
-      # Send them a response as if they just logged in
       render 'users/token'
     else
       @message = @user.errors.full_messages[0]
@@ -33,12 +29,7 @@ class UsersController < ApplicationController
       @message = "Invalid User"
       render 'layouts/failure'
     end
-
   end
-
-
-
- #Logout handled on front end
 
   private
   # Strong parameters

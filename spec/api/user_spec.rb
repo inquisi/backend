@@ -49,10 +49,22 @@ RSpec.describe 'User API', type: :request do
     end
   end
 
+  describe 'signup and login' do
+    it 'should return the same token' do
+      user_hash = attributes_for(:user_with_password_confirmation).merge(attributes_for(:student))
+      post '/signup', user_hash
+      signup_token = JSON.parse(response.body)['data']['user']['token']
+      post '/login', attributes_for(:user).extract!(:email, :password)
+      login_token = JSON.parse(response.body)['data']['user']['token']
+
+      expect(signup_token).to eql login_token
+    end
+  end
+
   describe '/user' do
     it 'should should return a student user json if given valid token' do
       user = create(:student)
-      get '/user', attributes_for(:user).extract!(:token)
+      get '/user', token: user.token
 
       expect(JSON.parse(response.body)).to include("status")
       expect(JSON.parse(response.body)).to include("message")
@@ -69,7 +81,7 @@ RSpec.describe 'User API', type: :request do
 
     it 'should should return an instructor user json if given valid token' do
       user = create(:instructor)
-      get '/user', attributes_for(:user).extract!(:token)
+      get '/user', token: user.token
 
       expect(JSON.parse(response.body)).to include("status")
       expect(JSON.parse(response.body)).to include("message")
