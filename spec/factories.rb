@@ -7,15 +7,24 @@ FactoryGirl.define do
   end
 
   factory :session do
-    
+    name ""
+    date ""
   end
   
   factory :course do
-    title "test"
+    name "test"
+    time "May 2015"
   end
 
-
-  
+  factory :question do
+    name         "test"
+    questionText ""
+  end
+  factory :answer  do
+    name         "test"
+    answerText   ""
+    question     ""
+  end
 
   factory :user do
     #General properties of all users

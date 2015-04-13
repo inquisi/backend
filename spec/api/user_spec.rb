@@ -64,6 +64,7 @@ RSpec.describe 'User API', type: :request do
       expect(JSON.parse(response.body)["data"]["user"]).to include("role")
 
       expect(JSON.parse(response.body)["data"]["user"]).not_to include("token")
+      expect(JSON.parse(response.body)["data"]["user"]).not_to include("organization")
 
     end
 
