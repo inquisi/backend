@@ -7,17 +7,15 @@ gem 'rails', '4.2'
 gem 'mysql2'
 
 gem 'rabl'
-gem 'bcrypt-ruby'
+gem 'bcrypt'
 gem 'email_validator'
 
-gem 'rspec-rails'
-gem 'rspec'
-gem "factory_girl_rails", "~> 4.0"
-gem 'guard-rspec'
-group :test do
+group :development, :test do
   gem 'rake'
-end
-
-group :development do
   gem 'rack-cors'
+  gem 'rspec-rails'
+  gem 'rspec'
+  gem "factory_girl_rails", "~> 4.0"
+  gem 'guard-rspec'
+  gem 'byebug'
 end

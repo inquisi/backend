@@ -36,8 +36,7 @@ ActiveRecord::Schema.define(version: 20150408200709) do
     t.string   "email",           limit: 255
     t.string   "password_digest", limit: 255
     t.string   "token",           limit: 255
-    t.boolean  "student",         limit: 1,   null: false
-    t.boolean  "instructor",      limit: 1,   null: false
+    t.string   "role",            limit: 255
     t.boolean  "trial",           limit: 1
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
@@ -45,5 +44,6 @@ ActiveRecord::Schema.define(version: 20150408200709) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["token"], name: "index_users_on_token", using: :btree
 
 end

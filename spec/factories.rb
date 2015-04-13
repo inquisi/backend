@@ -41,24 +41,12 @@ FactoryGirl.define do
       token "token"
     end
 
-    #Student Mode
-    factory :user_with_role_student do
-      role "student"
-    end
-    factory :user_with_booleans_student do
-      student      true
-      instructor   false
+    factory :student do
+      role "Student"
     end
 
-    #Instructor Mode
-    factory :user_with_role_instructor do
-      role "instructor"
+    factory :instructor do
+      role "Instructor"
     end
-    factory :user_with_booleans_instructor do
-      student      false
-      instructor   true
-    end
-
   end
-
 end

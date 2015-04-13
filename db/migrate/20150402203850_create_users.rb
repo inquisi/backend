@@ -6,11 +6,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string  :email
       t.string  :password_digest
       t.string  :token
-      t.boolean :student,      :null => false
-      t.boolean :instructor,   :null => false
+      t.index   :token
+      t.string  :role
       t.boolean :trial
-
-      
       t.timestamps            null: false
     end
     add_index :users, :email, unique: true
