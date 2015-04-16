@@ -27,7 +27,7 @@ RSpec.describe 'User API', type: :request do
   end
 
   describe '/login' do
-    it 'should should return a user token json if login successful' do
+    it 'should return a user token json if login successful' do
       user = create(:student)
       post '/login', attributes_for(:user).extract!(:email, :password)
 
@@ -62,7 +62,7 @@ RSpec.describe 'User API', type: :request do
   end
 
   describe '/user' do
-    it 'should should return a student user json if given valid token' do
+    it 'should return a student user json if given valid token' do
       user = create(:student)
       get '/user', token: user.token
 
@@ -80,7 +80,7 @@ RSpec.describe 'User API', type: :request do
 
     end
 
-    it 'should should return an instructor user json if given valid token' do
+    it 'should return an instructor user json if given valid token' do
       user = create(:instructor)
       get '/user', token: user.token
 

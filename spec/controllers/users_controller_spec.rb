@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 # use factory_girl and 'factories.rb' to generate test data
-
 RSpec.describe UsersController, type: :controller do
   render_views
   describe "signup" do
@@ -12,19 +11,4 @@ RSpec.describe UsersController, type: :controller do
       }.to change(User, :count).by(1)
     end
   end
-
-  # Logging in simply involves retrieving database information
-  # describe "login" do
-  #
-  # end
-
-
-  # User Info request 
-  # describe "info" do
-  #   it "should return user info from the given token in an organized format" do
-            
-  #   end
-  # end
-
-
 end

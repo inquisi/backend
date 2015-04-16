@@ -3,6 +3,18 @@ Backend::Application.routes.draw do
   post 'logout' => 'users#logout'
   post 'signup' => 'users#signup'
   get  'user'   => 'users#show'
+
+  #TEST
+  post 'test'   => 'test#create'
+
+  post 'course' => 'courses#create'
+  get 'courses'  => 'courses#show'
+  #get 'course'  => 'course#show'   #Indivudual course
+
+  post 'session' => 'sessions#create'
+  get 'sessions'  => 'sessions#show'
+  #get 'session'  => 'session#show' #Indivudual session
+
   root 'todo#todo'
 
   # The priority is based upon order of creation: first created -> highest priority.

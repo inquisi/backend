@@ -11,12 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408200709) do
+ActiveRecord::Schema.define(version: 20150416153452) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "title",      limit: 255
+    t.string   "time",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "user_id",    limit: 4
+    t.string   "name",       limit: 255
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -26,6 +29,11 @@ ActiveRecord::Schema.define(version: 20150408200709) do
   end
 
   create_table "sessions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -45,5 +53,13 @@ ActiveRecord::Schema.define(version: 20150408200709) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["token"], name: "index_users_on_token", using: :btree
+
+  create_table "users_courses", id: false, force: :cascade do |t|
+    t.integer "user_id",   limit: 4
+    t.integer "course_id", limit: 4
+  end
+
+  add_index "users_courses", ["course_id"], name: "index_users_courses_on_course_id", using: :btree
+  add_index "users_courses", ["user_id"], name: "index_users_courses_on_user_id", using: :btree
 
 end
