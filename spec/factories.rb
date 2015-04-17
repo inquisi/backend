@@ -6,7 +6,7 @@ FactoryGirl.define do
 
   factory :question do
     name "1"
-    type "multi-choice"
+    category "multi-choice"
     session_id "1"
   end
 

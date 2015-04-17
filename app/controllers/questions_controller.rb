@@ -17,7 +17,7 @@ private
     # Strong parameters
     # Filter out unwanted parameters so we can use mass assignment
     def question_params
-   		params.permit(:name, :type, :session_id)
+   		params.permit(:name, :category, :session_id)
   	end
 
 

@@ -5,8 +5,12 @@ RSpec.describe Question, type: :model do
     question = build(:question, name: "")
     expect(question.save).to be false
   end
-  it "should require a type" do
-    question = build(:question, type: "")
+  it "should require a category" do
+    question = build(:question, category: "")
+    expect(question.save).to be false
+  end
+  it "should require a session_id" do
+    question = build(:question, session_id: "")
     expect(question.save).to be false
   end
 
