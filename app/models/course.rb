@@ -5,9 +5,9 @@ class Course < ActiveRecord::Base
   #Sessions of the course
   has_many :sessions
   #The students of the course
-  has_and_belongs_to_many :courses
+  has_and_belongs_to_many :users
 
-  validates :name, :time, presence: true
+  validates :name, :start, :finish, presence: true
   validates :user_id, presence: true
  	
 end

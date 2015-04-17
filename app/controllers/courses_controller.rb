@@ -1,7 +1,9 @@
 class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
-
+    puts "it made it"
+    puts @course.inspect
+    puts course_params
     if @course.save
       render 'layouts/success'
     else
@@ -23,7 +25,7 @@ private
   # Strong parameters
   # Filter out unwanted parameters so we can use mass assignment
   def course_params
-    params.permit(:name, :time, :user_id)
+    params.permit(:name, :start, :finish, :user_id)
   end
 	
 end

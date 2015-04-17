@@ -7,8 +7,13 @@ RSpec.describe Course, type: :model do
     expect(course.save).to be false
   end
 
-  it "should require a time" do
-    course = build(:course, time: "")
+  it "should require a start date" do
+    course = build(:course, start: "")
+    expect(course.save).to be false
+  end
+
+  it "should require a finish date" do
+    course = build(:course, finish: "")
     expect(course.save).to be false
   end
 

@@ -4,13 +4,21 @@ Backend::Application.routes.draw do
   post 'signup' => 'users#signup'
   get  'user'   => 'users#show'
 
-  post 'course' => 'courses#create'
+  post 'courses' => 'courses#create'
   get 'courses'  => 'courses#show'
-  #get 'course'  => 'course#show'   #Indivudual course
+  get 'courses/:id'  => 'courses#show'   #Indivudual course
 
-  post 'session' => 'sessions#create'
+  post 'sessions' => 'sessions#create'
   get 'sessions'  => 'sessions#show'
-  #get 'session'  => 'session#show' #Indivudual session
+  get 'sessions/:id'  => 'sessions#show' #Indivudual session
+
+  post 'questions' => 'questions#create'
+  get 'questions'  => 'questions#show'
+  get 'questions/:id'  => 'questions#show' #Indivudual session
+
+  post 'answers' => 'answers#create'
+  get 'answers'  => 'answers#show'
+  get 'answers/:id'  => 'answers#show' #Indivudual session
 
   root 'todo#todo'
 

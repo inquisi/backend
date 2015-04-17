@@ -2,20 +2,28 @@
 # through the use of 'factories' and the 'factory_girl' gem
 
 FactoryGirl.define do  
-  
+
+
+  factory :question do
+    name "1"
+    type "multi-choice"
+    session_id "1"
+  end
 
   factory :organization do
     name "Inquisi"
   end
 
   factory :session do
-    name ""
-    date ""
+    name "today"
+    date "05/03/2015"
+    course_id "1"
   end
   
   factory :course do
     name "test"
-    time "May 2015"
+    start "04/05/1993"
+    finish "05/06/2015"
     user_id "1"
   end
 
