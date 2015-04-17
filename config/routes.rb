@@ -4,9 +4,6 @@ Backend::Application.routes.draw do
   post 'signup' => 'users#signup'
   get  'user'   => 'users#show'
 
-  #TEST
-  post 'test'   => 'test#create'
-
   post 'course' => 'courses#create'
   get 'courses'  => 'courses#show'
   #get 'course'  => 'course#show'   #Indivudual course

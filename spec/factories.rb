@@ -2,10 +2,7 @@
 # through the use of 'factories' and the 'factory_girl' gem
 
 FactoryGirl.define do  
-    
-  factory :test do
-    name "Inquisi"
-  end
+  
 
   factory :organization do
     name "Inquisi"
