@@ -2,7 +2,7 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     if @course.save
-      render 'courses/token'
+      render 'courses/create'
     else
       @message = "The course was not created"
       render 'layouts/failure'
@@ -18,11 +18,14 @@ class CoursesController < ApplicationController
       if(!@course.present?)
         @message = "No courses for user"
         render 'layouts/failure'
+      else
+        render 'courses/show'
       end
     else
       @courses = Course.where(user_id: @user.id)
+      puts @courses[0].inspect
+      render 'courses/courses'
     end
-    render 'courses/show'
   end
 
 private
@@ -30,7 +33,7 @@ private
   # Filter out unwanted parameters so we can use mass assignment
   def course_params
     #id is Rails Params for choosing just one class
-    params.permit(:name, :start, :finish, :token, :user_id, :id)
+    params.permit(:name, :start, :finish, :user_id)
   end
 	
 end

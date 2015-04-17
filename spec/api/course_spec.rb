@@ -11,10 +11,10 @@ RSpec.describe 'Course API', type: :request do
       expect(JSON.parse(response.body)).to include("message")
       expect(JSON.parse(response.body)).to include("data")
       expect(JSON.parse(response.body)["data"]).to include("course")
-      expect(JSON.parse(response.body)["data"]["course"]).to include("token")
+      expect(JSON.parse(response.body)["data"]["course"]).to include("name")
+      expect(JSON.parse(response.body)["data"]["course"]).to include("start")
+      expect(JSON.parse(response.body)["data"]["course"]).to include("finish")
 
-      expect(JSON.parse(response.body)["data"]["course"]).not_to include("name")
-      expect(JSON.parse(response.body)["data"]["course"]).not_to include("start")
     end
 
     it "should return an error if course creation unsuccessful" do
@@ -27,14 +27,19 @@ RSpec.describe 'Course API', type: :request do
 
   describe '/courses' do
     it 'should return a course json containing an array of courses that belong to the user' do
-      get '/courses', token: user.token
+      user = create(:user, attributes_for(:user_with_password_confirmation).merge(attributes_for(:student)))
+      create :course
+      create :course
+      create :course
+
+      get '/courses', token: user.token   
 
       expect(JSON.parse(response.body)).to include("status")
       expect(JSON.parse(response.body)).to include("message")
       expect(JSON.parse(response.body)).to include("data")
       # Array of courses
       
-      expect(JSON.parse(response.body)["data"]["courses"]).to include([{"Test", "07/07/1993", "06/06/2004"}])
+      expect(JSON.parse(response.body)["data"]["courses"]).to include([attributes_for(:course)])
 
 
 
