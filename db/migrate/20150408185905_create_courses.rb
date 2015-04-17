@@ -4,6 +4,8 @@ class CreateCourses < ActiveRecord::Migration
       t.string 		:name
       t.date 		:start
       t.date 		:finish
+      t.string		:token
+      t.index		:token
       t.timestamps 			null: false
     end
   end

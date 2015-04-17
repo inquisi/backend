@@ -25,6 +25,10 @@ FactoryGirl.define do
     start "04/05/1993"
     finish "05/06/2015"
     user_id "1"
+
+    factory :course_with_token do
+      token "token"
+    end
   end
 
   # factory :question do

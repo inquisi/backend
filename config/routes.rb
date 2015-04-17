@@ -17,7 +17,7 @@ Backend::Application.routes.draw do
   get 'questions/:id'  => 'questions#show' #Indivudual session
 
   post 'answers' => 'answers#create'
-  get 'answers'  => 'answers#show'
+  get 'answers'  => 'answers#show' #not needed?
   get 'answers/:id'  => 'answers#show' #Indivudual session
 
   root 'todo#todo'

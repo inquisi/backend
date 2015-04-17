@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20150414162933) do
     t.string   "name",       limit: 255
     t.date     "start"
     t.date     "finish"
+    t.string   "token",      limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "user_id",    limit: 4
