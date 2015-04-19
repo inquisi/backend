@@ -11,17 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414162933) do
+ActiveRecord::Schema.define(version: 20150413162013) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.date     "start"
     t.date     "finish"
-    t.string   "token",      limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "user_id",    limit: 4
   end
+
+  create_table "courses_users", id: false, force: :cascade do |t|
+    t.integer "user_id",   limit: 4
+    t.integer "course_id", limit: 4
+  end
+
+  add_index "courses_users", ["course_id"], name: "index_courses_users_on_course_id", using: :btree
+  add_index "courses_users", ["user_id"], name: "index_courses_users_on_user_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -32,17 +38,19 @@ ActiveRecord::Schema.define(version: 20150414162933) do
   create_table "questions", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "category",   limit: 255
+    t.integer  "session_id", limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "session_id", limit: 4
   end
+
+  add_index "questions", ["session_id"], name: "index_questions_on_session_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.date     "date"
+    t.integer  "course_id",  limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "course_id",  limit: 4
   end
 
   create_table "users", force: :cascade do |t|
@@ -53,20 +61,14 @@ ActiveRecord::Schema.define(version: 20150414162933) do
     t.string   "token",           limit: 255
     t.string   "role",            limit: 255
     t.boolean  "trial",           limit: 1
+    t.string   "type",            limit: 255
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.integer  "organization_id", limit: 4
+    t.integer  "ogranization_id", limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["ogranization_id"], name: "index_users_on_ogranization_id", using: :btree
   add_index "users", ["token"], name: "index_users_on_token", using: :btree
-
-  create_table "users_courses", id: false, force: :cascade do |t|
-    t.integer "user_id",   limit: 4
-    t.integer "course_id", limit: 4
-  end
-
-  add_index "users_courses", ["course_id"], name: "index_users_courses_on_course_id", using: :btree
-  add_index "users_courses", ["user_id"], name: "index_users_courses_on_user_id", using: :btree
 
 end

@@ -24,8 +24,8 @@ FactoryGirl.define do
     name "Test"
     start "04/05/1993"
     finish "05/06/2015"
-    user_id "1"
-
+    students []
+    instructors []
   end
 
   # factory :question do
@@ -39,7 +39,6 @@ FactoryGirl.define do
   # end
 
   factory :user do
-    #General properties of all users
     first_name "Cody"
     last_name "Sehl"
     email "cody.sehl@gmail.com"
@@ -52,13 +51,22 @@ FactoryGirl.define do
     factory :user_with_token do
       token "token"
     end
+  end
 
-    factory :student do
-      role "Student"
-    end
+  factory :student, class: Student, parent: :user do
+    factory :student_with_courses do
+        after :create do |student|
+          student.courses = [create(:course, students: [student])]
+        end
+      end
+  end
 
-    factory :instructor do
-      role "Instructor"
-    end
+  factory :instructor, class: Instructor, parent: :user do
+    factory :instructor_with_courses do
+        # Create an array of 5 courses
+        after :create do |instructor|
+          instructor.courses = [create(:course, instructors: [instructor])]
+        end
+      end
   end
 end

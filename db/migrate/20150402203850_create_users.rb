@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration
       t.index   :token   
       t.string  :role
       t.boolean :trial
+      t.string  :type
       t.timestamps            null: false
     end
     add_index :users, :email, unique: true
