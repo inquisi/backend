@@ -6,7 +6,7 @@ gem 'rails', '4.2'
 # SQL Database
 gem 'mysql2'
 
-gem 'rabl'
+gem 'jbuilder'
 gem 'bcrypt'
 gem 'email_validator'
 

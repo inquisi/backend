@@ -13,17 +13,17 @@ class CoursesController < ApplicationController
     @user = User.find_by_token(params[:token])
 
     if(params[:id].present?)
-      @course = Course.find(params[:id])
+      @course = @user.courses.find(params[:id])
       
       if(!@course.present?)
+        @status = "failure"
         @message = "No courses for user"
-        render 'layouts/failure'
+        render 'layouts/'
       else
         render 'courses/show'
       end
     else
-      @courses = Course.where(user_id: @user.id)
-      puts @courses[0].inspect
+      @courses = @user.courses
       render 'courses/courses'
     end
   end

@@ -17,10 +17,10 @@ RSpec.describe Course, type: :model do
     expect(course.save).to be false
   end
 
-  it "should require a user_id" do
-    course = build(:course, user_id: "")
-    expect(course.save).to be false
-  end
+  # it "should require at least one instructor" do
+  #   course = build(:course)
+  #   expect(course.save).to be false
+  # end
 
   #Other tests 
 end

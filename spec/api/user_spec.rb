@@ -22,7 +22,7 @@ RSpec.describe 'User API', type: :request do
       user_hash[:email] = ""
       post '/signup', user_hash
 
-      expect(response.body).to eql({status: 'failure', message: 'Email is invalid', data: ""}.to_json)
+      expect(response.body).to eql({status: 'failure', message: 'Email is invalid', data: {}}.to_json)
     end
   end
 
@@ -45,7 +45,7 @@ RSpec.describe 'User API', type: :request do
       allow(User).to receive(:find_by_email) { nil }
       post '/login', attributes_for(:user).extract!(:email, :password)
 
-      expect(response.body).to eql({status: 'failure', message: 'Email or password is incorrect', data: ""}.to_json)
+      expect(response.body).to eql({status: 'failure', message: 'Email or password is incorrect', data: {}}.to_json)
     end
   end
 

@@ -54,6 +54,7 @@ FactoryGirl.define do
   end
 
   factory :student, class: Student, parent: :user do
+    role "Student"
     factory :student_with_courses do
         after :create do |student|
           student.courses = [create(:course, students: [student])]
@@ -62,6 +63,7 @@ FactoryGirl.define do
   end
 
   factory :instructor, class: Instructor, parent: :user do
+    role "Instructor"
     factory :instructor_with_courses do
         # Create an array of 5 courses
         after :create do |instructor|

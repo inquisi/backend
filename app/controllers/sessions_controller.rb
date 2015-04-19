@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     @session = Session.new(session_params)
     
     if @session.save
-      render 'layouts/success'
+      render 'sessions/show'
     else
       @message = "Failed Create"
       render 'layouts/failure'
@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
   def show
     @session = Course.find_by_course(params[:course_id])
     if(@session.present? )
-      render 'session/show'
+      render 'sessions/show'
     else
       @message = "No Courses"
       render 'layouts/failure'
