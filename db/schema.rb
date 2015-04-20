@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413162013) do
+ActiveRecord::Schema.define(version: 20150420210519) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -28,6 +28,24 @@ ActiveRecord::Schema.define(version: 20150413162013) do
 
   add_index "courses_users", ["course_id"], name: "index_courses_users_on_course_id", using: :btree
   add_index "courses_users", ["user_id"], name: "index_courses_users_on_user_id", using: :btree
+
+  create_table "mc_answers", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.integer  "question_id", limit: 4
+    t.boolean  "correct",     limit: 1
+    t.integer  "order",       limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "mc_answers", ["question_id"], name: "index_mc_answers_on_question_id", using: :btree
+
+  create_table "mc_responses", force: :cascade do |t|
+    t.integer  "answer_id",  limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name",       limit: 255

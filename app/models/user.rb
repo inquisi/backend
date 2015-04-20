@@ -2,14 +2,14 @@ class User < ActiveRecord::Base
 	has_secure_password
 	self.inheritance_column = 'role'
 
-	belongs_to :organization
+	belongs_to 	:organization
 
-	validates :first_name, :last_name, presence: true
-	validates :email, uniqueness: true, email: true
-	validates :role, inclusion: { in: ['Student', 'Instructor'], message: "is required."}
+	validates 	:first_name, :last_name, presence: true
+	validates 	:email, uniqueness: true, email: true
+	validates 	:role, inclusion: { in: ['Student', 'Instructor'], message: "is required."}
 
-	before_validation :capitalize_role
-	before_save :generate_token
+	before_validation 	:capitalize_role
+	before_save 		:generate_token
 
 	def generate_token
 		self.token = SecureRandom.uuid

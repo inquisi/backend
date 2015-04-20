@@ -3,46 +3,46 @@
 
 FactoryGirl.define do  
 
-
+  factory :mc_answer do
+    name         "Test"
+    correct      "true"
+    question_id  "1"
+    order        "1"
+  end
+  factory :mc_response do
+    answer_id     "1"
+    user_id       "1"
+  end
+ 
   factory :question do
-    name "1"
-    category "multi-choice"
-    session_id "1"
+    name        "Test"
+    category    "multi-choice"
+    session_id  "1"
   end
 
   factory :organization do
-    name "Inquisi"
+    name        "Inquisi"
   end
 
   factory :session do
-    name "today"
-    date "05/03/2015"
-    course_id "1"
+    name        "today"
+    date        "05/03/2015"
+    course_id   "1"
   end
   
   factory :course do
-    name "Test"
-    start "04/05/1993"
-    finish "05/06/2015"
-    students []
+    name       "Test"
+    start      "04/05/1993"
+    finish     "05/06/2015"
+    students    []
     instructors []
   end
 
-  # factory :question do
-  #   name         "test"
-  #   questionText ""
-  # end
-  # factory :answer  do
-  #   name         "test"
-  #   answerText   ""
-  #   question     ""
-  # end
-
   factory :user do
-    first_name "Cody"
-    last_name "Sehl"
-    email "cody.sehl@gmail.com"
-    password "password"
+    first_name    "Cody"
+    last_name     "Sehl"
+    email         "cody.sehl@gmail.com"
+    password      "password"
 
     factory :user_with_password_confirmation do
       password_confirmation "password"
@@ -54,7 +54,7 @@ FactoryGirl.define do
   end
 
   factory :student, class: Student, parent: :user do
-    role "Student"
+    role    "Student"
     factory :student_with_courses do
         after :create do |student|
           student.courses = [create(:course, students: [student])]
@@ -63,7 +63,7 @@ FactoryGirl.define do
   end
 
   factory :instructor, class: Instructor, parent: :user do
-    role "Instructor"
+    role    "Instructor"
     factory :instructor_with_courses do
         # Create an array of 5 courses
         after :create do |instructor|

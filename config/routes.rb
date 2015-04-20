@@ -5,20 +5,17 @@ Backend::Application.routes.draw do
   get  'user'   => 'users#show'
 
   post 'courses' => 'courses#create'
-  get 'courses'  => 'courses#show'
+  get 'courses'  => 'courses#index'
   get 'courses/:id'  => 'courses#show'   #Indivudual course
 
   post 'sessions' => 'sessions#create'
-  get 'sessions'  => 'sessions#show'
+  get 'sessions'  => 'sessions#index'
   get 'sessions/:id'  => 'sessions#show' #Indivudual session
 
   post 'questions' => 'questions#create'
-  get 'questions'  => 'questions#show'
+  get 'questions'  => 'questions#index'
   get 'questions/:id'  => 'questions#show' #Indivudual session
 
-  post 'answers' => 'answers#create'
-  get 'answers'  => 'answers#show' #not needed?
-  get 'answers/:id'  => 'answers#show' #Indivudual session
 
   root 'todo#todo'
 

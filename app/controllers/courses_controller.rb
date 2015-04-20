@@ -11,29 +11,28 @@ class CoursesController < ApplicationController
 
   def show
     @user = User.find_by_token(params[:token])
-
-    if(params[:id].present?)
-      @course = @user.courses.find(params[:id])
-      
-      if(!@course.present?)
-        @status = "failure"
-        @message = "No courses for user"
-        render 'layouts/'
-      else
-        render 'courses/show'
-      end
+    @course = @user.courses.find(params[:id])
+    if(!@course.present?)
+      @status = "failure"
+      @message = "No courses for user"
+      render 'layouts/'
     else
-      @courses = @user.courses
-      render 'courses/courses'
+      render 'courses/show'
     end
   end
 
-private
+  def index
+    @user = User.find_by_token(params[:token])
+    @courses = @user.courses
+    render 'courses/index'
+  end
+
+  private
   # Strong parameters
   # Filter out unwanted parameters so we can use mass assignment
   def course_params
     #id is Rails Params for choosing just one class
     params.permit(:name, :start, :finish, :user_id)
   end
-	
+  
 end

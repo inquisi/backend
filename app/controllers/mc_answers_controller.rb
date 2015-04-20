@@ -1,0 +1,2 @@
+class McAnswersController < ApplicationController
+end

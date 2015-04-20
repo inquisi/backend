@@ -1,0 +1,2 @@
+class McResponsesController < ApplicationController
+end
