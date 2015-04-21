@@ -62,8 +62,14 @@ FactoryGirl.define do
         student.courses = [create(:course, students: [student])]
       end
     end
-    
 
+    factory :student_with_courses_with_sessions do
+      after :create do |student|
+        student.courses = [create(:course, students: [student])]
+        student.courses.sessions = [create(:session, course_id: "#{student.courses.first.id}")]
+      end
+
+    end
 
   end
 
@@ -79,7 +85,7 @@ FactoryGirl.define do
     factory :instructor_with_courses_with_sessions do
       after :create do |instructor|
         instructor.courses = [create(:course, instructors: [instructor])]
-        #instructor.courses.sessions = [create(:session)]
+        instructor.courses.sessions = [create(:session, course_id: "#{instructor.courses.first.id}")]
       end
 
     end

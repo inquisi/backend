@@ -11,7 +11,8 @@ class SessionsController < ApplicationController
   end
 
   def show
-    @course = Course.find_by_course(params[:course_id])
+    @user = User.find_by_token(params[:token])
+    @course = @user.courses.find(params[:course_id])
     @session = @course.sessions.find(params[:id])
     if(@session.present? )
       render 'sessions/show'
@@ -22,8 +23,11 @@ class SessionsController < ApplicationController
   end
 
   def index
-    @session = Course.find_by_course(params[:course_id])
-    if(@session.present? )
+    @user = User.find_by_token(params[:token])
+    @course = @user.courses.find(params[:course_id])
+    @sessions = @user.courses.sessions
+
+    if(@sessions.present? )
       render 'sessions/index'
     else
       @message = "No Sessions"
