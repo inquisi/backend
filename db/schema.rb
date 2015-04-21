@@ -47,6 +47,9 @@ ActiveRecord::Schema.define(version: 20150420210519) do
     t.datetime "updated_at",           null: false
   end
 
+  add_index "mc_responses", ["answer_id"], name: "index_mc_responses_on_answer_id", using: :btree
+  add_index "mc_responses", ["user_id"], name: "index_mc_responses_on_user_id", using: :btree
+
   create_table "organizations", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
@@ -70,6 +73,8 @@ ActiveRecord::Schema.define(version: 20150420210519) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "sessions", ["course_id"], name: "index_sessions_on_course_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",      limit: 255

@@ -1,21 +1,28 @@
 Backend::Application.routes.draw do
-  post 'login'  => 'users#login'
-  post 'logout' => 'users#logout'
-  post 'signup' => 'users#signup'
-  get  'user'   => 'users#show'
+  post  'login'         => 'users#login'
+  post  'logout'        => 'users#logout'
+  post  'signup'        => 'users#signup'
+  get   'user'          => 'users#show'               #Individual User
 
-  post 'courses' => 'courses#create'
-  get 'courses'  => 'courses#index'
-  get 'courses/:id'  => 'courses#show'   #Indivudual course
+  post  'courses'       => 'courses#create'
+  get   'courses'       => 'courses#index'
+  get   'courses/:id'   => 'courses#show'             #Indivudual course
 
-  post 'sessions' => 'sessions#create'
-  get 'sessions'  => 'sessions#index'
-  get 'sessions/:id'  => 'sessions#show' #Indivudual session
+  post  'sessions'      => 'sessions#create'
+  get   'sessions'      => 'sessions#index'
+  get   'sessions/:id'  => 'sessions#show'            #Indivudual session
 
-  post 'questions' => 'questions#create'
-  get 'questions'  => 'questions#index'
-  get 'questions/:id'  => 'questions#show' #Indivudual session
+  post  'questions'         => 'questions#create'
+  get   'questions'         => 'questions#index'
+  get   'questions/:id'     => 'questions#show'       #Indivudual question
 
+  post  'mc_answers'        => 'mc_answers#create'
+  get   'mc_answers'        => 'mc_answers#index'
+  get   'mc_answers/:id'    => 'mc_answers#show'      #Indivudual mc_answer
+
+  post  'mc_responses'      => 'mc_responses#create'
+  get   'mc_responses'      => 'mc_responses#index'
+  get   'mc_responses/:id'  => 'mc_responses#show'    #Indivudual mc_response
 
   root 'todo#todo'
 

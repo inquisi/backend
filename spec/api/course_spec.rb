@@ -16,7 +16,7 @@ RSpec.describe 'Course API', type: :request do
       expect(JSON.parse(response.body)["data"]["course"]).to include("name")
       expect(JSON.parse(response.body)["data"]["course"]).to include("start")
       expect(JSON.parse(response.body)["data"]["course"]).to include("finish")
-
+      expect(JSON.parse(response.body)["data"]["course"]).to include("id")
     end
 
     it "should return an error if course creation unsuccessful" do

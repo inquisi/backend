@@ -3,8 +3,8 @@ class CreateSessions < ActiveRecord::Migration
     create_table :sessions do |t|
       t.string 		:name
       t.date 		:date
-      t.belongs_to 	:course
-      t.timestamps 			null: false
+      t.belongs_to 	:course,	index: true
+      t.timestamps 				null: false
     end
   end
 end

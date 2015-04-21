@@ -11,8 +11,11 @@ class QuestionsController < ApplicationController
   end
   #show one
   def show
-    @question = Session.find_by_session(params[:session_id])
-    @course = @user.courses.find(params[:id])
+    # @question = Question.find_by_session(params[:session_id]) #not sure it correct
+    @course = Course.find_by_course(params[:course_id])
+    @session = @course.sessions.find(params[:id])
+    @question = @course.sessions.questions.find(params[:id])
+
     if(@question.present? )
       render 'questions/show'
     else

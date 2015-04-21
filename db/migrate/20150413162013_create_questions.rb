@@ -3,8 +3,8 @@ class CreateQuestions < ActiveRecord::Migration
     create_table :questions do |t|
       t.string 		:name
       t.string 		:category
-      t.belongs_to	:session, index: true
-      t.timestamps	null: false
+      t.belongs_to	:session, 	index: true
+      t.timestamps				null: false
     end
   end
 end

@@ -5,10 +5,11 @@ FactoryGirl.define do
 
   factory :mc_answer do
     name         "Test"
-    correct      "true"
+    correct      true
     question_id  "1"
     order        "1"
   end
+
   factory :mc_response do
     answer_id     "1"
     user_id       "1"

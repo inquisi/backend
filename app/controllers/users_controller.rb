@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       render 'layouts/failure'
     end
   end
-
+ 
   def login
     @user = User.find_by_email(params[:email])
     if(@user.present? and @user.authenticate(params[:password]))
