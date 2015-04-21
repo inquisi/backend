@@ -52,11 +52,19 @@ RSpec.describe 'Course API', type: :request do
 
   describe '/courses/#id' do
     it 'should return the course which has the #id and which the user has access rights to' do
-      pending "Implementation" 
-      fail
+      user = create(:student_with_courses)
+      get "/courses/#{user.courses.first.id}", token: user.token
+
+      body = JSON.parse(response.body)
+      data = body['data']
+      course = data['course']
+      
+      expect(course['name']).to eql(user.courses.first.name)
+      expect(course['start']).to eql(user.courses.first.start.to_s)
       
     end
   end
+
   describe '' do
     it 'should ' do
       

@@ -1,14 +1,15 @@
 class McResponsesController < ApplicationController
-	# def create
-	# 	@mc_response = Question.new(mc_response_params)
+	def create
+		@mc_response = McResponse.new(mc_response_params)
 
-	# 	if @mc_response.save
-	# 		render 'mc_responses/create'
-	# 	else
-	# 		@message = "MC response creatation failed"
-	# 		render 'layouts/failure'
-	# 	end
-	# end
+		if @mc_response.save
+			render 'mc_responses/create'
+		else
+			@message = "MC response creatation failed"
+			render 'layouts/failure'
+		end
+
+	end
  	#    #show one
 	# def show
 	#   	@mc_response = Question.find_by_session(params[:answer_id])
