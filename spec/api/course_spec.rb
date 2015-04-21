@@ -2,8 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Course API', type: :request do
   describe "/create" do
-    it "should return a course token json if creation successful" do
-      post '/courses', attributes_for(:course)
+    before :each do
+      @instructor = create :instructor
+    end
+
+    it "should return a course json if creation successful" do
+      post '/courses', attributes_for(:course).merge(token: @instructor.token)
 
       expect(JSON.parse(response.body)).to include("status")
       expect(JSON.parse(response.body)).to include("message")
