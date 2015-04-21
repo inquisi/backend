@@ -5,7 +5,7 @@ class McResponsesController < ApplicationController
 		if @mc_response.save
 			render 'mc_responses/create'
 		else
-			@message = "MC response creatation failed"
+			@message = "MC Response creatation failed"
 			render 'layouts/failure'
 		end
 
@@ -37,6 +37,6 @@ class McResponsesController < ApplicationController
 	# Strong parameters
 	# Filter out unwanted parameters so we can use mass assignment
 	def mc_response_params
-	  	params.permit(:user_id, :question_id)
+	  	params.permit(:user_id, :mc_answer_id)
 	end
 end

@@ -9,7 +9,7 @@ class CreateMcAnswers < ActiveRecord::Migration
     	end
 
 	  	create_table :mc_responses do |t|
-	    	t.belongs_to 	:answer, 		index: true
+	    	t.belongs_to 	:mc_answer, 	index: true
 	    	t.belongs_to 	:user, 			index: true
 	    	t.timestamps 					null: false
     	end

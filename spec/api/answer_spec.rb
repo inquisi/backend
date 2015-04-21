@@ -1,42 +1,60 @@
 require 'rails_helper'
 #For all Answers
 RSpec.describe 'Answer API', type: :request do
+  # For one answer call for all types
   describe "/create" do
     
   end
 
-  describe '/answers' do
-    
-  end
+  
+  	describe '/answers' do
+    	it 'should show all answers for a given question_id ' do
+    		pending "Implementation" 
+      		fail
 
-  #Return all students in course
-  describe '' do
-    it 'should ' do
-      
-    end
-  end
+    	end
+  	end
 
-
+  
   describe '/answers/#id' do
-    it 'should return the course which has the #id and which the user has access rights to' do
+    it 'should show the answer corresponding to #id, for a given question_id ' do
       pending "Implementation" 
       fail
       
     end
   end
-  describe '' do
-    it 'should ' do
+ 
+  	#for dif calls for each type??? Is this wanted?
+	# describe "/mc_answer" do
+	# 	it 'should  ' do
+ #      		pending "Implementation" 
+ #      		fail
       
-    end
-  end
-  # describe '/course/#id or #token' do
-  #   it 'should return a course json containing the information of the course token if the user has rights to access it' do
-  #     course = create(:course)
-  #     get '/courses', token: course.token
+ #    	end
+	# end
 
-  #   end
+	# describe "/la_answer" do
+	# 	it 'should ' do
+ #      		pending "Implementation" 
+ #      		fail
+      
+ #    	end
+	# end
 
-  # end
+	# describe "/sa_answer" do
+	# 	it 'should ' do
+ #      		pending "Implementation" 
+ #      		fail
+      
+ #    	end
+	# end
 
+	# describe "/num_answer" do
+	# 	it 'should ' do
+ #      		pending "Implementation" 
+ #      		fail
+      
+ #    	end
+	# end
 end
 

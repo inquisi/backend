@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
     if @question.save
       render 'questions/create'
     else
-      @message = "Failed Create"
+      @message = "Failed to create a question"
       render 'layouts/failure'
     end
   end
