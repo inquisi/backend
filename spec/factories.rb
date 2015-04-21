@@ -14,7 +14,7 @@ FactoryGirl.define do
     mc_answer_id     "1"
     user_id       "1"
   end
- 
+
   factory :question do
     name        "Test"
     category    "multi-choice"
@@ -30,7 +30,7 @@ FactoryGirl.define do
     date        "05/03/2015"
     course_id   "1"
   end
-  
+
   factory :course do
     name       "Test"
     start      "04/05/1993"
@@ -56,20 +56,33 @@ FactoryGirl.define do
 
   factory :student, class: Student, parent: :user do
     role    "Student"
+
     factory :student_with_courses do
-        after :create do |student|
-          student.courses = [create(:course, students: [student])]
-        end
+      after :create do |student|
+        student.courses = [create(:course, students: [student])]
       end
+    end
+    
+
+
   end
 
   factory :instructor, class: Instructor, parent: :user do
     role    "Instructor"
     factory :instructor_with_courses do
-        # Create an array of 5 courses
-        after :create do |instructor|
-          instructor.courses = [create(:course, instructors: [instructor])]
-        end
+      # Create an array of 5 courses
+      after :create do |instructor|
+        instructor.courses = [create(:course, instructors: [instructor])]
       end
+    end
+
+    factory :instructor_with_courses_with_sessions do
+      after :create do |instructor|
+        instructor.courses = [create(:course, instructors: [instructor])]
+        #instructor.courses.sessions = [create(:session)]
+      end
+
+    end
+
   end
 end

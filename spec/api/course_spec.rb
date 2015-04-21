@@ -28,7 +28,7 @@ RSpec.describe 'Course API', type: :request do
   end
 
   describe '/courses' do
-    it 'should return a course json containing an array of courses that belong to the user' do
+    it 'should return a course json containing an array of courses that belong to the student' do
       user = create(:student_with_courses)
       get '/courses', token: user.token   
 
@@ -40,6 +40,20 @@ RSpec.describe 'Course API', type: :request do
       expect(course['name']).to eql(user.courses.first.name)
       expect(course['start']).to eql(user.courses.first.start.to_s)
     end
+
+    it 'should return a course json containing an array of courses that belong to the instructor' do
+      user = create(:instructor_with_courses)
+      get '/courses', token: user.token   
+
+      body = JSON.parse(response.body)
+      courses = body['data']
+      course = courses.first
+
+      expect(courses.length).to eql(1)
+      expect(course['name']).to eql(user.courses.first.name)
+      expect(course['start']).to eql(user.courses.first.start.to_s)
+    end
+
   end
 
   #Return all students in course
@@ -51,7 +65,7 @@ RSpec.describe 'Course API', type: :request do
 
 
   describe '/courses/#id' do
-    it 'should return the course which has the #id and which the user has access rights to' do
+    it 'should return the course which has the #id and which the student has access rights to' do
       user = create(:student_with_courses)
       get "/courses/#{user.courses.first.id}", token: user.token
 
@@ -63,6 +77,20 @@ RSpec.describe 'Course API', type: :request do
       expect(course['start']).to eql(user.courses.first.start.to_s)
       
     end
+
+    it 'should return the course which has the #id and which the instructor has access rights to' do
+      user = create(:instructor_with_courses)
+      get "/courses/#{user.courses.first.id}", token: user.token
+
+      body = JSON.parse(response.body)
+      data = body['data']
+      course = data['course']
+      
+      expect(course['name']).to eql(user.courses.first.name)
+      expect(course['start']).to eql(user.courses.first.start.to_s)
+      
+    end
+
   end
 
   describe '' do
@@ -70,14 +98,7 @@ RSpec.describe 'Course API', type: :request do
       
     end
   end
-  # describe '/course/#id or #token' do
-  #   it 'should return a course json containing the information of the course token if the user has rights to access it' do
-  #     course = create(:course)
-  #     get '/courses', token: course.token
-
-  #   end
-
-  # end
+ 
 
 end
 
