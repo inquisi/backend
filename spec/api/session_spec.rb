@@ -81,6 +81,19 @@ RSpec.describe 'Session API', type: :request do
       expect(session['date']).to eql(user.courses.first.sessions.first.date.to_s)
       
     end
+
+    it 'should return a session json containing an array of sessions that belong to the student' do
+      user = create(:student_with_courses_with_sessions)
+      get "/sessions/#{user.courses.first.sessions.first.id}", token: user.token, course_id: user.courses.first.id
+
+      body = JSON.parse(response.body)
+      data = body['data']
+      session = data['session']
+
+      expect(session['name']).to eql(user.courses.first.sessions.first.name)
+      expect(session['date']).to eql(user.courses.first.sessions.first.date.to_s)
+      
+    end
   end
 
 
