@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
   def index
     @user = User.find_by_token(params[:token])
     @course = @user.courses.find(params[:course_id])
-    @sessions = @user.courses.sessions
+    @sessions = @course.sessions
 
     if(@sessions.present? )
       render 'sessions/index'
