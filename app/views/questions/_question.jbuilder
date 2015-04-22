@@ -1,2 +1,2 @@
 json.name question.name
-json.date question.category
+json.category question.category

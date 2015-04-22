@@ -11,10 +11,11 @@ class QuestionsController < ApplicationController
   end
   #show one
   def show
-    # @question = Question.find_by_session(params[:session_id]) #not sure it correct
-    @course = Course.find_by_course(params[:course_id])
-    @session = @course.sessions.find(params[:id])
-    @question = @course.sessions.questions.find(params[:id])
+    
+    @user = User.find_by_token(params[:token])
+    @course = @user.courses.find(params[:course_id])
+    @session = @course.sessions.find(params[:session_id])
+    @question = @session.find(params[:id])
 
     if(@question.present? )
       render 'questions/show'
@@ -25,8 +26,13 @@ class QuestionsController < ApplicationController
   end
   #show all
   def index
-    @question = Session.find_by_session(params[:session_id])
-    if(@question.present? )
+
+    @user = User.find_by_token(params[:token])
+    @course = @user.courses.find(params[:course_id])
+    @session = @course.sessions.find(params[:session_id])
+    @questions = @session.questions
+
+    if(@questions.present? )
       render 'questions/index'
     else
       @message = "No Courses"
