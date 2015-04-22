@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   def create
     @user = User.find_by_token(params[:token])
-    @course = Course.new(course_params)
+    @course = Course.new(name: params[:name], start: params[:start], finish: params[:finish])
 
     if @course.save
       @user.courses << @course
@@ -29,13 +29,4 @@ class CoursesController < ApplicationController
     @courses = @user.courses
     render 'courses/index'
   end
-
-  private
-  # Strong parameters
-  # Filter out unwanted parameters so we can use mass assignment
-  def course_params
-    #id is Rails Params for choosing just one class
-    params.permit(:name, :start, :finish)
-  end
-  
 end
