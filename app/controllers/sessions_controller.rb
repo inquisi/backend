@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
 	def create
-    @session = Session.new(session_params)
+    @session = Session.new(name: params[:name], date: params[:date], course_id: params[:course_id])
     
     if @session.save
       render 'sessions/create'
@@ -33,12 +33,5 @@ class SessionsController < ApplicationController
       @message = "No Sessions"
       render 'layouts/failure'
     end
-  end
-
-  private
-  # Strong parameters
-  # Filter out unwanted parameters so we can use mass assignment
-  def session_params
-    params.permit(:name, :date, :course_id)
   end
 end

@@ -1,6 +1,6 @@
 class McResponsesController < ApplicationController
 	def create
-		@mc_response = McResponse.new(mc_response_params)
+		@mc_response = McResponse.new(user_id: params[:user_id], mc_answer_id: params[:mc_answer_id])
 
 		if @mc_response.save
 			render 'mc_responses/create'
@@ -41,12 +41,5 @@ class McResponsesController < ApplicationController
 	  		@message = "No Response"
 	  		render 'layouts/failure'
 	  	end
-	end
-
-	private
-	# Strong parameters
-	# Filter out unwanted parameters so we can use mass assignment
-	def mc_response_params
-	  	params.permit(:user_id, :mc_answer_id)
 	end
 end

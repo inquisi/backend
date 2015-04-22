@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def signup
-    @user = User.new(user_params)
+    @user = User.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation], role: params[:role])
 
     if @user.save
       render 'users/token'
@@ -29,12 +29,5 @@ class UsersController < ApplicationController
       @message = "Invalid User"
       render 'layouts/failure'
     end
-  end
-
-  private
-  # Strong parameters
-  # Filter out unwanted parameters so we can use mass assignment
-  def user_params
-    params.permit(:first_name, :last_name, :email, :password, :password_confirmation, :role)
   end
 end

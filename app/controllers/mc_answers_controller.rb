@@ -1,6 +1,6 @@
 class McAnswersController < ApplicationController
 	def create
-		@mc_answer = McAnswer.new(mc_answer_params)
+		@mc_answer = McAnswer.new(name: params[:name], correct: params[:correct], order: params[:order], question_id: params[:question_id])
 
 		if @mc_answer.save
 			render 'mc_answers/create'
@@ -41,11 +41,4 @@ class McAnswersController < ApplicationController
       render 'layouts/failure'
     end
   end
-
-	private
-	# Strong parameters
-	# Filter out unwanted parameters so we can use mass assignment
-	def mc_answer_params
-	  	params.permit(:name, :correct, :order, :question_id)
-	end
 end

@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   def create
-    @question = Question.new(question_params)
+    @question = Question.new(name: params[:name], category: params[:category], session_id: params[:session_id])
 
     if @question.save
       render 'questions/create'
@@ -38,12 +38,5 @@ class QuestionsController < ApplicationController
       @message = "No Courses"
       render 'layouts/failure'
     end
-  end
-
-  private
-  # Strong parameters
-  # Filter out unwanted parameters so we can use mass assignment
-  def question_params
-    params.permit(:name, :category, :session_id)
   end
 end
