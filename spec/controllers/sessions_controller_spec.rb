@@ -8,6 +8,5 @@ RSpec.describe SessionsController, type: :controller do
 	        post :create , attributes_for(:session)
 	      }.to change(Session, :count).by(1)
 	    end
-
   	end
 end

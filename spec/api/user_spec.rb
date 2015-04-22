@@ -11,10 +11,12 @@ RSpec.describe 'User API', type: :request do
       expect(JSON.parse(response.body)).to include("message")
       expect(JSON.parse(response.body)).to include("data")
       expect(JSON.parse(response.body)["data"]).to include("user")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("first_name")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("last_name")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("email")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("role")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("trial")
       expect(JSON.parse(response.body)["data"]["user"]).to include("token")
-
-      expect(JSON.parse(response.body)["data"]["user"]).not_to include("email")
-      expect(JSON.parse(response.body)["data"]["user"]).not_to include("first_name")
     end
 
     it "should return an error if signup unsuccessful" do
@@ -36,9 +38,11 @@ RSpec.describe 'User API', type: :request do
       expect(JSON.parse(response.body)).to include("data")
       expect(JSON.parse(response.body)["data"]).to include("user")
       expect(JSON.parse(response.body)["data"]["user"]).to include("token")
-
-      expect(JSON.parse(response.body)["data"]["user"]).not_to include("email")
-      expect(JSON.parse(response.body)["data"]["user"]).not_to include("first_name")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("email")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("first_name")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("last_name")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("role")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("trial")
     end
 
     it 'should return an error if login unsuccessful' do
