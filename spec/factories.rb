@@ -90,6 +90,17 @@ FactoryGirl.define do
 
     end
 
+    factory :student_with_courses_with_sessions_with_questions_with_mc_answers_with_mc_responses do
+      after :create do |student|
+        student.courses = [create(:course, students: [student])]
+        student.courses.first.sessions = [create(:session, course_id: "#{student.courses.first.id}")]
+        student.courses.first.sessions.first.questions = [create(:question, session_id: "#{student.courses.first.sessions.first.id}")]
+        student.courses.first.sessions.first.questions.first.mc_answers = [create(:mc_answer, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
+        student.courses.first.sessions.first.questions.first.mc_answers.first.mc_responses = [create(:mc_response, mc_answer_id: "#{student.courses.first.sessions.first.questions.first.mc_answers.first.id}")]
+      end
+
+    end
+
   end
 
   factory :instructor, class: Instructor, parent: :user do
@@ -124,6 +135,17 @@ FactoryGirl.define do
         instructor.courses.first.sessions = [create(:session, course_id: "#{instructor.courses.first.id}")]
         instructor.courses.first.sessions.first.questions = [create(:question, session_id: "#{instructor.courses.first.sessions.first.id}")]
         instructor.courses.first.sessions.first.questions.first.mc_answers = [create(:mc_answer, question_id: "#{instructor.courses.first.sessions.first.questions.first.id}")]
+      end
+
+    end
+
+    factory :instructor_with_courses_with_sessions_with_questions_with_mc_answers_with_mc_responses do
+      after :create do |instructor|
+        instructor.courses = [create(:course, instructors: [instructor])]
+        instructor.courses.first.sessions = [create(:session, course_id: "#{instructor.courses.first.id}")]
+        instructor.courses.first.sessions.first.questions = [create(:question, session_id: "#{instructor.courses.first.sessions.first.id}")]
+        instructor.courses.first.sessions.first.questions.first.mc_answers = [create(:mc_answer, question_id: "#{instructor.courses.first.sessions.first.questions.first.id}")]
+        instructor.courses.first.sessions.first.questions.first.mc_answers.first.mc_responses = [create(:mc_response, mc_answer_id: "#{instructor.courses.first.sessions.first.questions.first.mc_answers.first.id}")]
       end
 
     end
