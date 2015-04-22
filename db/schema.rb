@@ -84,7 +84,6 @@ ActiveRecord::Schema.define(version: 20150420210519) do
     t.string   "token",           limit: 255
     t.string   "role",            limit: 255
     t.boolean  "trial",           limit: 1
-    t.string   "type",            limit: 255
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "ogranization_id", limit: 4

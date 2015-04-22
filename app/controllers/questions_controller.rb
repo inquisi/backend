@@ -15,7 +15,7 @@ class QuestionsController < ApplicationController
     @user = User.find_by_token(params[:token])
     @course = @user.courses.find(params[:course_id])
     @session = @course.sessions.find(params[:session_id])
-    @question = @session.find(params[:id])
+    @question = @session.questions.find(params[:id])
 
     if(@question.present? )
       render 'questions/show'

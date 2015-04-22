@@ -64,7 +64,6 @@ RSpec.describe 'Question API', type: :request do
       session = course.sessions.first
       first_question = user.courses.first.sessions.first.questions.first
       number = first_question.id
-      byebug
       get "/questions/#{number}", token: user.token, course_id: course.id, session_id: session.id
 
       body = JSON.parse(response.body)
@@ -76,18 +75,22 @@ RSpec.describe 'Question API', type: :request do
       
     end
 
-    # it 'should return a question json containing a question that belong to the student' do
-    #   user = create(:student_with_courses_with_sessions_with_questions)
-    #   get "/questions/#{user.courses.first.sessions.first.questions.first.id}", token: user.token, course_id: user.courses.first.id, session_id: user.courses.first.sessions.first.id
+    it 'should return a question json containing a question that belong to the student' do
+      user = create(:student_with_courses_with_sessions_with_questions)
+      course = user.courses.first
+      session = course.sessions.first
+      first_question = user.courses.first.sessions.first.questions.first
+      number = first_question.id
+      get "/questions/#{number}", token: user.token, course_id: course.id, session_id: session.id
 
-    #   body = JSON.parse(response.body)
-    #   data = body['data']
-    #   question = data['question']
+      body = JSON.parse(response.body)
+      data = body['data']
+      question = data['question']
 
-    #   expect(question['name']).to eql(user.courses.first.sessions.first.questions.first.name)
-    #   expect(question['category']).to eql(user.courses.first.sessions.first.questions.first.category)
+      expect(question['name']).to eql(first_question.name)
+      expect(question['category']).to eql(first_question.category)
       
-    # end
+    end
     
   end
 
