@@ -3,58 +3,116 @@ require 'rails_helper'
 RSpec.describe 'Answer API', type: :request do
   # For one answer call for all types
   describe "/create" do
-    
-  end
+    it "should return an asnwer confirm json if creation successful" do
+      post '/mc_answers', attributes_for(:mc_answer)
 
-  
-  	describe '/answers' do
-    	it 'should show all answers for a given question_id ' do
-    		pending "Implementation" 
-      		fail
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+      expect(JSON.parse(response.body)["data"]).to include("mc_answer")
+      expect(JSON.parse(response.body)["data"]["mc_answer"]).to include("name")
+      expect(JSON.parse(response.body)["data"]["mc_answer"]).to include("correct")
+      expect(JSON.parse(response.body)["data"]["mc_answer"]).to include("order")
 
-    	end
-  	end
+    end
 
-  
-  describe '/answers/#id' do
-    it 'should show the answer corresponding to #id, for a given question_id ' do
-      pending "Implementation" 
-      fail
-      
+    it "should return an error if answer creation unsuccessful" do
+      mc_answer_hash = attributes_for(:mc_answer)
+      mc_answer_hash[:name] = ""
+      post '/mc_answers', mc_answer_hash
+      expect(response.body).to eql({status: 'failure', message: 'Failed to create a mc_answer', data: {}}.to_json)
     end
   end
- 
+
+  
+  describe '/mc_answers' do
+   it 'should return an mc_answer json containing an array of mc_answers that belong to the instructor' do
+    user = create(:instructor_with_courses_with_sessions_with_questions_with_mc_answers)
+    course = user.courses.first
+    session = course.sessions.first
+    question = session.questions.first
+    mc_answer = question.mc_answers.first
+    get '/mc_answers', token: user.token, course_id: course.id, session_id: session.id, question_id: question.id
+
+    body = JSON.parse(response.body)
+    answers = body['data']
+    answer = answers.first
+    expect(answers.length).to eql(1)
+    expect(answer['name']).to eql(mc_answer.name)
+    expect(answer['correct']).to eql(mc_answer.correct)
+    expect(answer['order']).to eql(mc_answer.order)
+  end
+
+end
+
+
+describe '/mc_answers/#id' do
+  it 'should show the mc_answer corresponding to #id, for a given question_id ' do
+    user = create(:instructor_with_courses_with_sessions_with_questions_with_mc_answers)
+    course = user.courses.first
+    session = course.sessions.first
+    question = session.questions.first
+    mc_answer = question.mc_answers.first
+    number = mc_answer.id
+    get "/mc_answers/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id
+
+    body = JSON.parse(response.body)
+    data = body['data']
+    answer = data['mc_answer']
+
+    expect(answer['name']).to eql(mc_answer.name)
+    expect(answer['correct']).to eql(mc_answer.correct)
+    expect(answer['order']).to eql(mc_answer.order)
+
+  end
+end
+
   	#for dif calls for each type??? Is this wanted?
-	# describe "/mc_answer" do
-	# 	it 'should  ' do
- #      		pending "Implementation" 
- #      		fail
-      
- #    	end
-	# end
+#MC ANSWER SECTION
 
-	# describe "/la_answer" do
-	# 	it 'should ' do
- #      		pending "Implementation" 
- #      		fail
-      
- #    	end
-	# end
 
-	# describe "/sa_answer" do
-	# 	it 'should ' do
- #      		pending "Implementation" 
- #      		fail
-      
- #    	end
-	# end
 
-	# describe "/num_answer" do
-	# 	it 'should ' do
- #      		pending "Implementation" 
- #      		fail
-      
- #    	end
-	# end
+# describe "/mc_answer" do
+#   it 'should  ' do
+#     pending "Implementation" 
+#     fail
+#   end
+# end
+
+# describe "/mc_answer/#id" do
+#   it 'should  ' do
+#     pending "Implementation" 
+#     fail 
+#   end
+# end
+
+
+
+
+
+
+# describe "/la_answer" do
+#   it 'should ' do
+#     pending "Implementation" 
+#     fail
+
+#   end
+# end
+
+# describe "/sa_answer" do
+#   it 'should ' do
+#     pending "Implementation" 
+#     fail
+
+#   end
+# end
+
+# describe "/num_answer" do
+#   it 'should ' do
+#     pending "Implementation" 
+#     fail
+
+#   end
+# end
 end
 

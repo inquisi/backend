@@ -85,7 +85,7 @@ FactoryGirl.define do
         student.courses = [create(:course, students: [student])]
         student.courses.first.sessions = [create(:session, course_id: "#{student.courses.first.id}")]
         student.courses.first.sessions.first.questions = [create(:question, session_id: "#{student.courses.first.sessions.first.id}")]
-        student.courses.first.sessions.first.questions.first.answers = [create(:answer, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
+        student.courses.first.sessions.first.questions.first.mc_answers = [create(:mc_answer, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
       end
 
     end
@@ -123,7 +123,7 @@ FactoryGirl.define do
         instructor.courses = [create(:course, instructors: [instructor])]
         instructor.courses.first.sessions = [create(:session, course_id: "#{instructor.courses.first.id}")]
         instructor.courses.first.sessions.first.questions = [create(:question, session_id: "#{instructor.courses.first.sessions.first.id}")]
-        instructor.courses.first.sessions.first.questions.first.answers = [create(:answer, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
+        instructor.courses.first.sessions.first.questions.first.mc_answers = [create(:mc_answer, question_id: "#{instructor.courses.first.sessions.first.questions.first.id}")]
       end
 
     end
