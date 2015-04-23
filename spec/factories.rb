@@ -11,8 +11,8 @@ FactoryGirl.define do
   end
 
   factory :mc_response do
-    mc_answer_id     "1"
-    user_id       "1"
+    mc_answer_id    "1"
+    user_id         "1"
   end
 
   factory :question do
