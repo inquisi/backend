@@ -6,7 +6,7 @@ RSpec.describe 'Response API', type: :request do
 # render_views
 
 describe "/create" do
-	it "should return an response confirm json if creation successful" do
+	it "should return an response confirm json if mc_response creation successful" do
 		post '/mc_responses', attributes_for(:mc_response)
 		expect(JSON.parse(response.body)).to include("status")
 		expect(JSON.parse(response.body)).to include("message")
@@ -45,7 +45,7 @@ describe "/mc_responses" do
 		response = responses.first
 		
 		expect(response['token']).to eql(mc_response.user_id)
-   		# expect(response['created_at']).to eql(mc_response.created_at.to_s)
+   		expect(response['created_at']).to eql(mc_response.created_at.to_s)
     	
 
 	end
@@ -70,7 +70,7 @@ describe "/mc_responses/#id" do
     	response = data['mc_response']
 
 		expect(response['token']).to eql(mc_response.user_id)
-   		# expect(response['created_at']).to eql(mc_response.created_at.to_s)
+   		expect(response['created_at']).to eql(mc_response.created_at.to_s)
 		
 
 
