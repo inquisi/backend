@@ -24,12 +24,43 @@ describe "/create" do
 
 	end
 
-	it "should return an error if answer creation unsuccessful" do
+	it "should return an error if mc response creation unsuccessful" do
 		mc_response_hash = attributes_for(:mc_response)
 		mc_response_hash[:user_id] = ""
 		post '/mc_responses', mc_response_hash
 		expect(response.body).to eql({status: 'failure', message: 'Failed to create a mc_response', data: {}}.to_json)
 	end
+
+	it "should return an response confirm json if la_response creation successful" do
+		pending "Implementation" 
+  		fail
+	end
+
+	it "should return an error if la response creation unsuccessful" do
+		pending "Implementation" 
+  		fail
+	end
+
+	it "should return an response confirm json if sa_response creation successful" do
+		pending "Implementation" 
+  		fail
+	end
+
+	it "should return an error if sa response creation unsuccessful" do
+		pending "Implementation" 
+  		fail
+	end
+
+	it "should return an response confirm json if num_response creation successful" do
+		pending "Implementation" 
+  		fail
+	end
+
+	it "should return an error if num_response creation unsuccessful" do
+		pending "Implementation" 
+  		fail
+	end
+
 end
 
 describe "/mc_responses" do
@@ -52,8 +83,7 @@ describe "/mc_responses" do
 		
 		expect(response['token']).to eql(user.token)
    		expect(response['created_at']).to eql(mc_response.created_at.to_s)
-    	
-
+    
 	end
 end
 
@@ -78,44 +108,52 @@ describe "/mc_responses/#id" do
 		expect(response['token']).to eql(user.token)
    		expect(response['created_at']).to eql(mc_response.created_at.to_s)
 		
+	end
+end
 
+describe "/la_responses" do
+	it 'should ' do
+  		pending "Implementation" 
+  		fail
+
+	end
+end
+describe "/la_responses/#id" do
+	it 'should ' do
+  		pending "Implementation" 
+  		fail
 
 	end
 end
 
-#Indivudual Response cases-> refer to answser for question over whether this is good?
-	# describe "/mc_response" do
-	# 	it 'should  ' do
- #      		pending "Implementation" 
- #      		fail
+describe "/sa_responses" do
+	it 'should ' do
+  		pending "Implementation" 
+  		fail
 
- #    	end
-	# end
+	end
+end
+describe "/sa_responses/#id" do
+	it 'should ' do
+  		pending "Implementation" 
+  		fail
 
-	# describe "/la_response" do
-	# 	it 'should ' do
- #      		pending "Implementation" 
- #      		fail
+	end
+end
 
- #    	end
-	# end
+describe "/num_responses" do
+	it 'should ' do
+  		pending "Implementation" 
+  		fail
 
-	# describe "/sa_response" do
-	# 	it 'should ' do
- #      		pending "Implementation" 
- #      		fail
+	end
+end
+describe "/num_responses/#id" do
+	it 'should ' do
+  		pending "Implementation" 
+  		fail
 
- #    	end
-	# end
-
-	# describe "/num_response" do
-	# 	it 'should ' do
- #      		pending "Implementation" 
- #      		fail
-
- #    	end
-	# end
-
-
+	end
+end
 
 end
