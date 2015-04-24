@@ -1,3 +1,3 @@
-json.mc_response do
-	json.partial! 'mc_responses/mc_response', mc_response: @mc_response, user: @user
+json.num_answer do
+	json.partial! 'num_answers/num_answer', num_answer: @num_answer
 end

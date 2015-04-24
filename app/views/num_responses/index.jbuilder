@@ -1,3 +1,3 @@
-json.array! @mc_responses do |mc_response|
-	json.partial! 'mc_responses/mc_response', mc_response: mc_response, user: @user
+json.array! @num_responses do |num_response|
+	json.partial! 'num_responses/num_response', num_response: num_response
 end
