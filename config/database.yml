@@ -29,4 +29,4 @@ production:
   host: localhost
   port: 3306
   username: root
-  password: robot1837
+  password: <%= ENV['MYSQL_PASSWORD'] %>
