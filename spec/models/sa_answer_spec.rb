@@ -1,5 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe SaAnswer, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "should require a name" do
+    sa_answer = build(:sa_answer, name: "")
+    expect(sa_answer.save).to be false
+  end
+  
+  it "should require a question_id" do
+    sa_answer = build(:sa_answer, question_id: "")
+    expect(sa_answer.save).to be false
+  end
 end
