@@ -1,0 +1,2 @@
+class NumResponsesController < ApplicationController
+end

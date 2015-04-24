@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420210519) do
+ActiveRecord::Schema.define(version: 20150424154052) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(version: 20150420210519) do
 
   add_index "courses_users", ["course_id"], name: "index_courses_users_on_course_id", using: :btree
   add_index "courses_users", ["user_id"], name: "index_courses_users_on_user_id", using: :btree
+
+  create_table "la_responses", force: :cascade do |t|
+    t.text     "name",        limit: 65535
+    t.integer  "question_id", limit: 4
+    t.integer  "user_id",     limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   create_table "mc_answers", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -50,6 +58,21 @@ ActiveRecord::Schema.define(version: 20150420210519) do
   add_index "mc_responses", ["mc_answer_id"], name: "index_mc_responses_on_mc_answer_id", using: :btree
   add_index "mc_responses", ["user_id"], name: "index_mc_responses_on_user_id", using: :btree
 
+  create_table "num_answers", force: :cascade do |t|
+    t.integer  "num",         limit: 4
+    t.integer  "question_id", limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "num_responses", force: :cascade do |t|
+    t.integer  "num",           limit: 4
+    t.integer  "num_answer_id", limit: 4
+    t.integer  "user_id",       limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
@@ -65,6 +88,21 @@ ActiveRecord::Schema.define(version: 20150420210519) do
   end
 
   add_index "questions", ["session_id"], name: "index_questions_on_session_id", using: :btree
+
+  create_table "sa_answers", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.integer  "question_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "sa_responses", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.integer  "sa_answer_id", limit: 4
+    t.integer  "user_id",      limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
 
   create_table "sessions", force: :cascade do |t|
     t.string   "name",       limit: 255

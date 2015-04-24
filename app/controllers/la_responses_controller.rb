@@ -1,0 +1,2 @@
+class LaResponsesController < ApplicationController
+end

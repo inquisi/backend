@@ -1,8 +1,37 @@
 # This is a file that defines mock data for testing
 # through the use of 'factories' and the 'factory_girl' gem
 
-FactoryGirl.define do  
+FactoryGirl.define do 
 
+  factory :num_answer do
+    num           1
+    question_id  "1"
+  end
+
+  factory :num_response do
+    num             1
+    num_answer_id  "1"
+
+  end
+
+  factory :sa_answer do
+    name          "1"
+    question_id   "1"
+  end
+
+  factory :sa_response do
+    name          "1"
+    user_id       "1"
+    sa_answer_id  "1"
+  end
+
+  factory :la_response do
+    name          "Rainbows are fun"
+    question_id   "1"
+    user_id       "1"
+
+  end
+  
   factory :mc_answer do
     name         "Test"
     correct      true
