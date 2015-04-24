@@ -32,7 +32,7 @@ class LaResponsesController < ApplicationController
     	@session 	 	= @course.sessions.find(params[:session_id])
     	@question 		= @session.questions.find(params[:question_id])
     	@la_responses 	= @question.la_responses
-
+    	
 	  	if(@la_responses.present? )
 	  		render 'la_responses/index'
 	  	else

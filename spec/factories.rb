@@ -119,6 +119,33 @@ FactoryGirl.define do
       end
 
     end
+    factory :student_with_courses_with_sessions_with_questions_with_sa_answers do
+      after :create do |student|
+        student.courses = [create(:course, students: [student])]
+        student.courses.first.sessions = [create(:session, course_id: "#{student.courses.first.id}")]
+        student.courses.first.sessions.first.questions = [create(:question, session_id: "#{student.courses.first.sessions.first.id}")]
+        student.courses.first.sessions.first.questions.first.sa_answers = [create(:sa_answer, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
+      end
+
+    end
+    factory :student_with_courses_with_sessions_with_questions_with_num_answers do
+      after :create do |student|
+        student.courses = [create(:course, students: [student])]
+        student.courses.first.sessions = [create(:session, course_id: "#{student.courses.first.id}")]
+        student.courses.first.sessions.first.questions = [create(:question, session_id: "#{student.courses.first.sessions.first.id}")]
+        student.courses.first.sessions.first.questions.first.num_answers = [create(:num_answer, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
+      end
+
+    end
+    factory :student_with_courses_with_sessions_with_questions_with_la_responses do
+      after :create do |student|
+        student.courses = [create(:course, students: [student])]
+        student.courses.first.sessions = [create(:session, course_id: "#{student.courses.first.id}")]
+        student.courses.first.sessions.first.questions = [create(:question, session_id: "#{student.courses.first.sessions.first.id}")]
+        student.courses.first.sessions.first.questions.first.la_responses = [create(:la_response, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
+      end
+
+    end
 
     factory :student_with_courses_with_sessions_with_questions_with_mc_answers_with_mc_responses do
       after :create do |student|
@@ -127,6 +154,26 @@ FactoryGirl.define do
         student.courses.first.sessions.first.questions = [create(:question, session_id: "#{student.courses.first.sessions.first.id}")]
         student.courses.first.sessions.first.questions.first.mc_answers = [create(:mc_answer, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
         student.courses.first.sessions.first.questions.first.mc_answers.first.mc_responses = [create(:mc_response, mc_answer_id: "#{student.courses.first.sessions.first.questions.first.mc_answers.first.id}")]
+      end
+
+    end
+    factory :student_with_courses_with_sessions_with_questions_with_sa_answers_with_sa_responses do
+      after :create do |student|
+        student.courses = [create(:course, students: [student])]
+        student.courses.first.sessions = [create(:session, course_id: "#{student.courses.first.id}")]
+        student.courses.first.sessions.first.questions = [create(:question, session_id: "#{student.courses.first.sessions.first.id}")]
+        student.courses.first.sessions.first.questions.first.sa_answers = [create(:sa_answer, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
+        student.courses.first.sessions.first.questions.first.sa_answers.first.sa_responses = [create(:sa_response, sa_answer_id: "#{student.courses.first.sessions.first.questions.first.sa_answers.first.id}")]
+      end
+
+    end
+    factory :student_with_courses_with_sessions_with_questions_with_num_answers_with_num_responses do
+      after :create do |student|
+        student.courses = [create(:course, students: [student])]
+        student.courses.first.sessions = [create(:session, course_id: "#{student.courses.first.id}")]
+        student.courses.first.sessions.first.questions = [create(:question, session_id: "#{student.courses.first.sessions.first.id}")]
+        student.courses.first.sessions.first.questions.first.num_answers = [create(:num_answer, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
+        student.courses.first.sessions.first.questions.first.num_answers.first.num_responses = [create(:num_response, num_answer_id: "#{student.courses.first.sessions.first.questions.first.num_answers.first.id}")]
       end
 
     end
