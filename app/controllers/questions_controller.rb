@@ -35,8 +35,8 @@ class QuestionsController < ApplicationController
     if(@questions.present? )
       render 'questions/index'
     else
-      @message = "No Courses"
-      render 'layouts/failure'
+      layout 'failure'
+      render 'questions/index'
     end
   end
 end
