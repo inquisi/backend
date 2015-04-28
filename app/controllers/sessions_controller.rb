@@ -19,7 +19,6 @@ class SessionsController < ApplicationController
     else
       @message = "No Sessions"
       render nothing: true, layout: 'failure'
-      # render 'layouts/failure'
     end
   end
 
