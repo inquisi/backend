@@ -49,14 +49,11 @@ ActiveRecord::Schema.define(version: 20150424154052) do
   add_index "mc_answers", ["question_id"], name: "index_mc_answers_on_question_id", using: :btree
 
   create_table "mc_responses", force: :cascade do |t|
-    t.integer  "mc_answer_id", limit: 4
-    t.integer  "user_id",      limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "answer_id",  limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
-
-  add_index "mc_responses", ["mc_answer_id"], name: "index_mc_responses_on_mc_answer_id", using: :btree
-  add_index "mc_responses", ["user_id"], name: "index_mc_responses_on_user_id", using: :btree
 
   create_table "num_answers", force: :cascade do |t|
     t.integer  "num",         limit: 4
@@ -112,8 +109,6 @@ ActiveRecord::Schema.define(version: 20150424154052) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "sessions", ["course_id"], name: "index_sessions_on_course_id", using: :btree
-
   create_table "users", force: :cascade do |t|
     t.string   "first_name",      limit: 255
     t.string   "last_name",       limit: 255
@@ -122,6 +117,7 @@ ActiveRecord::Schema.define(version: 20150424154052) do
     t.string   "token",           limit: 255
     t.string   "role",            limit: 255
     t.boolean  "trial",           limit: 1
+    t.string   "type",            limit: 255
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "ogranization_id", limit: 4

@@ -1,3 +1,3 @@
 json.status @status || "failure"
 json.message @message || ""
-json.data JSON.parse(yield)
+json.data yield.present? ? JSON.parse(yield) : {}

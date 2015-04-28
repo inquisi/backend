@@ -8,19 +8,18 @@ class CoursesController < ApplicationController
       render 'courses/create'
     else
       @message = "The course was not created"
-      render 'layouts/failure'
+      render nothing: true, layout: 'failure'
     end
   end
 
   def show
     @user = User.find_by_token(params[:token])
     @course = @user.courses.find(params[:id])
-    if(!@course.present?)
-      @status = "failure"
-      @message = "No courses for user"
-      render 'layouts/'
-    else
+    if(@course.present?)
       render 'courses/show'
+    else
+      @message = "No courses for user"
+      render nothing: true, layout: 'failure'
     end
   end
 
