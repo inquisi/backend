@@ -13,7 +13,7 @@ RSpec.describe 'Question API', type: :request do
         expect(JSON.parse(response.body)).to include("data")
         expect(JSON.parse(response.body)["data"]).to include("question")
         expect(JSON.parse(response.body)["data"]["question"]).to include("name")
-        expect(JSON.parse(response.body)["data"]["question"]).to include("type")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("category")
         expect(JSON.parse(response.body)["data"]["question"]).to include("id")
 
       end
@@ -33,7 +33,7 @@ RSpec.describe 'Question API', type: :request do
         expect(JSON.parse(response.body)).to include("data")
         expect(JSON.parse(response.body)["data"]).to include("question")
         expect(JSON.parse(response.body)["data"]["question"]).to include("name")
-        expect(JSON.parse(response.body)["data"]["question"]).to include("type")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("category")
         expect(JSON.parse(response.body)["data"]["question"]).to include("id")
 
       end
@@ -53,7 +53,7 @@ RSpec.describe 'Question API', type: :request do
         expect(JSON.parse(response.body)).to include("data")
         expect(JSON.parse(response.body)["data"]).to include("question")
         expect(JSON.parse(response.body)["data"]["question"]).to include("name")
-        expect(JSON.parse(response.body)["data"]["question"]).to include("type")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("category")
         expect(JSON.parse(response.body)["data"]["question"]).to include("id")
 
       end
@@ -73,7 +73,7 @@ RSpec.describe 'Question API', type: :request do
         expect(JSON.parse(response.body)).to include("data")
         expect(JSON.parse(response.body)["data"]).to include("question")
         expect(JSON.parse(response.body)["data"]["question"]).to include("name")
-        expect(JSON.parse(response.body)["data"]["question"]).to include("type")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("category")
         expect(JSON.parse(response.body)["data"]["question"]).to include("id")
 
       end
