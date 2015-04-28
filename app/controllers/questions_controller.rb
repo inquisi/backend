@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  skip_before_filter :authenticate_and_set_user, except: [:show, :index]
+
   def create
     @question = MC.new(name: params[:name], session_id: params[:session_id], order: params[:order])
 
@@ -11,8 +13,6 @@ class QuestionsController < ApplicationController
   end
   #show one
   def show
-    
-    @user = User.find_by_token(params[:token])
     @course = @user.courses.find(params[:course_id])
     @session = @course.sessions.find(params[:session_id])
     @question = @session.questions.find(params[:id])
@@ -26,7 +26,6 @@ class QuestionsController < ApplicationController
   end
   #show all
   def index
-    @user = User.find_by_token(params[:token])
     @course = @user.courses.find(params[:course_id])
     @session = @course.sessions.find(params[:session_id])
     @questions = @session.questions

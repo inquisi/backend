@@ -22,6 +22,8 @@ RSpec.describe 'Course API', type: :request do
     it "should return an error if course creation unsuccessful" do
       course_hash = attributes_for(:course)
       course_hash[:name] = ""
+      course_hash[:token] = @instructor.token
+
       post '/courses', course_hash
       expect(response.body).to eql({status: 'failure', message: 'The course was not created', data: {}}.to_json)
     end

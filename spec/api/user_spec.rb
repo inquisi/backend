@@ -7,16 +7,19 @@ RSpec.describe 'User API', type: :request do
     it "should return a user token json if signup successful" do
       post '/signup', attributes_for(:user_with_password_confirmation).merge(attributes_for(:student))
 
-      expect(JSON.parse(response.body)).to include("status")
-      expect(JSON.parse(response.body)).to include("message")
-      expect(JSON.parse(response.body)).to include("data")
-      expect(JSON.parse(response.body)["data"]).to include("user")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("first_name")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("last_name")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("email")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("role")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("trial")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("token")
+      student = User.first
+      expected_response_data = {
+        user: {
+          token: student.token,
+          first_name: student.first_name,
+          last_name: student.last_name,
+          email: student.email,
+          role: student.role,
+          trial: student.trial,
+        }
+      }
+
+      expect(response.body).to eql({status: 'success', message: '', data: expected_response_data}.to_json)
     end
 
     it "should return an error if signup unsuccessful" do
@@ -33,16 +36,19 @@ RSpec.describe 'User API', type: :request do
       user = create(:student)
       post '/login', attributes_for(:user).extract!(:email, :password)
 
-      expect(JSON.parse(response.body)).to include("status")
-      expect(JSON.parse(response.body)).to include("message")
-      expect(JSON.parse(response.body)).to include("data")
-      expect(JSON.parse(response.body)["data"]).to include("user")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("token")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("email")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("first_name")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("last_name")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("role")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("trial")
+      student = User.first
+      expected_response_data = {
+        user: {
+          token: student.token,
+          first_name: student.first_name,
+          last_name: student.last_name,
+          email: student.email,
+          role: student.role,
+          trial: student.trial,
+        }
+      }
+
+      expect(response.body).to eql({status: 'success', message: '', data: expected_response_data}.to_json)
     end
 
     it 'should return an error if login unsuccessful' do
@@ -70,35 +76,37 @@ RSpec.describe 'User API', type: :request do
       user = create(:student)
       get '/user', token: user.token
 
-      expect(JSON.parse(response.body)).to include("status")
-      expect(JSON.parse(response.body)).to include("message")
-      expect(JSON.parse(response.body)).to include("data")
-      expect(JSON.parse(response.body)["data"]).to include("user")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("email")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("first_name")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("last_name")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("role")
+      user = User.first
+      expected_response_data = {
+        user: {
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email,
+          role: user.role,
+          trial: user.trial,
+        }
+      }
 
-      expect(JSON.parse(response.body)["data"]["user"]).not_to include("token")
-      expect(JSON.parse(response.body)["data"]["user"]).not_to include("organization")
-
+      expect(response.body).to eql({status: 'success', message: '', data: expected_response_data}.to_json)
     end
 
     it 'should return an instructor user json if given valid token' do
       user = create(:instructor)
       get '/user', token: user.token
 
-      expect(JSON.parse(response.body)).to include("status")
-      expect(JSON.parse(response.body)).to include("message")
-      expect(JSON.parse(response.body)).to include("data")
-      expect(JSON.parse(response.body)["data"]).to include("user")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("email")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("first_name")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("last_name")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("role")
-      expect(JSON.parse(response.body)["data"]["user"]).to include("organization")
-      
-      expect(JSON.parse(response.body)["data"]["user"]).not_to include("token")
+      user = User.first
+      expected_response_data = {
+        user: {
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email,
+          role: user.role,
+          trial: user.trial,
+          organization: user.organization
+        }
+      }
+
+      expect(response.body).to eql({status: 'success', message: '', data: expected_response_data}.to_json)
       
     end
 

@@ -1,6 +1,5 @@
 class CoursesController < ApplicationController
   def create
-    @user = User.find_by_token(params[:token])
     @course = Course.new(name: params[:name], start: params[:start], finish: params[:finish])
 
     if @course.save
@@ -13,7 +12,6 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @user = User.find_by_token(params[:token])
     @course = @user.courses.find(params[:id])
     if(@course.present?)
       render 'courses/show'
@@ -24,7 +22,6 @@ class CoursesController < ApplicationController
   end
 
   def index
-    @user = User.find_by_token(params[:token])
     @courses = @user.courses
     render 'courses/index'
   end
