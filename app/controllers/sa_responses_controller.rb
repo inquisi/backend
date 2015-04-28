@@ -6,7 +6,7 @@ class SaResponsesController < ApplicationController
 			render 'sa_responses/create'
 		else
 			@message = "Failed to create a sa_response"
-			render 'layouts/failure'
+			render nothing: true, layout: 'failure'
 		end
 
 	end
@@ -23,7 +23,7 @@ class SaResponsesController < ApplicationController
 	  		render 'sa_responses/show'
 	  	else
 	  		@message = "No Response"
-	  		render 'layouts/failure'
+	  		render nothing: true, layout: 'failure'
 	  	end
 	end
 	#show all
@@ -39,7 +39,7 @@ class SaResponsesController < ApplicationController
 	  		render 'sa_responses/index'
 	  	else
 	  		@message = "No Responses"
-	  		render 'layouts/failure'
+	  		render nothing: true, layout: 'failure'
 	  	end
 	end
 end

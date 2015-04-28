@@ -6,7 +6,7 @@ class LaResponsesController < ApplicationController
 			render 'la_responses/create'
 		else
 			@message = "Failed to create a la_response"
-			render 'layouts/failure'
+			render nothing: true, layout: 'failure'
 		end
 
 	end
@@ -22,7 +22,7 @@ class LaResponsesController < ApplicationController
 	  		render 'la_responses/show'
 	  	else
 	  		@message = "No Response"
-	  		render 'layouts/failure'
+	  		render nothing: true, layout: 'failure'
 	  	end
 	end
 	#show all
@@ -37,7 +37,7 @@ class LaResponsesController < ApplicationController
 	  		render 'la_responses/index'
 	  	else
 	  		@message = "No Responses"
-	  		render 'layouts/failure'
+	  		render nothing: true, layout: 'failure'
 	  	end
 	end
 end

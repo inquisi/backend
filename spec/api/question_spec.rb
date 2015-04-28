@@ -5,7 +5,7 @@ RSpec.describe 'Question API', type: :request do
 
 
   describe "/create" do
-      it "should return a question confirm json if creation successful" do
+      it "should return a MC question confirm json if creation successful" do
         post '/questions', attributes_for(:mc)
 
         expect(JSON.parse(response.body)).to include("status")
@@ -14,6 +14,7 @@ RSpec.describe 'Question API', type: :request do
         expect(JSON.parse(response.body)["data"]).to include("question")
         expect(JSON.parse(response.body)["data"]["question"]).to include("name")
         expect(JSON.parse(response.body)["data"]["question"]).to include("type")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("id")
 
       end
 
@@ -23,7 +24,67 @@ RSpec.describe 'Question API', type: :request do
         post '/questions', question_hash
         expect(response.body).to eql({status: 'failure', message: 'Failed to create a question', data: {}}.to_json)
       end
-    
+      
+      it "should return a SA question confirm json if creation successful" do
+        post '/questions', attributes_for(:sa)
+
+        expect(JSON.parse(response.body)).to include("status")
+        expect(JSON.parse(response.body)).to include("message")
+        expect(JSON.parse(response.body)).to include("data")
+        expect(JSON.parse(response.body)["data"]).to include("question")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("name")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("type")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("id")
+
+      end
+
+      it "should return an error if SA question creation unsuccessful" do
+        question_hash = attributes_for(:sa)
+        question_hash[:name] = ""
+        post '/questions', question_hash
+        expect(response.body).to eql({status: 'failure', message: 'Failed to create a question', data: {}}.to_json)
+      end
+
+      it "should return a NUM question confirm json if creation successful" do
+        post '/questions', attributes_for(:num)
+
+        expect(JSON.parse(response.body)).to include("status")
+        expect(JSON.parse(response.body)).to include("message")
+        expect(JSON.parse(response.body)).to include("data")
+        expect(JSON.parse(response.body)["data"]).to include("question")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("name")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("type")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("id")
+
+      end
+
+      it "should return an error if NUM question creation unsuccessful" do
+        question_hash = attributes_for(:num)
+        question_hash[:name] = ""
+        post '/questions', question_hash
+        expect(response.body).to eql({status: 'failure', message: 'Failed to create a question', data: {}}.to_json)
+      end
+
+      it "should return a LA question confirm json if creation successful" do
+        post '/questions', attributes_for(:la)
+
+        expect(JSON.parse(response.body)).to include("status")
+        expect(JSON.parse(response.body)).to include("message")
+        expect(JSON.parse(response.body)).to include("data")
+        expect(JSON.parse(response.body)["data"]).to include("question")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("name")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("type")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("id")
+
+      end
+
+      it "should return an error if LA question creation unsuccessful" do
+        question_hash = attributes_for(:la)
+        question_hash[:name] = ""
+        post '/questions', question_hash
+        expect(response.body).to eql({status: 'failure', message: 'Failed to create a question', data: {}}.to_json)
+      end
+
   end
 
   describe "/questions" do
@@ -37,7 +98,7 @@ RSpec.describe 'Question API', type: :request do
 
       expect(questions.length).to eql(1)
       expect(question['name']).to eql(user.courses.first.sessions.first.questions.first.name)
-      expect(question['type']).to eql(user.courses.first.sessions.first.questions.first.type)
+      expect(question['category']).to eql(user.courses.first.sessions.first.questions.first.type)
       
     end
 
@@ -51,11 +112,8 @@ RSpec.describe 'Question API', type: :request do
 
       expect(questions.length).to eql(1)
       expect(question['name']).to eql(user.courses.first.sessions.first.questions.first.name)
+      expect(question['category']).to eql(user.courses.first.sessions.first.questions.first.type)
 
-      #expect(question['type']).to eql(user.courses.first.sessions.first.questions.first.type)
-      
-
-      expect(question['category']).to eql(user.courses.first.sessions.first.questions.first.category)
     end
 
     it 'should return an empty array if student has no questions' do
@@ -84,10 +142,7 @@ RSpec.describe 'Question API', type: :request do
       question = data['question']
 
       expect(question['name']).to eql(first_question.name)
-
-      #expect(question['type']).to eql(first_question.type)
-
-      expect(question['category']).to eql(first_question.category)
+      expect(question['category']).to eql(first_question.type)
       expect(question['id']).to eql(first_question.id)
       
     end
@@ -105,7 +160,7 @@ RSpec.describe 'Question API', type: :request do
       question = data['question']
 
       expect(question['name']).to eql(first_question.name)
-      #expect(question['type']).to eql(first_question.type)
+      expect(question['category']).to eql(first_question.type)
       
     end
     

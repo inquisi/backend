@@ -6,7 +6,7 @@ class McAnswersController < ApplicationController
 			render 'mc_answers/create'
 		else
 			@message = "Failed to create a mc_answer"
-			render 'layouts/failure'
+			render nothing: true, layout: 'failure'
 		end
 
 	end
@@ -22,7 +22,7 @@ class McAnswersController < ApplicationController
       render 'mc_answers/show'
     else
       @message = "No Courses"
-      render 'layouts/failure'
+      render nothing: true, layout: 'failure'
     end
   end
   #show all
@@ -38,7 +38,7 @@ class McAnswersController < ApplicationController
       render 'mc_answers/index'
     else
       @message = "No Courses"
-      render 'layouts/failure'
+      render nothing: true, layout: 'failure'
     end
   end
 end

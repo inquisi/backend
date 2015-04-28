@@ -32,7 +32,7 @@ describe "/create" do
 	end
 
 	it "should return an response confirm json if la_response creation successful" do
-		user 			= create(:student_with_courses_with_sessions_with_questions)
+		user 			= create(:student_with_la_responses)
 		course 			= user.courses.first
 		session 		= course.sessions.first
 		question 		= session.questions.first

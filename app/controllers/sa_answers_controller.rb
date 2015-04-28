@@ -6,7 +6,7 @@ class SaAnswersController < ApplicationController
 			render 'sa_answers/create'
 		else
 			@message = "Failed to create a sa_answer"
-			render 'layouts/failure'
+			render nothing: true, layout: 'failure'
 		end
 
 	end
@@ -22,7 +22,7 @@ class SaAnswersController < ApplicationController
       render 'sa_answers/show'
     else
       @message = "No Courses"
-      render 'layouts/failure'
+      render nothing: true, layout: 'failure'
     end
   end
   #show all
@@ -38,7 +38,7 @@ class SaAnswersController < ApplicationController
       render 'sa_answers/index'
     else
       @message = "No Courses"
-      render 'layouts/failure'
+      render nothing: true, layout: 'failure'
     end
   end
 end

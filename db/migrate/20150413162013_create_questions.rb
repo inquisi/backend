@@ -3,9 +3,9 @@ class CreateQuestions < ActiveRecord::Migration
     create_table :questions do |t|
         t.boolean 	:active
         #FOR STI
-        t.string    :type
         t.string    :category
-      	t.string 		:name
+
+      	t.text  		:name
       	t.integer		:order,		     index: true 
       	t.belongs_to	:session, 	 index: true
       	t.timestamps				       null: false
