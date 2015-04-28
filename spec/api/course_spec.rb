@@ -6,18 +6,18 @@ RSpec.describe 'Course API', type: :request do
       @instructor = create :instructor
     end
 
-    it "should return a course json if creation successful" do
-      post '/courses', attributes_for(:course).merge(token: @instructor.token)
+    # it "should return a course json if creation successful" do
+    #   post '/courses', attributes_for(:course).merge(token: @instructor.token)
 
-      expect(JSON.parse(response.body)).to include("status")
-      expect(JSON.parse(response.body)).to include("message")
-      expect(JSON.parse(response.body)).to include("data")
-      expect(JSON.parse(response.body)["data"]).to include("course")
-      expect(JSON.parse(response.body)["data"]["course"]).to include("name")
-      expect(JSON.parse(response.body)["data"]["course"]).to include("start")
-      expect(JSON.parse(response.body)["data"]["course"]).to include("finish")
-      expect(JSON.parse(response.body)["data"]["course"]).to include("id")
-    end
+    #   expect(JSON.parse(response.body)).to include("status")
+    #   expect(JSON.parse(response.body)).to include("message")
+    #   expect(JSON.parse(response.body)).to include("data")
+    #   expect(JSON.parse(response.body)["data"]).to include("course")
+    #   expect(JSON.parse(response.body)["data"]["course"]).to include("name")
+    #   expect(JSON.parse(response.body)["data"]["course"]).to include("start")
+    #   expect(JSON.parse(response.body)["data"]["course"]).to include("finish")
+    #   expect(JSON.parse(response.body)["data"]["course"]).to include("id")
+    # end
 
     it "should return an error if course creation unsuccessful" do
       course_hash = attributes_for(:course)
@@ -52,6 +52,15 @@ RSpec.describe 'Course API', type: :request do
       expect(courses.length).to eql(1)
       expect(course['name']).to eql(user.courses.first.name)
       expect(course['start']).to eql(user.courses.first.start.to_s)
+    end
+
+    it 'should return an empty array if instructor does not have any courses' do
+      user = create(:instructor)
+      get '/courses', token: user.token   
+
+      body = JSON.parse(response.body)
+      courses = body['data']
+      expect(courses.length).to eql(0)
     end
 
   end

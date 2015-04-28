@@ -6,7 +6,7 @@ class UsersController < ApplicationController
       render 'users/token'
     else
       @message = @user.errors.full_messages[0]
-      render 'layouts/failure'
+      render nothing: true, layout: 'failure'
     end
   end
  
@@ -16,7 +16,7 @@ class UsersController < ApplicationController
       render 'users/token'
     else
       @message = "Email or password is incorrect"
-      render 'layouts/failure'
+      render nothing: true, layout: 'failure'
     end
 
   end
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       render 'users/show'
     else
       @message = "Invalid User"
-      render 'layouts/failure'
+      render nothing: true, layout: 'failure'
     end
   end
 end
