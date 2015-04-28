@@ -7,7 +7,7 @@ RSpec.describe 'Response API', type: :request do
 
 describe "/create" do
 	it "should return an response confirm json if mc_response creation successful" do
-		user 			= create(:instructor_with_courses_with_sessions_with_questions_with_mc_answers)
+		user 			= create(:instructor_with_mc_answers)
 		course 			= user.courses.first
 		session 		= course.sessions.first
 		question 		= session.questions.first
@@ -43,6 +43,7 @@ describe "/create" do
 		expect(JSON.parse(response.body)).to include("message")
 		expect(JSON.parse(response.body)).to include("data")
 		expect(JSON.parse(response.body)["data"]).to include("la_response")
+		expect(JSON.parse(response.body)["data"]["la_response"]).to include("token")
         expect(JSON.parse(response.body)["data"]["la_response"]).to include("name")
 		
 	end
@@ -55,7 +56,7 @@ describe "/create" do
 	end
 
 	it "should return an response confirm json if sa_response creation successful" do
-		user 			= create(:student_with_courses_with_sessions_with_questions_with_sa_answers)
+		user 			= create(:student_with_sa_answers)
 		course 			= user.courses.first
 		session 		= course.sessions.first
 		question 		= session.questions.first
@@ -66,6 +67,7 @@ describe "/create" do
 		expect(JSON.parse(response.body)).to include("message")
 		expect(JSON.parse(response.body)).to include("data")
 		expect(JSON.parse(response.body)["data"]).to include("sa_response")
+		expect(JSON.parse(response.body)["data"]["sa_response"]).to include("token")
         expect(JSON.parse(response.body)["data"]["sa_response"]).to include("name")
 	end
 
@@ -77,7 +79,7 @@ describe "/create" do
 	end
 
 	it "should return an response confirm json if num_response creation successful" do
-		user 			= create(:student_with_courses_with_sessions_with_questions_with_num_answers)
+		user 			= create(:student_with_num_answers)
 		course 			= user.courses.first
 		session 		= course.sessions.first
 		question 		= session.questions.first
@@ -88,6 +90,7 @@ describe "/create" do
 		expect(JSON.parse(response.body)).to include("message")
 		expect(JSON.parse(response.body)).to include("data")
 		expect(JSON.parse(response.body)["data"]).to include("num_response")
+		expect(JSON.parse(response.body)["data"]["num_response"]).to include("token")
         expect(JSON.parse(response.body)["data"]["num_response"]).to include("num")
        
 	end
@@ -103,7 +106,7 @@ end
 
 describe "/mc_responses" do
 	it 'should return an mc_response json containing an array of mc_responses that belong to the instructor' do
-		user = create(:instructor_with_courses_with_sessions_with_questions_with_mc_answers_with_mc_responses)
+		user = create(:instructor_with_mc_answers_with_mc_responses)
 		course = user.courses.first
 		session = course.sessions.first
 		question = session.questions.first
@@ -128,7 +131,7 @@ end
 describe "/mc_responses/#id" do
 	#Is id the response id?
 	it 'should show the mc_response corresponding to #id, for a given answer_id ' do
-		user = create(:instructor_with_courses_with_sessions_with_questions_with_mc_answers_with_mc_responses)
+		user = create(:instructor_with_mc_answers_with_mc_responses)
 		course = user.courses.first
 		session = course.sessions.first
 		question = session.questions.first
@@ -151,7 +154,7 @@ end
 
 describe "/la_responses" do
 	it 'should return an la_response json containing an array of la_responses that belong to the instructor' do
-  		user = create(:student_with_courses_with_sessions_with_questions_with_la_responses)
+  		user = create(:student_with_la_responses)
 		course = user.courses.first
 		session = course.sessions.first
 		question = session.questions.first
@@ -165,6 +168,7 @@ describe "/la_responses" do
 
 		response = responses.first
 		
+		expect(response['token']).to eql(user.token)
 		expect(response['name']).to eql(la_response.name)
    		expect(response['created_at']).to eql(la_response.created_at.to_s)
 
@@ -172,7 +176,7 @@ describe "/la_responses" do
 end
 describe "/la_responses/#id" do
 	it 'should show the la_response corresponding to #id, for a given answer_id' do
-  		user = create(:student_with_courses_with_sessions_with_questions_with_la_responses)
+  		user = create(:student_with_la_responses)
 		course = user.courses.first
 		session = course.sessions.first
 		question = session.questions.first
@@ -186,6 +190,7 @@ describe "/la_responses/#id" do
 		data = body['data']
     	response = data['la_response']
 
+		expect(response['token']).to eql(user.token)
 		expect(response['name']).to eql(la_response.name)
    		expect(response['created_at']).to eql(la_response.created_at.to_s)
 
@@ -194,7 +199,7 @@ end
 
 describe "/sa_responses" do
 	it 'should return an sa_response json containing an array of sa_responses that belong to the instructor' do
-  		user = create(:student_with_courses_with_sessions_with_questions_with_sa_answers_with_sa_responses)
+  		user = create(:student_with_sa_answers_with_sa_responses)
 		course = user.courses.first
 		session = course.sessions.first
 		question = session.questions.first
@@ -210,6 +215,7 @@ describe "/sa_responses" do
 
 		response = responses.first
 		
+		expect(response['token']).to eql(user.token)
 		expect(response['name']).to eql(sa_response.name)
    		expect(response['created_at']).to eql(sa_response.created_at.to_s)
 
@@ -217,7 +223,7 @@ describe "/sa_responses" do
 end
 describe "/sa_responses/#id" do
 	it 'should show the sa_response corresponding to #id, for a given answer_id' do
-  		user = create(:student_with_courses_with_sessions_with_questions_with_sa_answers_with_sa_responses)
+  		user = create(:student_with_sa_answers_with_sa_responses)
 		course = user.courses.first
 		session = course.sessions.first
 		question = session.questions.first
@@ -232,6 +238,7 @@ describe "/sa_responses/#id" do
 		data = body['data']
     	response = data['sa_response']
 
+    	expect(response['token']).to eql(user.token)
 		expect(response['name']).to eql(sa_response.name)
    		expect(response['created_at']).to eql(sa_response.created_at.to_s)
 		
@@ -240,7 +247,7 @@ end
 
 describe "/num_responses" do
 	it 'should return an num_response json containing an array of num_responses that belong to the instructor' do
-  		user = create(:student_with_courses_with_sessions_with_questions_with_num_answers_with_num_responses)
+  		user = create(:student_with_num_answers_with_num_responses)
 		course = user.courses.first
 		session = course.sessions.first
 		question = session.questions.first
@@ -256,6 +263,7 @@ describe "/num_responses" do
 
 		response = responses.first
 		
+		expect(response['token']).to eql(user.token)
 		expect(response['num']).to eql(num_response.num)
    		expect(response['created_at']).to eql(num_response.created_at.to_s)
 
@@ -263,7 +271,7 @@ describe "/num_responses" do
 end
 describe "/num_responses/#id" do
 	it 'should show the num_response corresponding to #id, for a given answer_id' do
-  		user = create(:student_with_courses_with_sessions_with_questions_with_num_answers_with_num_responses)
+  		user = create(:student_with_num_answers_with_num_responses)
 		course = user.courses.first
 		session = course.sessions.first
 		question = session.questions.first
@@ -278,6 +286,7 @@ describe "/num_responses/#id" do
 		data = body['data']
     	response = data['num_response']
 
+    	expect(response['token']).to eql(user.token)
 		expect(response['num']).to eql(num_response.num)
    		expect(response['created_at']).to eql(num_response.created_at.to_s)
 

@@ -6,19 +6,19 @@ RSpec.describe 'Question API', type: :request do
 
   describe "/create" do
       it "should return a question confirm json if creation successful" do
-        post '/questions', attributes_for(:question)
+        post '/questions', attributes_for(:mc)
 
         expect(JSON.parse(response.body)).to include("status")
         expect(JSON.parse(response.body)).to include("message")
         expect(JSON.parse(response.body)).to include("data")
         expect(JSON.parse(response.body)["data"]).to include("question")
         expect(JSON.parse(response.body)["data"]["question"]).to include("name")
-        expect(JSON.parse(response.body)["data"]["question"]).to include("category")
+        #expect(JSON.parse(response.body)["data"]["question"]).to include("type")
 
       end
 
       it "should return an error if question creation unsuccessful" do
-        question_hash = attributes_for(:question)
+        question_hash = attributes_for(:mc)
         question_hash[:name] = ""
         post '/questions', question_hash
         expect(response.body).to eql({status: 'failure', message: 'Failed to create a question', data: {}}.to_json)
@@ -29,7 +29,7 @@ RSpec.describe 'Question API', type: :request do
   describe "/questions" do
 
       it 'should return a question json containing an array of questions that belong to the instructor' do
-      user = create(:instructor_with_courses_with_sessions_with_questions)
+      user = create(:instructor_with_questions)
       get '/questions', token: user.token, course_id: user.courses.first.id, session_id: user.courses.first.sessions.first.id
 
       body = JSON.parse(response.body)
@@ -37,7 +37,7 @@ RSpec.describe 'Question API', type: :request do
       question = questions.first
       expect(questions.length).to eql(1)
       expect(question['name']).to eql(user.courses.first.sessions.first.questions.first.name)
-      expect(question['category']).to eql(user.courses.first.sessions.first.questions.first.category)
+      #expect(question['type']).to eql(user.courses.first.sessions.first.questions.first.type)
       
     end
 
@@ -51,7 +51,7 @@ RSpec.describe 'Question API', type: :request do
 
       expect(questions.length).to eql(1)
       expect(question['name']).to eql(user.courses.first.sessions.first.questions.first.name)
-      expect(question['category']).to eql(user.courses.first.sessions.first.questions.first.category)
+      #expect(question['type']).to eql(user.courses.first.sessions.first.questions.first.type)
       
     end
   end
@@ -59,7 +59,7 @@ RSpec.describe 'Question API', type: :request do
   describe "/questions/#id" do
 
     it 'should return a question json containing a question that belong to the instructor' do
-      user = create(:instructor_with_courses_with_sessions_with_questions)
+      user = create(:instructor_with_questions)
       course = user.courses.first
       session = course.sessions.first
       first_question = user.courses.first.sessions.first.questions.first
@@ -71,7 +71,7 @@ RSpec.describe 'Question API', type: :request do
       question = data['question']
 
       expect(question['name']).to eql(first_question.name)
-      expect(question['category']).to eql(first_question.category)
+      #expect(question['type']).to eql(first_question.type)
       
     end
 
@@ -88,7 +88,7 @@ RSpec.describe 'Question API', type: :request do
       question = data['question']
 
       expect(question['name']).to eql(first_question.name)
-      expect(question['category']).to eql(first_question.category)
+      #expect(question['type']).to eql(first_question.type)
       
     end
     

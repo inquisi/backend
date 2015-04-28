@@ -1,5 +1,5 @@
 class LaResponse < ActiveRecord::Base
-	belongs_to 		:question
+	belongs_to 		:LA_question
 	belongs_to 		:user
 
 	validates	:name,				presence: true

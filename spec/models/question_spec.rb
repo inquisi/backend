@@ -2,15 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Question, type: :model do
   it "should require a name" do
-    question = build(:question, name: "")
+    question = build(:mc, name: "")
     expect(question.save).to be false
   end
   it "should require a category" do
-    question = build(:question, category: "")
+    question = build(:mc, category: "")
     expect(question.save).to be false
   end
   it "should require a session_id" do
-    question = build(:question, session_id: "")
+    question = build(:mc, session_id: "")
     expect(question.save).to be false
   end
 

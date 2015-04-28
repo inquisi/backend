@@ -1,5 +1,5 @@
 class SaAnswer < ActiveRecord::Base
-	belongs_to 	:question
+	belongs_to 	:SA_question
 	has_many	:sa_responses
 
 	
