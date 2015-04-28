@@ -1,3 +1,3 @@
 json.name 		question.name
-json.category 	question.category
-json.id 	question.id
+json.type		question.type
+json.id 		question.id

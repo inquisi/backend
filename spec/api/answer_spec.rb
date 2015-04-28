@@ -62,7 +62,7 @@ RSpec.describe 'Answer API', type: :request do
   
   describe '/mc_answers' do
     it 'should return an mc_answer json containing an array of mc_answers that belong to the instructor' do
-      user = create(:instructor_with_courses_with_sessions_with_questions_with_mc_answers)
+      user = create(:instructor_with_mc_answers)
       course = user.courses.first
       session = course.sessions.first
       question = session.questions.first
@@ -83,7 +83,7 @@ RSpec.describe 'Answer API', type: :request do
 
   describe '/mc_answers/#id' do
     it 'should show the mc_answer corresponding to #id, for a given question_id ' do
-      user = create(:instructor_with_courses_with_sessions_with_questions_with_mc_answers)
+      user = create(:instructor_with_mc_answers)
       course = user.courses.first
       session = course.sessions.first
       question = session.questions.first
@@ -105,7 +105,7 @@ RSpec.describe 'Answer API', type: :request do
 
   describe '/sa_answers' do
     it 'should return an sa_answer json containing an array of sa_answers that belong to the instructor' do
-      user = create(:student_with_courses_with_sessions_with_questions_with_sa_answers)
+      user = create(:student_with_sa_answers)
       course = user.courses.first
       session = course.sessions.first
       question = session.questions.first
@@ -124,7 +124,7 @@ RSpec.describe 'Answer API', type: :request do
 
   describe '/sa_answers/#id' do
     it 'should show the sa_answer corresponding to #id, for a given question_id ' do
-      user = create(:student_with_courses_with_sessions_with_questions_with_sa_answers)
+      user = create(:student_with_sa_answers)
       course = user.courses.first
       session = course.sessions.first
       question = session.questions.first
@@ -144,7 +144,7 @@ RSpec.describe 'Answer API', type: :request do
 
   describe '/num_answers' do
     it 'should return an num_answer json containing an array of num_answers that belong to the instructor' do
-      user = create(:student_with_courses_with_sessions_with_questions_with_num_answers)
+      user = create(:student_with_num_answers)
       course = user.courses.first
       session = course.sessions.first
       question = session.questions.first
@@ -163,7 +163,7 @@ RSpec.describe 'Answer API', type: :request do
 
   describe '/num_answers/#id' do
     it 'should show the num_answer corresponding to #id, for a given question_id ' do
-      user = create(:student_with_courses_with_sessions_with_questions_with_num_answers)
+      user = create(:student_with_num_answers)
       course = user.courses.first
       session = course.sessions.first
       question = session.questions.first

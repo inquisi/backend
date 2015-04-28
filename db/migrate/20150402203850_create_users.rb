@@ -6,8 +6,10 @@ class CreateUsers < ActiveRecord::Migration
       t.string  :email
       t.string  :password_digest
       t.string  :token
-      t.index   :token   
+      t.index   :token  
+      #For STI 
       t.string  :role
+      
       t.boolean :trial
       t.timestamps            null: false
     end

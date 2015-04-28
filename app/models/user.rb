@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 	has_secure_password
 	self.inheritance_column = 'role'
 
-	belongs_to 	:organization
+	
 
 	validates 	:first_name, :last_name, presence: true
 	validates 	:email, uniqueness: true, email: true
