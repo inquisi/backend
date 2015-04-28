@@ -5,8 +5,8 @@ class CreateQuestions < ActiveRecord::Migration
         #FOR STI
         t.string    :category
 
-      	t.text  		:name
-      	t.integer		:order,		     index: true 
+      	t.text  	  	:name
+      	t.integer	   	:order,		   index: true 
       	t.belongs_to	:session, 	 index: true
       	t.timestamps				       null: false
     end
