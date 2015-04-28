@@ -81,6 +81,7 @@ RSpec.describe 'Question API', type: :request do
 
       expect(question['name']).to eql(first_question.name)
       expect(question['category']).to eql(first_question.category)
+      expect(question['id']).to eql(first_question.id)
       
     end
 
