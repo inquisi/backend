@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
       render 'sessions/create'
     else
       @message = "Failed to create a session"
-      render 'layouts/failure'
+      render nothing: true, layout: 'failure'
     end
   end
 
@@ -18,7 +18,8 @@ class SessionsController < ApplicationController
       render 'sessions/show'
     else
       @message = "No Sessions"
-      render 'layouts/failure'
+      render nothing: true, layout: 'failure'
+      # render 'layouts/failure'
     end
   end
 
@@ -27,11 +28,6 @@ class SessionsController < ApplicationController
     @course = @user.courses.find(params[:course_id])
     @sessions = @course.sessions
 
-    if(@sessions.present? )
-      render 'sessions/index'
-    else
-      @message = "No Sessions"
-      render 'layouts/failure'
-    end
+    render 'sessions/index'
   end
 end

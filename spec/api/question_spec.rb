@@ -13,7 +13,7 @@ RSpec.describe 'Question API', type: :request do
         expect(JSON.parse(response.body)).to include("data")
         expect(JSON.parse(response.body)["data"]).to include("question")
         expect(JSON.parse(response.body)["data"]["question"]).to include("name")
-        #expect(JSON.parse(response.body)["data"]["question"]).to include("type")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("type")
 
       end
 
@@ -27,7 +27,6 @@ RSpec.describe 'Question API', type: :request do
   end
 
   describe "/questions" do
-
       it 'should return a question json containing an array of questions that belong to the instructor' do
       user = create(:instructor_with_questions)
       get '/questions', token: user.token, course_id: user.courses.first.id, session_id: user.courses.first.sessions.first.id
@@ -35,9 +34,10 @@ RSpec.describe 'Question API', type: :request do
       body = JSON.parse(response.body)
       questions = body['data']
       question = questions.first
+
       expect(questions.length).to eql(1)
       expect(question['name']).to eql(user.courses.first.sessions.first.questions.first.name)
-      #expect(question['type']).to eql(user.courses.first.sessions.first.questions.first.type)
+      expect(question['type']).to eql(user.courses.first.sessions.first.questions.first.type)
       
     end
 
@@ -51,13 +51,26 @@ RSpec.describe 'Question API', type: :request do
 
       expect(questions.length).to eql(1)
       expect(question['name']).to eql(user.courses.first.sessions.first.questions.first.name)
+
       #expect(question['type']).to eql(user.courses.first.sessions.first.questions.first.type)
       
+
+      expect(question['category']).to eql(user.courses.first.sessions.first.questions.first.category)
+    end
+
+    it 'should return an empty array if student has no questions' do
+      user = create(:student_with_courses_with_sessions)
+      get '/questions', token: user.token, course_id: user.courses.first.id, session_id: user.courses.first.sessions.first.id
+
+      body = JSON.parse(response.body)
+      questions = body['data']
+      question = questions.first
+
+      expect(questions.length).to eql(0)
     end
   end
 
   describe "/questions/#id" do
-
     it 'should return a question json containing a question that belong to the instructor' do
       user = create(:instructor_with_questions)
       course = user.courses.first
@@ -71,7 +84,11 @@ RSpec.describe 'Question API', type: :request do
       question = data['question']
 
       expect(question['name']).to eql(first_question.name)
+
       #expect(question['type']).to eql(first_question.type)
+
+      expect(question['category']).to eql(first_question.category)
+      expect(question['id']).to eql(first_question.id)
       
     end
 

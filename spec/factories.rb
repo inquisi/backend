@@ -139,7 +139,7 @@ FactoryGirl.define do
       after :create do |student|
         student.courses = [create(:course, students: [student])]
         student.courses.first.sessions = [create(:session, course_id: "#{student.courses.first.id}")]
-        student.courses.first.sessions.first.questions = [create(:mc, session_id: "#{student.courses.first.sessions.first.id}")]
+        student.courses.first.sessions.first.questions = [create(:sa, session_id: "#{student.courses.first.sessions.first.id}")]
         student.courses.first.sessions.first.questions.first.sa_answers = [create(:sa_answer, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
       end
 
@@ -148,7 +148,7 @@ FactoryGirl.define do
       after :create do |student|
         student.courses = [create(:course, students: [student])]
         student.courses.first.sessions = [create(:session, course_id: "#{student.courses.first.id}")]
-        student.courses.first.sessions.first.questions = [create(:mc, session_id: "#{student.courses.first.sessions.first.id}")]
+        student.courses.first.sessions.first.questions = [create(:num, session_id: "#{student.courses.first.sessions.first.id}")]
         student.courses.first.sessions.first.questions.first.num_answers = [create(:num_answer, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
       end
 
@@ -157,7 +157,7 @@ FactoryGirl.define do
       after :create do |student|
         student.courses = [create(:course, students: [student])]
         student.courses.first.sessions = [create(:session, course_id: "#{student.courses.first.id}")]
-        student.courses.first.sessions.first.questions = [create(:mc, session_id: "#{student.courses.first.sessions.first.id}")]
+        student.courses.first.sessions.first.questions = [create(:la, session_id: "#{student.courses.first.sessions.first.id}")]
         student.courses.first.sessions.first.questions.first.la_responses = [create(:la_response, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
       end
 
@@ -177,7 +177,7 @@ FactoryGirl.define do
       after :create do |student|
         student.courses = [create(:course, students: [student])]
         student.courses.first.sessions = [create(:session, course_id: "#{student.courses.first.id}")]
-        student.courses.first.sessions.first.questions = [create(:mc, session_id: "#{student.courses.first.sessions.first.id}")]
+        student.courses.first.sessions.first.questions = [create(:sa, session_id: "#{student.courses.first.sessions.first.id}")]
         student.courses.first.sessions.first.questions.first.sa_answers = [create(:sa_answer, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
         student.courses.first.sessions.first.questions.first.sa_answers.first.sa_responses = [create(:sa_response, sa_answer_id: "#{student.courses.first.sessions.first.questions.first.sa_answers.first.id}")]
       end
@@ -187,7 +187,7 @@ FactoryGirl.define do
       after :create do |student|
         student.courses = [create(:course, students: [student])]
         student.courses.first.sessions = [create(:session, course_id: "#{student.courses.first.id}")]
-        student.courses.first.sessions.first.questions = [create(:mc, session_id: "#{student.courses.first.sessions.first.id}")]
+        student.courses.first.sessions.first.questions = [create(:num, session_id: "#{student.courses.first.sessions.first.id}")]
         student.courses.first.sessions.first.questions.first.num_answers = [create(:num_answer, question_id: "#{student.courses.first.sessions.first.questions.first.id}")]
         student.courses.first.sessions.first.questions.first.num_answers.first.num_responses = [create(:num_response, num_answer_id: "#{student.courses.first.sessions.first.questions.first.num_answers.first.id}")]
       end
@@ -236,7 +236,7 @@ FactoryGirl.define do
       after :create do |instructor|
         instructor.courses = [create(:course, instructors: [instructor])]
         instructor.courses.first.sessions = [create(:session, course_id: "#{instructor.courses.first.id}")]
-        instructor.courses.first.sessions.first.questions = [create(:mc, session_id: "#{instructor.courses.first.sessions.first.id}")]
+        instructor.courses.first.sessions.first.questions = [create(:sa, session_id: "#{instructor.courses.first.sessions.first.id}")]
         instructor.courses.first.sessions.first.questions.first.sa_answers = [create(:sa_answer, question_id: "#{instructor.courses.first.sessions.first.questions.first.id}")]
       end
 
@@ -246,7 +246,7 @@ FactoryGirl.define do
       after :create do |instructor|
         instructor.courses = [create(:course, instructors: [instructor])]
         instructor.courses.first.sessions = [create(:session, course_id: "#{instructor.courses.first.id}")]
-        instructor.courses.first.sessions.first.questions = [create(:mc, session_id: "#{instructor.courses.first.sessions.first.id}")]
+        instructor.courses.first.sessions.first.questions = [create(:num, session_id: "#{instructor.courses.first.sessions.first.id}")]
         instructor.courses.first.sessions.first.questions.first.num_answers = [create(:num_answer, question_id: "#{instructor.courses.first.sessions.first.questions.first.id}")]
       end
 
@@ -266,7 +266,7 @@ FactoryGirl.define do
       after :create do |instructor|
         instructor.courses = [create(:course, instructors: [instructor])]
         instructor.courses.first.sessions = [create(:session, course_id: "#{instructor.courses.first.id}")]
-        instructor.courses.first.sessions.first.questions = [create(:mc, session_id: "#{instructor.courses.first.sessions.first.id}")]
+        instructor.courses.first.sessions.first.questions = [create(:sa, session_id: "#{instructor.courses.first.sessions.first.id}")]
         instructor.courses.first.sessions.first.questions.first.sa_answers = [create(:sa_answer, question_id: "#{instructor.courses.first.sessions.first.questions.first.id}")]
         instructor.courses.first.sessions.first.questions.first.sa_answers.first.sa_responses = [create(:sa_response, sa_answer_id: "#{instructor.courses.first.sessions.first.questions.first.sa_answers.first.id}")]
       end
@@ -276,7 +276,7 @@ FactoryGirl.define do
       after :create do |instructor|
         instructor.courses = [create(:course, instructors: [instructor])]
         instructor.courses.first.sessions = [create(:session, course_id: "#{instructor.courses.first.id}")]
-        instructor.courses.first.sessions.first.questions = [create(:mc, session_id: "#{instructor.courses.first.sessions.first.id}")]
+        instructor.courses.first.sessions.first.questions = [create(:num, session_id: "#{instructor.courses.first.sessions.first.id}")]
         instructor.courses.first.sessions.first.questions.first.num_answers = [create(:num_answer, question_id: "#{instructor.courses.first.sessions.first.questions.first.id}")]
         instructor.courses.first.sessions.first.questions.first.num_answers.first.num_responses = [create(:num_response, num_answer_id: "#{instructor.courses.first.sessions.first.questions.first.num_answers.first.id}")]
       end

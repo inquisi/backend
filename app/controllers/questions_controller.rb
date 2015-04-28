@@ -6,7 +6,7 @@ class QuestionsController < ApplicationController
       render 'questions/create'
     else
       @message = "Failed to create a question"
-      render 'layouts/failure'
+      render nothing: true, layout: 'failure'
     end
   end
   #show one
@@ -21,22 +21,16 @@ class QuestionsController < ApplicationController
       render 'questions/show'
     else
       @message = "No Courses"
-      render 'layouts/failure'
+      render nothing: true, layout: 'failure'
     end
   end
   #show all
   def index
-
     @user = User.find_by_token(params[:token])
     @course = @user.courses.find(params[:course_id])
     @session = @course.sessions.find(params[:session_id])
     @questions = @session.questions
 
-    if(@questions.present? )
-      render 'questions/index'
-    else
-      @message = "No Courses"
-      render 'layouts/failure'
-    end
+    render 'questions/index'
   end
 end
