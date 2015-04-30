@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe NumResponsesController, type: :controller do
+RSpec.xdescribe NumResponsesController, type: :controller do
 	describe "create" do
 	    it "should take a num, user_id and a num_answer_id and create an response record" do
 	      	# attributes_for returns a hash of values as they're defined in factories.rb
