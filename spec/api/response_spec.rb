@@ -2,7 +2,7 @@ require 'rails_helper'
 
 #For all resposnes
   
-RSpec.describe 'Response API', type: :request do
+RSpec.xdescribe 'Response API', type: :request do
 # render_views
 
 describe "/create" do

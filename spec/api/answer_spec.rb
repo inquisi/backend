@@ -1,6 +1,6 @@
 require 'rails_helper'
 #For all Answers
-RSpec.describe 'Answer API', type: :request do
+RSpec.xdescribe 'Answer API', type: :request do
   # For one answer call for all types
   describe "/create" do
     it "should return an mc_answer confirm json if creation successful" do
