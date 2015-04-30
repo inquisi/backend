@@ -71,9 +71,10 @@ RSpec.describe 'Question API', type: :request do
       user = create(:instructor_with_courses_with_sessions_with_questions)
       course = user.courses.first
       session = course.sessions.first
-      first_question = user.courses.first.sessions.first.questions.first
-      number = first_question.id
-      get "/questions/#{number}", token: user.token, course_id: course.id, session_id: session.id
+      first_question = session.questions.first
+      answer = first_question.answers.create!(name: "test answer", correct: false, order: 0)
+      question_id = first_question.id
+      get "/questions/#{question_id}", token: user.token, course_id: course.id, session_id: session.id
 
       body = JSON.parse(response.body)
       data = body['data']
@@ -81,7 +82,7 @@ RSpec.describe 'Question API', type: :request do
 
       expect(question['name']).to eql(first_question.name)
       expect(question['category']).to eql(first_question.category)
-      
+      expect(question['answers']).to eql(['id' => answer.id, 'name' => answer.name, 'correct' => answer.correct, 'order' => answer.order])
     end
 
     it 'should return a question json containing a question that belong to the student' do
@@ -89,8 +90,8 @@ RSpec.describe 'Question API', type: :request do
       course = user.courses.first
       session = course.sessions.first
       first_question = user.courses.first.sessions.first.questions.first
-      number = first_question.id
-      get "/questions/#{number}", token: user.token, course_id: course.id, session_id: session.id
+      question_id = first_question.id
+      get "/questions/#{question_id}", token: user.token, course_id: course.id, session_id: session.id
 
       body = JSON.parse(response.body)
       data = body['data']

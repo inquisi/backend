@@ -45,9 +45,9 @@ FactoryGirl.define do
     user_id         "1"
   end
 
-  factory :question do
+  factory :question, class: McQuestion do
     name        "Test"
-    category    "multi-choice"
+    category    "McQuestion"
     session_id  "1"
   end
 
