@@ -46,10 +46,9 @@ FactoryGirl.define do
   end
 
   factory :question do
-    name        "Test"
-    #category   "MC"
-    session_id  "1"
-
+    active false
+    name "Question"
+    order 1
   end
 
   factory :mc, class: MC, parent: :question do
