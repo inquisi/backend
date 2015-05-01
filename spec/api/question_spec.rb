@@ -11,7 +11,6 @@ RSpec.describe 'Question API', type: :request do
       end
 
       it "should return a MC question confirm json if creation successful" do
-        
         post '/questions', attributes_for(:mc).merge!({session_id: @session.id})
 
         expect(JSON.parse(response.body)).to include("status")
@@ -21,7 +20,6 @@ RSpec.describe 'Question API', type: :request do
         expect(JSON.parse(response.body)["data"]["question"]).to include("name")
         expect(JSON.parse(response.body)["data"]["question"]).to include("category")
         expect(JSON.parse(response.body)["data"]["question"]).to include("id")
-
       end
 
       it "should return an error if question creation unsuccessful" do
@@ -91,6 +89,40 @@ RSpec.describe 'Question API', type: :request do
         expect(response.body).to eql({status: 'failure', message: 'Failed to create a question', data: {}}.to_json)
       end
 
+  end
+
+  describe "/update" do
+    it "should update the question" do
+      user = create(:instructor_with_questions)
+      question = user.questions.first
+
+      put "/questions/#{question.id}", token: user.token, name: "hello world"
+      body = JSON.parse(response.body)
+      question = body['data']['question']
+
+      expect(question['name']).to eql('hello world')
+    end
+  end
+
+  describe "/delete" do
+    it "should delete the question and return a blank success response" do
+      user = create(:instructor_with_questions)
+      question = user.questions.first
+
+      delete "/questions/#{question.id}", token: user.token
+      body = JSON.parse(response.body)
+
+      expect(body['data']).to eql({})
+    end
+
+    xit "should delete the question and its answers and responses" do
+      user = create(:instructor_with_mc_answers_with_mc_responses)
+      question = user.questions.first
+
+      delete "/questions/#{question.id}", token: user.token
+      
+      expect(User.first.responses.length).to eql(0)
+    end
   end
 
   describe "/questions" do

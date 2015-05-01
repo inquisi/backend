@@ -15,6 +15,8 @@ Backend::Application.routes.draw do
   post  'questions'         => 'questions#create'
   get   'questions'         => 'questions#index'
   get   'questions/:id'     => 'questions#show'       #Indivudual question
+  put   'questions/:id'     => 'questions#update'       #Indivudual question
+  delete   'questions/:id'     => 'questions#delete'       #Indivudual question
 
   post  'mc_answers'        => 'mc_answers#create'
   get   'mc_answers'        => 'mc_answers#index'
