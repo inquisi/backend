@@ -16,33 +16,16 @@ Backend::Application.routes.draw do
   get   'questions'         => 'questions#index'
   get   'questions/:id'     => 'questions#show'       #Indivudual question
 
-  post  'mc_answers'        => 'mc_answers#create'
-  get   'mc_answers'        => 'mc_answers#index'
-  get   'mc_answers/:id'    => 'mc_answers#show'      #Indivudual mc_answer
+  post  'answers'        => 'answers#create'
+  get   'answers'        => 'answers#index'
+  get   'answers/:id'    => 'answers#show'      #Indivudual answer
 
-  post  'mc_responses'      => 'mc_responses#create'
-  get   'mc_responses'      => 'mc_responses#index'
-  get   'mc_responses/:id'  => 'mc_responses#show'    #Indivudual mc_response
+  post  'responses'      => 'responses#create'
+  get   'responses'      => 'responses#index'
+  get   'responses/:id'  => 'responses#show'    #Indivudual response
 
-  post  'sa_answers'        => 'sa_answers#create'
-  get   'sa_answers'        => 'sa_answers#index'
-  get   'sa_answers/:id'    => 'sa_answers#show'      #Indivudual sa_answer
 
-  post  'sa_responses'      => 'sa_responses#create'
-  get   'sa_responses'      => 'sa_responses#index'
-  get   'sa_responses/:id'  => 'sa_responses#show'    #Indivudual sa_response
 
-  post  'la_responses'      => 'la_responses#create'
-  get   'la_responses'      => 'la_responses#index'
-  get   'la_responses/:id'  => 'la_responses#show'    #Indivudual la_response
-
-  post  'num_answers'        => 'num_answers#create'
-  get   'num_answers'        => 'num_answers#index'
-  get   'num_answers/:id'    => 'num_answers#show'      #Indivudual num_answer
-
-  post  'num_responses'      => 'num_responses#create'
-  get   'num_responses'      => 'num_responses#index'
-  get   'num_responses/:id'  => 'num_responses#show'    #Indivudual num_response
 
 
   root 'todo#todo'

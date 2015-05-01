@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'User API', type: :request do
-  # render_views
 
   describe "/signup" do
     it "should return a user token json if signup successful" do

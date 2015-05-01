@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  
 	def create
     @session = Session.new(name: params[:name], date: params[:date], course_id: params[:course_id])
     
@@ -8,6 +9,7 @@ class SessionsController < ApplicationController
       @message = "Failed to create a session"
       render nothing: true, layout: 'failure'
     end
+
   end
 
   def show
@@ -21,6 +23,7 @@ class SessionsController < ApplicationController
       render nothing: true, layout: 'failure'
       # render 'layouts/failure'
     end
+
   end
 
   def index
@@ -30,4 +33,5 @@ class SessionsController < ApplicationController
 
     render 'sessions/index'
   end
+
 end

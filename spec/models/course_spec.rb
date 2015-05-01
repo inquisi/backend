@@ -16,13 +16,6 @@ RSpec.describe Course, type: :model do
     course = build(:course, finish: "")
     expect(course.save).to be false
   end
-  #How to test that has at least instructor????
   
-  # it "should require at least one instructor" do
-  #   course = build(:course)
-  #   expect(course.save).to be false
-  # end
-
-  #Other tests 
 end
 

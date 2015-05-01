@@ -47,4 +47,5 @@ RSpec.describe User, type: :model do
     expect(user.save).to be true
     expect(user.role).to eql "Student"
   end
+  
 end

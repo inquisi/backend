@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Question API', type: :request do
-  # render_views
-
 
   describe "/create" do
       it "should return a MC question confirm json if creation successful" do
@@ -13,7 +11,7 @@ RSpec.describe 'Question API', type: :request do
         expect(JSON.parse(response.body)).to include("data")
         expect(JSON.parse(response.body)["data"]).to include("question")
         expect(JSON.parse(response.body)["data"]["question"]).to include("name")
-        expect(JSON.parse(response.body)["data"]["question"]).to include("type")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("category")
         expect(JSON.parse(response.body)["data"]["question"]).to include("id")
 
       end
@@ -33,7 +31,7 @@ RSpec.describe 'Question API', type: :request do
         expect(JSON.parse(response.body)).to include("data")
         expect(JSON.parse(response.body)["data"]).to include("question")
         expect(JSON.parse(response.body)["data"]["question"]).to include("name")
-        expect(JSON.parse(response.body)["data"]["question"]).to include("type")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("category")
         expect(JSON.parse(response.body)["data"]["question"]).to include("id")
 
       end
@@ -53,7 +51,7 @@ RSpec.describe 'Question API', type: :request do
         expect(JSON.parse(response.body)).to include("data")
         expect(JSON.parse(response.body)["data"]).to include("question")
         expect(JSON.parse(response.body)["data"]["question"]).to include("name")
-        expect(JSON.parse(response.body)["data"]["question"]).to include("type")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("category")
         expect(JSON.parse(response.body)["data"]["question"]).to include("id")
 
       end
@@ -73,7 +71,7 @@ RSpec.describe 'Question API', type: :request do
         expect(JSON.parse(response.body)).to include("data")
         expect(JSON.parse(response.body)["data"]).to include("question")
         expect(JSON.parse(response.body)["data"]["question"]).to include("name")
-        expect(JSON.parse(response.body)["data"]["question"]).to include("type")
+        expect(JSON.parse(response.body)["data"]["question"]).to include("category")
         expect(JSON.parse(response.body)["data"]["question"]).to include("id")
 
       end
@@ -98,7 +96,7 @@ RSpec.describe 'Question API', type: :request do
 
       expect(questions.length).to eql(1)
       expect(question['name']).to eql(user.courses.first.sessions.first.questions.first.name)
-      expect(question['category']).to eql(user.courses.first.sessions.first.questions.first.type)
+      expect(question['category']).to eql(user.courses.first.sessions.first.questions.first.category)
       
     end
 
@@ -112,7 +110,7 @@ RSpec.describe 'Question API', type: :request do
 
       expect(questions.length).to eql(1)
       expect(question['name']).to eql(user.courses.first.sessions.first.questions.first.name)
-      expect(question['category']).to eql(user.courses.first.sessions.first.questions.first.type)
+      expect(question['category']).to eql(user.courses.first.sessions.first.questions.first.category)
 
     end
 
@@ -142,7 +140,7 @@ RSpec.describe 'Question API', type: :request do
       question = data['question']
 
       expect(question['name']).to eql(first_question.name)
-      expect(question['category']).to eql(first_question.type)
+      expect(question['category']).to eql(first_question.category)
       expect(question['id']).to eql(first_question.id)
       
     end
@@ -160,7 +158,7 @@ RSpec.describe 'Question API', type: :request do
       question = data['question']
 
       expect(question['name']).to eql(first_question.name)
-      expect(question['category']).to eql(first_question.type)
+      expect(question['category']).to eql(first_question.category)
       
     end
     

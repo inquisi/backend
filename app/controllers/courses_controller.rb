@@ -1,5 +1,7 @@
 class CoursesController < ApplicationController
+
   def create
+
     @user = User.find_by_token(params[:token])
     @course = Course.new(name: params[:name], start: params[:start], finish: params[:finish])
 
@@ -10,6 +12,7 @@ class CoursesController < ApplicationController
       @message = "The course was not created"
       render nothing: true, layout: 'failure'
     end
+
   end
 
   def show
@@ -21,6 +24,7 @@ class CoursesController < ApplicationController
       @message = "No courses for user"
       render nothing: true, layout: 'failure'
     end
+    
   end
 
   def index
@@ -28,4 +32,5 @@ class CoursesController < ApplicationController
     @courses = @user.courses
     render 'courses/index'
   end
+
 end

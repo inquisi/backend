@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  
   def create
     @question = MC.new(name: params[:name], session_id: params[:session_id])
 
@@ -8,7 +9,9 @@ class QuestionsController < ApplicationController
       @message = "Failed to create a question"
       render nothing: true, layout: 'failure'
     end
+
   end
+
   #show one
   def show
     
@@ -23,7 +26,9 @@ class QuestionsController < ApplicationController
       @message = "No Courses"
       render nothing: true, layout: 'failure'
     end
+
   end
+
   #show all
   def index
     @user = User.find_by_token(params[:token])
@@ -33,4 +38,5 @@ class QuestionsController < ApplicationController
 
     render 'questions/index'
   end
+
 end

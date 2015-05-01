@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  def signup
-    @user = User.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation], role: params[:role])
 
+  def signup
+
+    @user = User.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation], role: params[:role])
     if @user.save
       render 'users/token'
     else
@@ -11,6 +12,7 @@ class UsersController < ApplicationController
   end
  
   def login
+
     @user = User.find_by_email(params[:email])
     if(@user.present? and @user.authenticate(params[:password]))
       render 'users/token'
@@ -22,6 +24,7 @@ class UsersController < ApplicationController
   end
 
   def show
+
     @user = User.find_by_token(params[:token])
     if(@user.present? )
       render 'users/show'
@@ -29,5 +32,7 @@ class UsersController < ApplicationController
       @message = "Invalid User"
       render nothing: true, layout: 'failure'
     end
+
   end
+  
 end
