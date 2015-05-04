@@ -13,6 +13,7 @@ RSpec.describe 'Session API', type: :request do
         expect(JSON.parse(response.body)["data"]["session"]).to include("name")
         expect(JSON.parse(response.body)["data"]["session"]).to include("date")
         expect(JSON.parse(response.body)["data"]["session"]).to include("id")
+        expect(JSON.parse(response.body)["data"]["session"]).to include("active")
 
       end
 
@@ -37,6 +38,7 @@ RSpec.describe 'Session API', type: :request do
       expect(sessions.length).to eql(1)
       expect(session['name']).to eql(user.courses.first.sessions.first.name)
       expect(session['date']).to eql(user.courses.first.sessions.first.date.to_s)
+      expect(session['active']).to eql(user.courses.first.sessions.first.active)
       
     end
 
@@ -51,7 +53,8 @@ RSpec.describe 'Session API', type: :request do
       expect(sessions.length).to eql(1)
       expect(session['name']).to eql(user.courses.first.sessions.first.name)
       expect(session['date']).to eql(user.courses.first.sessions.first.date.to_s)
-      
+      expect(session['active']).to eql(user.courses.first.sessions.first.active)
+
     end
   end
 
@@ -80,6 +83,7 @@ RSpec.describe 'Session API', type: :request do
 
       expect(session['name']).to eql(user.courses.first.sessions.first.name)
       expect(session['date']).to eql(user.courses.first.sessions.first.date.to_s)
+      expect(session['active']).to eql(user.courses.first.sessions.first.active)
       
     end
   end

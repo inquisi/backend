@@ -120,13 +120,15 @@ RSpec.describe 'Question API', type: :request do
       expect(body['data']).to eql({})
     end
 
-    xit "should delete the question and its answers and responses" do
-      user = create(:instructor_with_mc_answers_with_mc_responses)
-      question = user.questions.first
+    xit "should delete the question and its answers " do #and responses??
+      instructor = create(:instructor_with_mcA)
+      #student = create(:student_with_mcR)
 
-      delete "/questions/#{question.id}", token: user.token
+      question = instructor.questions.first
+
+      delete "/questions/#{question.id}", token: instructor.token
       
-      expect(User.first.responses.length).to eql(0)
+      expect(instructor.answers.length).to eql(0)
     end
 
   end
@@ -170,7 +172,7 @@ RSpec.describe 'Question API', type: :request do
 
       expect(questions.length).to eql(0)
     end
-    
+
   end
 
   describe "/questions/#id" do
@@ -179,7 +181,8 @@ RSpec.describe 'Question API', type: :request do
       course = user.courses.first
       session = course.sessions.first
       first_question = session.questions.first
-      answer = first_question.answers.create!(name: "test answer", correct: false, order: 0)
+
+      
       question_id = first_question.id
       get "/questions/#{question_id}", token: user.token, course_id: course.id, session_id: session.id
 
@@ -190,7 +193,7 @@ RSpec.describe 'Question API', type: :request do
       expect(question['name']).to eql(first_question.name)
       expect(question['id']).to eql(first_question.id)
       expect(question['category']).to eql(first_question.category)
-      expect(question['answers']).to eql(['id' => answer.id, 'name' => answer.name, 'correct' => answer.correct, 'order' => answer.order])
+
     end
 
     it 'should return a question json containing a question that belong to the student' do
@@ -210,6 +213,27 @@ RSpec.describe 'Question API', type: :request do
       
     end
     
+    it ' should return the array of answers with the question' do
+
+      user = create(:instructor_with_courses_with_sessions_with_questions)
+      course = user.courses.first
+      session = course.sessions.first
+      question = session.questions.first
+      answer = question.answers.create!(name: "answer", correct: false, order: 1)
+      number = question.id
+
+      get "/questions/#{number}", token: user.token, course_id: course.id, session_id: session.id
+
+      body = JSON.parse(response.body)
+      data = body['data']
+      q = data['question']
+
+      expect(q['name']).to eql(question.name)
+      expect(q['id']).to eql(question.id)
+      expect(q['category']).to eql(question.category)
+      expect(q['answers']).to eql(['question_id' => answer.question_id, 'name' => answer.name, 'correct' => answer.correct, 'order' => answer.order])
+    
+    end
   end
 
 end

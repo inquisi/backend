@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   
   def create
-    @question = MC.new(name: params[:name], session_id: params[:session_id], order: params[:order])
+    @question = MC.new(name: params[:name], session_id: params[:session_id], order: params[:order], active: params[:active])
 
     if @question.save
       render 'questions/create'

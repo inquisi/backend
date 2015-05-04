@@ -27,6 +27,31 @@ class CoursesController < ApplicationController
     
   end
 
+#NEEDS TESTS
+  def update
+    @user = User.find_by_token(params[:token])
+    @course = @user.courses.find(params[:id])
+    @course.assign_attributes(params.permit(:name, :start, :finsih, :user_id))
+
+    if @question.save
+      render 'courses/show'
+    else
+      @message = "Failed to save a course"
+      render nothing: true, layout: 'failure'
+    end
+  end
+  
+#NEEDS TESTS
+  def delete
+    if Instructor.find_by_token(params[:token]).courses.find(params[:id]).delete
+      @message = "Course deleted"
+      render nothing: true, layout: 'application'
+    else
+      @message = "Error deleting course"
+      render nothing: true, layout: 'failure'
+    end
+  end
+
   def index
     @user = User.find_by_token(params[:token])
     @courses = @user.courses

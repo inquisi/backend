@@ -30,8 +30,9 @@ RSpec.describe 'Course API', type: :request do
   end
 
   describe '/courses' do
-    it 'should return a course json containing an array of courses that belong to the student' do
-      user = create(:student_with_courses)
+
+    it 'should return an array of courses that belong to the instructor' do
+      user = create(:instructor_with_courses)
       get '/courses', token: user.token   
 
       body = JSON.parse(response.body)
@@ -43,8 +44,8 @@ RSpec.describe 'Course API', type: :request do
       expect(course['start']).to eql(user.courses.first.start.to_s)
     end
 
-    it 'should return a course json containing an array of courses that belong to the instructor' do
-      user = create(:instructor_with_courses)
+    it 'should return an array of courses that belong to the student' do
+      user = create(:student_with_courses)
       get '/courses', token: user.token   
 
       body = JSON.parse(response.body)
@@ -58,6 +59,15 @@ RSpec.describe 'Course API', type: :request do
 
     it 'should return an empty array if instructor does not have any courses' do
       user = create(:instructor)
+      get '/courses', token: user.token   
+
+      body = JSON.parse(response.body)
+      courses = body['data']
+      expect(courses.length).to eql(0)
+    end
+
+    it 'should return an empty array if student does not have any courses' do
+      user = create(:student)
       get '/courses', token: user.token   
 
       body = JSON.parse(response.body)

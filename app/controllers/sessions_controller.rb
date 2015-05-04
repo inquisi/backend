@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   
 	def create
-    @session = Session.new(name: params[:name], date: params[:date], course_id: params[:course_id])
+    @session = Session.new(name: params[:name], date: params[:date], course_id: params[:course_id], active: params[:active])
 
     if @session.save
       render 'sessions/create'
@@ -23,6 +23,30 @@ class SessionsController < ApplicationController
       render nothing: true, layout: 'failure'
     end
 
+  end
+#NEEDS TESTS
+  def update
+    @user = User.find_by_token(params[:token])
+    @session = @user.sessions.find(params[:id])
+    @session.assign_attributes(params.permit(:name, :date, :course_id, :active))
+
+    if @question.save
+      render 'sessions/show'
+    else
+      @message = "Failed to save a session"
+      render nothing: true, layout: 'failure'
+    end
+  end
+  
+#NEEDS TESTS
+  def delete
+    if Instructor.find_by_token(params[:token]).sessions.find(params[:id]).delete
+      @message = "Session deleted"
+      render nothing: true, layout: 'application'
+    else
+      @message = "Error deleting session"
+      render nothing: true, layout: 'failure'
+    end
   end
 
   def index

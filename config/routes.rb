@@ -1,30 +1,44 @@
 Backend::Application.routes.draw do
-  post  'login'         => 'users#login'
-  post  'logout'        => 'users#logout'
-  post  'signup'        => 'users#signup'
-  get   'user'          => 'users#show'               #Individual User
+  post    'login'                   => 'users#login'
+  post    'logout'                  => 'users#logout'
+  post    'signup'                  => 'users#signup'
+  get     'user'                    => 'users#show'               #Individual User
+  #delete account ?? Not needed now
+  delete  'user/:id'                => 'users#delete'
 
-  post  'courses'       => 'courses#create'
-  get   'courses'       => 'courses#index'
-  get   'courses/:id'   => 'courses#show'             #Indivudual course
+  post    'courses'                 => 'courses#create'
+  get     'courses'                 => 'courses#index'
+  get     'courses/:id'             => 'courses#show'             #Indivudual course
+  put     'courses/:id'             => 'courses#update'       
+  delete  'courses/:id'             => 'courses#delete'
 
-  post  'sessions'      => 'sessions#create'
-  get   'sessions'      => 'sessions#index'
-  get   'sessions/:id'  => 'sessions#show'            #Indivudual session
+  post    'sessions'                => 'sessions#create'
+  get     'sessions'                => 'sessions#index'
+  get     'sessions/:id'            => 'sessions#show'            #Indivudual session
+  put     'sessions/:id/update'     => 'sessions#update' 
+  put     'sessions/:id/activate'   => 'sessions#activate' 
+  delete  'sessions/:id'            => 'sessions#delete'
 
-  post  'questions'         => 'questions#create'
-  get   'questions'         => 'questions#index'
-  get   'questions/:id'     => 'questions#show'       #Indivudual question
-  put   'questions/:id'     => 'questions#update'       #Indivudual question
-  delete   'questions/:id'     => 'questions#delete'       #Indivudual question
+  post    'questions'               => 'questions#create'
+  get     'questions'               => 'questions#index'
+  get     'questions/:id'           => 'questions#show'       #Indivudual question
+  put     'questions/:id/update'    => 'questions#update'       
+  put     'questions/:id/activate'  => 'questions#activate'   
+  delete  'questions/:id'           => 'questions#delete'
 
-  post  'answers'        => 'answers#create'
-  get   'answers'        => 'answers#index'
-  get   'answers/:id'    => 'answers#show'      #Indivudual answer
 
-  post  'responses'      => 'responses#create'
-  get   'responses'      => 'responses#index'
-  get   'responses/:id'  => 'responses#show'    #Indivudual response
+  post    'answers'                 => 'answers#create'
+  get     'answers'                 => 'answers#index'
+  get     'answers/:id'             => 'answers#show'      #Indivudual answer
+  put     'answers/:id'             => 'answers#update'       
+  delete  'answers/:id'             => 'answers#delete'
+
+  post  'responses'                 => 'responses#create'
+  get   'responses'                 => 'responses#index'
+  get   'responses/:id'             => 'responses#show'    #Indivudual response
+  #nesscary, maybe want to store each response, 
+  #that way could detect chnages over time in respones
+  put   'responses/:id'             => 'responses#update' #iF WANT TO UPDATE RESPONSES
 
 
 
