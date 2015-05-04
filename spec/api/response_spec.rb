@@ -132,7 +132,7 @@ RSpec.describe 'Response API', type: :request do
 	#INDEX
 	describe "/responses" do
 
-		it 'should  an array of mc_responses that belong to the instructor' do
+		it 'should return an array of mc_responses that belong to the instructor' do
 			user = create(:student_with_mcR)
 			course = user.courses.first
 			session = course.sessions.first
@@ -150,10 +150,10 @@ RSpec.describe 'Response API', type: :request do
 			r = rs.first
 			
 			expect(r['token']).to eql(user.token)
-	   		expect(r['created_at']).to eql(mc_response.created_at.to_s)
+	   		expect(r['created_at']).to eql(mc_response.created_at.round.utc.to_s)
 		end
 
-		it 'should  an array of sa_responses that belong to the instructor' do
+		it 'should return an array of sa_responses that belong to the instructor' do
 	  		user = create(:student_with_saR)
 			course = user.courses.first
 			session = course.sessions.first
@@ -172,10 +172,10 @@ RSpec.describe 'Response API', type: :request do
 			
 			expect(response['token']).to eql(user.token)
 			expect(response['name']).to eql(sa_response.name)
-	   		expect(response['created_at']).to eql(sa_response.created_at.to_s)
+	   		expect(response['created_at'].to_s).to eql(sa_response.created_at.round.utc.to_s)
 		end
 
-		it 'should an array of num_responses that belong to the instructor' do
+		xit 'should return an array of num_responses that belong to the instructor' do
 	  		user = create(:student_with_numR)
 			course = user.courses.first
 			session = course.sessions.first
@@ -188,16 +188,16 @@ RSpec.describe 'Response API', type: :request do
 			body = JSON.parse(response.body)
 			responses = body['data']
 
-			expect(responses.length).to eql(1)
+			expect(responses.length.to_s).to eql(1)
 
 			response = responses.first
 			
 			expect(response['token']).to eql(user.token)
 			expect(response['num']).to eql(num_response.num)
-	   		expect(response['created_at']).to eql(num_response.created_at.to_s)
+	   		expect(response['created_at']).to eql(num_response.created_at.round.utc.to_s)
 		end
 
-		it 'should an array of la_responses that belong to the instructor' do
+		it 'should return an array of la_responses that belong to the instructor' do
 	  		user = create(:student_with_laR)
 			course = user.courses.first
 			session = course.sessions.first
@@ -214,7 +214,7 @@ RSpec.describe 'Response API', type: :request do
 			
 			expect(response['token']).to eql(user.token)
 			expect(response['name']).to eql(la_response.name)
-	   		expect(response['created_at']).to eql(la_response.created_at.to_s)
+	   		expect(response['created_at'].to_s).to eql(la_response.created_at.round.utc.to_s)
 		end
 
 	end
@@ -239,7 +239,7 @@ RSpec.describe 'Response API', type: :request do
 	    	r = data['response']
 
 			expect(r['token']).to eql(user.token)
-	   		expect(r['created_at']).to eql(mc_response.created_at.to_s)
+	   		expect(r['created_at'].to_s).to eql(mc_response.created_at.round.utc.to_s)
 			
 		end
 
@@ -261,7 +261,7 @@ RSpec.describe 'Response API', type: :request do
 
 	    	expect(response['token']).to eql(user.token)
 			expect(response['name']).to eql(sa_response.name)
-	   		expect(response['created_at']).to eql(sa_response.created_at.to_s)
+	   		expect(response['created_at'].to_s).to eql(sa_response.created_at.round.utc.to_s)
 		end
 
 		it 'should show the num_response' do
@@ -282,7 +282,7 @@ RSpec.describe 'Response API', type: :request do
 
 	    	expect(response['token']).to eql(user.token)
 			expect(response['num']).to eql(num_response.num)
-	   		expect(response['created_at']).to eql(num_response.created_at.to_s)
+	   		expect(response['created_at'].to_s).to eql(num_response.created_at.round.utc.to_s)
 		end
 
 		it 'should show the la_response' do
@@ -302,7 +302,7 @@ RSpec.describe 'Response API', type: :request do
 
 			expect(response['token']).to eql(user.token)
 			expect(response['name']).to eql(la_response.name)
-	   		expect(response['created_at']).to eql(la_response.created_at.to_s)
+	   		expect(response['created_at'].to_s).to eql(la_response.created_at.round.utc.to_s)
 		end
 
 	end

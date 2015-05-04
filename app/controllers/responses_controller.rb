@@ -61,7 +61,6 @@ class ResponsesController < ApplicationController
 	    	@question 	 = 	@session.questions.find(params[:question_id])
 	    	@answer 	 =	@question.answers.find(params[:mc_answer_id])
 	    	@response 	 = 	@answer.responses.find(params[:id])
-	    	
 			if(@response.present? )
 		  		render 'responses/show'
 		  	else
@@ -124,7 +123,6 @@ class ResponsesController < ApplicationController
 
   	#show all
   	def index
-
   		@question = Question.find_by_id(params[:question_id])
   		if ("MC" == @question.category)
 		    @user 			= User.find_by_token(params[:token])
