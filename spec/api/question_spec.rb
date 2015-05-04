@@ -8,6 +8,7 @@ RSpec.describe 'Question API', type: :request do
         @session = Session.first
       end
 
+      #CREATE EXPECTED SUCCESS
       it "should return a MC question confirm json if creation successful" do
         post '/questions', attributes_for(:mc).merge!({session_id: @session.id})
 
@@ -59,7 +60,7 @@ RSpec.describe 'Question API', type: :request do
 
       end
 
-
+      #EXPECTED ERRORS
       it "should return an error if mc question creation unsuccessful" do
         question_hash = attributes_for(:mc)
         question_hash[:name] = ""
@@ -90,49 +91,7 @@ RSpec.describe 'Question API', type: :request do
 
   end
 
-  describe "/update" do
-    it "should update the question" do
-      user = create(:instructor_with_courses_with_sessions_with_questions)
-      course      = user.courses.first
-      session     = course.sessions.first
-      question    = session.questions.first
-
-      put "/questions/#{question.id}", token: user.token, name: "hello world"
-      body = JSON.parse(response.body)
-      question = body['data']['question']
-
-      expect(question['name']).to eql('hello world')
-    end
-
-  end
-
-  describe "/delete" do
-    it "should delete the question and return a blank success response" do
-      user = create(:instructor_with_courses_with_sessions_with_questions)
-      course      = user.courses.first
-      session     = course.sessions.first
-      question    = session.questions.first
-      
-
-      delete "/questions/#{question.id}", token: user.token
-      body = JSON.parse(response.body)
-
-      expect(body['data']).to eql({})
-    end
-
-    xit "should delete the question and its answers " do #and responses??
-      instructor = create(:instructor_with_mcA)
-      #student = create(:student_with_mcR)
-
-      question = instructor.questions.first
-
-      delete "/questions/#{question.id}", token: instructor.token
-      
-      expect(instructor.answers.length).to eql(0)
-    end
-
-  end
-
+  # INDEX
   describe "/questions" do
       it 'should return a question json containing an array of questions that belong to the instructor' do
       user = create(:instructor_with_courses_with_sessions_with_questions)
@@ -175,6 +134,7 @@ RSpec.describe 'Question API', type: :request do
 
   end
 
+  #SHOW
   describe "/questions/#id" do
     it 'should return a question json containing a question that belong to the instructor' do
       user = create(:instructor_with_courses_with_sessions_with_questions)
@@ -213,6 +173,7 @@ RSpec.describe 'Question API', type: :request do
       
     end
     
+    #Checking the answer output aswell
     it ' should return the array of answers with the question' do
 
       user = create(:instructor_with_courses_with_sessions_with_questions)
@@ -234,6 +195,74 @@ RSpec.describe 'Question API', type: :request do
       expect(q['answers']).to eql(['question_id' => answer.question_id, 'name' => answer.name, 'correct' => answer.correct, 'order' => answer.order])
     
     end
+  end
+
+  #UPDATE
+  describe "/questions/#id/update" do
+    it "should update the question" do
+      user = create(:instructor_with_courses_with_sessions_with_questions)
+      course      = user.courses.first
+      session     = course.sessions.first
+      question    = session.questions.first
+
+      put "/questions/#{question.id}/update", token: user.token, name: "hello world"
+      body = JSON.parse(response.body)
+      q = body['data']['question']
+
+      expect(q['name']).to eql('hello world')
+    end
+
+  end
+
+  #DELETE
+  describe "/questions/#id" do
+    it "should delete the question and return a blank success response" do
+      user = create(:instructor_with_courses_with_sessions_with_questions)
+      course      = user.courses.first
+      session     = course.sessions.first
+      question    = session.questions.first
+      
+
+      delete "/questions/#{question.id}", token: user.token
+      body = JSON.parse(response.body)
+
+      expect(body['data']).to eql({})
+    end
+
+    xit "should delete the question and its answers " do #and responses??
+      instructor = create(:instructor_with_mcA)
+      #student = create(:student_with_mcR)
+
+      question = instructor.questions.first
+
+      delete "/questions/#{question.id}", token: instructor.token
+      
+      expect(instructor.answers.length).to eql(0)
+    end
+
+  end
+
+  #ACTIVATE
+  describe '/questions/#id/activate' do
+
+    it 'should active the question corresponding to #id' do
+      #IMPLEMENT
+      
+      user = create(:instructor_with_courses_with_sessions_with_questions)
+      course      = user.courses.first
+      session     = course.sessions.first
+      question    = session.questions.first
+      number      = question.id
+
+      expect(question.active).to eql(false)
+
+      put "/questions/#{number}/activate", token: user.token, active: true
+      body = JSON.parse(response.body)
+      q = body['data']['question']
+
+      expect(q['active']).to eql(true)
+    end
+
   end
 
 end

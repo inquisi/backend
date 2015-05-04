@@ -24,18 +24,28 @@ class SessionsController < ApplicationController
     end
 
   end
+
+  def index
+    @user = User.find_by_token(params[:token])
+    @course = @user.courses.find(params[:course_id])
+    @sessions = @course.sessions
+
+    render 'sessions/index'
+  end
+
 #NEEDS TESTS
   def update
     @user = User.find_by_token(params[:token])
     @session = @user.sessions.find(params[:id])
     @session.assign_attributes(params.permit(:name, :date, :course_id, :active))
 
-    if @question.save
+    if @session.save
       render 'sessions/show'
     else
       @message = "Failed to save a session"
       render nothing: true, layout: 'failure'
     end
+
   end
   
 #NEEDS TESTS
@@ -47,14 +57,23 @@ class SessionsController < ApplicationController
       @message = "Error deleting session"
       render nothing: true, layout: 'failure'
     end
+
   end
 
-  def index
+  
+#NEEDS TESTS
+  def activate
     @user = User.find_by_token(params[:token])
-    @course = @user.courses.find(params[:course_id])
-    @sessions = @course.sessions
+    @session = @user.sessions.find(params[:id])
+    @session.assign_attributes(params.permit(:active))
 
-    render 'sessions/index'
+    if @session.save
+      render 'sessions/show'
+    else
+      @message = "Failed to activate a session"
+      render nothing: true, layout: 'failure'
+    end
+    
   end
 
 end

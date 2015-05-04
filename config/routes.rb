@@ -9,7 +9,8 @@ Backend::Application.routes.draw do
   post    'courses'                 => 'courses#create'
   get     'courses'                 => 'courses#index'
   get     'courses/:id'             => 'courses#show'             #Indivudual course
-  put     'courses/:id'             => 'courses#update'       
+  put     'courses/:id'             => 'courses#update'   
+  #^^^^^ /update if needed, Not but for consisentncy   ^^^^
   delete  'courses/:id'             => 'courses#delete'
 
   post    'sessions'                => 'sessions#create'

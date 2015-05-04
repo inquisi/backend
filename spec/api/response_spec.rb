@@ -129,6 +129,7 @@ RSpec.describe 'Response API', type: :request do
 
 	end
 
+	#INDEX
 	describe "/responses" do
 
 		it 'should  an array of mc_responses that belong to the instructor' do
@@ -218,6 +219,7 @@ RSpec.describe 'Response API', type: :request do
 
 	end
 
+	#SHOW
 	describe "/responses/#id" do
 
 		it 'should show the mc_response ' do
@@ -304,5 +306,13 @@ RSpec.describe 'Response API', type: :request do
 		end
 
 	end
+
+	#UPDATE
+	#?? or always new ones??
+
+	#DELETE
+	#Can you dlete a responses?
+	  
+    
 
 end

@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Session API', type: :request do
 
   describe "/create" do
+
+    #CREATE EXPECTED SUCCESS
       it "should return a session confirm json if creation successful" do
         post '/sessions', attributes_for(:session)
 
@@ -17,6 +19,7 @@ RSpec.describe 'Session API', type: :request do
 
       end
 
+      #EXPECTED ERRORS
       it "should return an error if session creation unsuccessful" do
         session_hash = attributes_for(:session)
         session_hash[:name] = ""
@@ -27,6 +30,8 @@ RSpec.describe 'Session API', type: :request do
   end
 
   describe '/sessions' do
+
+    #INDEX
     it 'should return a session json containing an array of sessions that belong to the instructor' do
       user = create(:instructor_with_courses_with_sessions)
       get '/sessions', token: user.token, course_id: user.courses.first.id
@@ -58,7 +63,7 @@ RSpec.describe 'Session API', type: :request do
     end
   end
 
-  
+  #SHOW
   describe '/sessions/#id' do
     it 'should return a session json containing an array of sessions that belong to the instructor' do
       user = create(:instructor_with_courses_with_sessions)
@@ -88,5 +93,40 @@ RSpec.describe 'Session API', type: :request do
     end
   end
 
+  #UPDATE
+  describe '/sessions/#id/update' do
+
+    xit 'should update the session corresponding to #id' do
+      #IMPLEMENT
+      
+      put "/sessions/#{number}/update"
+
+    end
+
+  end 
+
+  #DELETE
+  describe '/sessions/#id' do
+
+    xit 'should delete the session corresponding to #id' do
+      #IMPLEMENT
+      
+      delete "/sessions/#{number}"
+
+    end
+
+  end 
+
+  #ACTIVATE
+  describe '/sessions/#id/activate' do
+
+    xit 'should active the session corresponding to #id' do
+      #IMPLEMENT
+      
+      put "/sessions/#{number}/activate"
+
+    end
+
+  end
   
 end

@@ -214,5 +214,102 @@ RSpec.describe 'Answer API', type: :request do
 
   end
 
+   #UPDATE
+  describe '/answers/#id' do
+
+
+    xit 'should update the mc_answer corresponding to #id, for a given question_id ' do
+      #IMPLEMENT
+      user = create(:student_with_mcA)
+      course = user.courses.first
+      session = course.sessions.first
+      question = session.questions.first
+      answer = question.answers.first
+      number = answer.id
+      put "/answers/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id
+
+
+      body = JSON.parse(response.body)
+      data = body['data']
+      a = data['answer']
+
+      expect(a['name']).to eql(answer.name)
+      expect(a['correct']).to eql(answer.correct)
+      expect(a['order']).to eql(answer.order)
+    end
+
+    xit 'should update the sa_answer corresponding to #id, for a given question_id ' do
+      #IMPLEMENT
+      user = create(:student_with_saA)
+      course = user.courses.first
+      session = course.sessions.first
+      question = session.questions.first
+      answer = question.answers.first
+      number = answer.id
+      put "/answers/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id
+
+
+      body = JSON.parse(response.body)
+      data = body['data']
+      a = data['answer']
+
+      expect(a['name']).to eql(answer.name)
+    end
+
+    xit 'should update the num_answer corresponding to #id, for a given question_id ' do
+      #IMPLEMENT
+      user = create(:student_with_numA)
+      course = user.courses.first
+      session = course.sessions.first
+      question = session.questions.first
+      answer = question.answers.first
+      number = answer.id
+      put "/answers/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id
+
+
+      body = JSON.parse(response.body)
+      data = body['data']
+      a = data['answer']
+
+      expect(a['num']).to eql(answer.num)
+    end
+
+    it 'should la no answer' do
+      #nothing
+    end
+
+  end 
+
+  #DELETE
+  describe '/answers/#id' do
+
+
+    xit 'should MC question delete' do
+      #IMPLEMENT
+      
+      delete "/answers/#{number}"
+
+    end
+
+    xit 'should SA question delete' do
+      #IMPLEMENT
+      
+      delete "/answers/#{number}"
+
+    end
+
+    xit 'should NUM question delete' do
+      #IMPLEMENT
+      
+      delete "/answers/#{number}"
+
+    end
+
+    it 'should no LA to delete answer' do
+      #nothing
+    end
+
+  end 
+
 end
 

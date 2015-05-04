@@ -7,6 +7,7 @@ RSpec.describe 'Course API', type: :request do
       @instructor = create :instructor
     end
 
+    #CREATE EXPECTED SUCCESS
     it "should return a course json if creation successful" do
       post '/courses', attributes_for(:course).merge(token: @instructor.token)
 
@@ -20,6 +21,7 @@ RSpec.describe 'Course API', type: :request do
       expect(JSON.parse(response.body)["data"]["course"]).to include("id")
     end
 
+    #EXPECTED ERRORS
     it "should return an error if course creation unsuccessful" do
       course_hash = attributes_for(:course)
       course_hash[:name] = ""
@@ -29,6 +31,7 @@ RSpec.describe 'Course API', type: :request do
 
   end
 
+  # INDEX
   describe '/courses' do
 
     it 'should return an array of courses that belong to the instructor' do
@@ -57,6 +60,7 @@ RSpec.describe 'Course API', type: :request do
       expect(course['start']).to eql(user.courses.first.start.to_s)
     end
 
+    #Empty Array Tests
     it 'should return an empty array if instructor does not have any courses' do
       user = create(:instructor)
       get '/courses', token: user.token   
@@ -77,6 +81,7 @@ RSpec.describe 'Course API', type: :request do
 
   end
 
+  #SHOW
   describe '/courses/#id' do
     it 'should return the course which has the #id and which the student has access rights to' do
       user = create(:student_with_courses)
@@ -104,5 +109,30 @@ RSpec.describe 'Course API', type: :request do
 
   end
 
+  #UPDATE
+  describe '/courses/#id' do
+
+    xit 'should update the course corresponding to #id' do
+      #IMPLEMENT
+      
+      put "/courses/#{number}"
+
+    end
+
+  end 
+
+  #DELETE
+  describe '/courses/#id' do
+
+    xit 'should delete the course corresponding to #id' do
+      #IMPLEMENT
+      
+      delete "/courses/#{number}"
+
+    end
+
+  end 
+
 end
+
 

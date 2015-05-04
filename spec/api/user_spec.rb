@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe 'User API', type: :request do 
 
   describe "/signup" do
+
+    #CREATE EXPECTED SUCCESS
     it "should return a user token json if signup successful" do
       post '/signup', attributes_for(:user_with_password_confirmation).merge(attributes_for(:student))
 
@@ -18,6 +20,7 @@ RSpec.describe 'User API', type: :request do
       expect(JSON.parse(response.body)["data"]["user"]).to include("token")
     end
 
+    #EXPECTED ERRORS
     it "should return an error if signup unsuccessful" do
       user_hash = attributes_for(:user_with_password_confirmation).merge(attributes_for(:student))
       user_hash[:email] = ""
@@ -28,6 +31,8 @@ RSpec.describe 'User API', type: :request do
   end
 
   describe '/login' do
+
+    #CREATE EXPECTED SUCCESS
     it 'should return a user token json if login successful' do
       user = create(:student)
       post '/login', attributes_for(:user).extract!(:email, :password)
@@ -44,6 +49,7 @@ RSpec.describe 'User API', type: :request do
       expect(JSON.parse(response.body)["data"]["user"]).to include("trial")
     end
 
+  #EXPECTED ERRORS
     it 'should return an error if login unsuccessful' do
       allow(User).to receive(:find_by_email) { nil }
       post '/login', attributes_for(:user).extract!(:email, :password)
@@ -53,6 +59,8 @@ RSpec.describe 'User API', type: :request do
   end
 
   describe 'signup and login' do
+
+    #CREATE EXPECTED SUCCESS
     it 'should return the same token' do
       user_hash = attributes_for(:user_with_password_confirmation).merge(attributes_for(:student))
       post '/signup', user_hash
@@ -64,6 +72,7 @@ RSpec.describe 'User API', type: :request do
     end
   end
 
+  #SHOW
   describe '/user' do
     it 'should return a student user json if given valid token' do
       user = create(:student)

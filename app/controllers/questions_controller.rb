@@ -29,6 +29,15 @@ class QuestionsController < ApplicationController
 
   end
 
+  #show all
+  def index
+    @user = User.find_by_token(params[:token])
+    @course = @user.courses.find(params[:course_id])
+    @session = @course.sessions.find(params[:session_id])
+    @questions = @session.questions
+
+    render 'questions/index'
+  end
 
   def update
     @user = User.find_by_token(params[:token])
@@ -54,14 +63,17 @@ class QuestionsController < ApplicationController
   end
 
 
-  #show all
-  def index
+  def activate
     @user = User.find_by_token(params[:token])
-    @course = @user.courses.find(params[:course_id])
-    @session = @course.sessions.find(params[:session_id])
-    @questions = @session.questions
+    @question = @user.questions.find(params[:id])
+    @question.assign_attributes(params.permit(:order))
 
-    render 'questions/index'
+    if @question.save
+      render 'questions/show'
+    else
+      @message = "Failed to activate a question"
+      render nothing: true, layout: 'failure'
+    end
   end
 
 end
