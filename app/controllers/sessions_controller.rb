@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 	def create
     @session = Session.new(name: params[:name], date: params[:date], course_id: params[:course_id])
-    
+
     if @session.save
       render 'sessions/create'
     else

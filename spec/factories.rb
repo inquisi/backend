@@ -49,7 +49,7 @@ FactoryGirl.define do
     name        "Test"
     #active      true
     session_id  "1"
-
+    order       1
   end
 
   factory :mc, class: MC, parent: :question do
