@@ -9,20 +9,23 @@ FactoryGirl.define do
     finish     "05/06/2015"
     students    []
     instructors []
-    sessions    []  #Is this needed??
+    # sessions    []  #Is this needed??
   end
 
   factory :session do
     name        "today"
     date        "05/03/2015"
     course_id   "1"
-    questions    [] #Is this needed??
+    active      true
+    # questions    [] #Is this needed??
   end
 
+  #Start of Questions
   factory :question do
     name        "Test"
     session_id  "1"
-    answers     []  #Is this needed??
+    active      true
+    # answers     []  #Is this needed??
   end
 
   factory :mc, class: MC, parent: :question do
@@ -40,55 +43,58 @@ FactoryGirl.define do
   factory :num, class: NUM, parent: :question do
     category        "NUM"
   end
+  #Start of Questions
 
+  #Start of Answers
   factory :answer do
-
     question_id    "1"
-
-    factory :mcA, class: McAnswer do
-      name         "test"
-      correct      true
-      order        "1"
-    end
-
-    factory :saA, class: SaAnswer do
-      name         "test"
-    end
-
-    factory :numA, class: NumAnswer do
-      num          1
-    end
-
-    #Does not exist
-    # factory :laA, class: LaAnswer do
-    # end
-
   end
 
-  factory :response do
+  factory :mcA, class: McAnswer, parent: :answer do
+    name         "test"
+    correct      true
+    order        "2"
+  end
 
+  factory :saA, class: SaAnswer, parent: :answer do
+    name         "test"
+  end
+
+  factory :numA, class: NumAnswer, parent: :answer do
+    num          1
+  end
+
+  #Does not exist
+  # factory :laA, class: LaAnswer, parent: :answer do
+  # end
+
+  #End of Answers
+
+  #Start of Responses
+  factory :response do
     user_id        "1"
 
-    factory :mcR, class: McResponse do
-      mc_answer_id "1"
-    end
-
-    factory :saR, class: SaResponse do
-      name         "Test"
-      sa_answer_id "1"
-    end
-
-    factory :numR, class: NumResponse do
-      num_answer_id "1"
-      num           1
-    end
-
-    factory :laR, class: LaResponse do
-      name          "Test"
-      user_id       "1"
-    end
-
   end
+
+  factory :mcR, class: McResponse, parent: :response do
+    mc_answer_id    "1"
+  end
+
+  factory :saR, class: SaResponse, parent: :response do
+    name         "Test"
+    sa_answer_id "1"
+  end
+
+  factory :numR, class: NumResponse, parent: :response do
+    num_answer_id "1"
+    num           1
+  end
+
+  factory :laR, class: LaResponse, parent: :response do
+    name          "Test"
+    user_id       "1"
+  end
+  #End of Responses
 
   factory :organization do
     name        "Inquisi"
@@ -253,7 +259,7 @@ FactoryGirl.define do
         sessions = [create(:session, course_id: "#{courses.first.id}")]
         questions = [create(:mc, session_id: "#{sessions.first.id}")]
         answers = [create(:mcA, question_id: "#{questions.first.id}")]
-        responses = [create(:mcR, answer_id: "#{answers.first.id}")]
+        responses = [create(:mcR, mc_answer_id: "#{answers.first.id}")]
         
         answers.first.responses = responses
         questions.first.answers = answers        
@@ -270,7 +276,7 @@ FactoryGirl.define do
         sessions = [create(:session, course_id: "#{courses.first.id}")]
         questions = [create(:sa, session_id: "#{sessions.first.id}")]
         answers = [create(:saA, question_id: "#{questions.first.id}")]
-        responses = [create(:saR, answer_id: "#{answers.first.id}")]
+        responses = [create(:saR, sa_answer_id: "#{answers.first.id}")]
         
         answers.first.responses = responses
         questions.first.answers = answers
@@ -287,7 +293,7 @@ FactoryGirl.define do
         sessions = [create(:session, course_id: "#{courses.first.id}")]
         questions = [create(:num, session_id: "#{sessions.first.id}")]
         answers = [create(:numA, question_id: "#{questions.first.id}")]
-        responses = [create(:numR, answer_id: "#{answers.first.id}")]
+        responses = [create(:numR, num_answer_id: "#{answers.first.id}")]
         
         answers.first.responses = responses
         questions.first.answers = answers
@@ -304,7 +310,7 @@ FactoryGirl.define do
         courses = [create(:course, students: [student])]
         sessions = [create(:session, course_id: "#{courses.first.id}")]
         questions = [create(:la, session_id: "#{sessions.first.id}")]
-        responses = [create(:LaR, question_id: "#{questions.first.id}")]
+        responses = [create(:laR, question_id: "#{questions.first.id}")]
  
         questions.first.responses = responses
         sessions.first.questions = questions
@@ -346,6 +352,7 @@ FactoryGirl.define do
         sessions = [create(:session, course_id: "#{courses.first.id}")]
         questions = [create(:mc, session_id: "#{sessions.first.id}")]
         
+        sessions.first.questions = questions
         courses.first.sessions = sessions
         instructor.courses = courses
       end

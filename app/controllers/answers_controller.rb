@@ -2,7 +2,8 @@ class AnswersController < ApplicationController
 
 	def create
 
-		if ("MC" == Question.find_by_id(params[:question_id]))
+		@question = Question.find_by_id(params[:question_id])
+		if ("MC" == @question.category)
 		    @answer = McAnswer.new(name: params[:name], correct: params[:correct], order: params[:order], question_id: params[:question_id])
 			if @answer.save
 				render 'answers/create'
@@ -11,7 +12,7 @@ class AnswersController < ApplicationController
 				render nothing: true, layout: 'failure'
 			end
 
-	    elsif ("SA" == Question.find_by_id(params[:question_id]))
+	    elsif ("SA" == @question.category)
 	    	@answer = SaAnswer.new(name: params[:name], question_id: params[:question_id])
 
 			if @answer.save
@@ -21,7 +22,7 @@ class AnswersController < ApplicationController
 				render nothing: true, layout: 'failure'
 			end
 
-	    elsif ("NUM" == Question.find_by_id(params[:question_id]))
+	    elsif ("NUM" == @question.category)
 	    	@answer = NumAnswer.new(num: params[:num], question_id: params[:question_id])
 
 			if @answer.save
@@ -31,7 +32,7 @@ class AnswersController < ApplicationController
 				render nothing: true, layout: 'failure'
 			end
 
-	    elsif ("LA" == Question.find_by_id(params[:question_id]))
+	    elsif ("LA" == @question.category)
 	    	#do nothing
 
 	    else 
@@ -43,48 +44,50 @@ class AnswersController < ApplicationController
 
   	def show
 
-	    if ("MC" == Question.find_by_id(params[:question_id]))
+  		@question = Question.find_by_id(params[:question_id])
+	    if ("MC" == @question.category)
 		    @user = User.find_by_token(params[:token])
 		    @course = @user.courses.find(params[:course_id])
 		    @session = @course.sessions.find(params[:session_id])
 		    @question = @session.questions.find(params[:question_id])
-		    @mc_answer = @question.mc_answers.find(params[:id])
+		    @answer = @question.answers.find(params[:id])
 
-		    if(@question.present? )
+		    if(@answer.present? )
 		      render 'answers/show'
 		    else
 		      @message = "No Courses"
 		      render nothing: true, layout: 'failure'
 		    end
-	    elsif ("SA" == Question.find_by_id(params[:question_id]))
+
+	    elsif ("SA" == @question.category)
 	    	@user = User.find_by_token(params[:token])
 		    @course = @user.courses.find(params[:course_id])
 		    @session = @course.sessions.find(params[:session_id])
 		    @question = @session.questions.find(params[:question_id])
-		    @sa_answer = @question.sa_answers.find(params[:id])
+		    @answer = @question.answers.find(params[:id])
 
-		    if(@sa_answer.present? )
+		    if(@answer.present? )
 		      render 'answers/show'
 		    else
 		      @message = "No Courses"
 		      render nothing: true, layout: 'failure'
 		    end
 
-	    elsif ("NUM" == Question.find_by_id(params[:question_id]))
+	    elsif ("NUM" == @question.category)
 	    	@user = User.find_by_token(params[:token])
 		    @course = @user.courses.find(params[:course_id])
 		    @session = @course.sessions.find(params[:session_id])
 		    @question = @session.questions.find(params[:question_id])
-		    @num_answer = @question.num_answers.find(params[:id])
+		    @answer = @question.answers.find(params[:id])
 
-		    if(@num_answer.present? )
+		    if(@answer.present? )
 		      render 'answers/show'
 		    else
 		      @message = "No Courses"
 		      render nothing: true, layout: 'failure'
 		    end
 
-	    elsif ("LA" == Question.find_by_id(params[:question_id]))
+	    elsif ("LA" == @question.category)
 	    	#do nothing
 
 	    else 
@@ -97,49 +100,50 @@ class AnswersController < ApplicationController
   	#show all
   	def index
   		
-  		if ("MC" == Question.find_by_id(params[:question_id]))
+  		@question = Question.find_by_id(params[:question_id])
+  		if ("MC" == @question.category)
 		    @user = User.find_by_token(params[:token])
 		    @course = @user.courses.find(params[:course_id])
 		    @session = @course.sessions.find(params[:session_id])
 		    @question = @session.questions.find(params[:question_id])
-		    @mc_answers = @question.mc_answers
+		    @answers = @question.answers
 
-		    if(@mc_answers.present? )
+		    if(@answers.present? )
 		      render 'answers/index'
 		    else
 		      @message = "No Courses"
 		      render nothing: true, layout: 'failure'
 	    	end
 
-	    elsif ("SA" == Question.find_by_id(params[:question_id]))
+	    elsif ("SA" == @question.category)
 	    	@user = User.find_by_token(params[:token])
 		    @course = @user.courses.find(params[:course_id])
 		    @session = @course.sessions.find(params[:session_id])
 		    @question = @session.questions.find(params[:question_id])
-		    @sa_answers = @question.sa_answers
+		    @answers = @question.answers
 
-		    if(@sa_answers.present? )
+		    if(@answers.present? )
 		      render 'answers/index'
 		    else
 		      @message = "No Courses"
 		      render nothing: true, layout: 'failure'
 		    end
 
-	    elsif ("NUM" == Question.find_by_id(params[:question_id]))
+	    elsif ("NUM" == @question.category)
 	    	@user = User.find_by_token(params[:token])
 		    @course = @user.courses.find(params[:course_id])
 		    @session = @course.sessions.find(params[:session_id])
 		    @question = @session.questions.find(params[:question_id])
-		    @num_answers = @question.num_answers
+		    @answers = @question.answers
 
-		    if(@num_answers.present? )
+		    if(@answers.present? )
 		      render 'answers/index'
 		    else
 		      @message = "No Courses"
 		      render nothing: true, layout: 'failure'
 		    end
 
-	    elsif ("LA" == Question.find_by_id(params[:question_id]))
+	    elsif ("LA" == @question.category)
 	    	#do nothing
 
 	    else 

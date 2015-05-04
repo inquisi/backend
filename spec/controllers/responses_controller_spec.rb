@@ -2,28 +2,44 @@ require 'rails_helper'
 
 RSpec.describe ResponsesController, type: :controller do
 	describe "create" do
-	    it "should sa response record" do
-	      	# attributes_for returns a hash of values as they're defined in factories.rb
+		it "should mc response record" do
+			student = create :student_with_mcR
+	    	course = student.courses.first
+	    	session = course.sessions.first
+	    	question = session.questions.first
+	    	answer = question.answers.first
 	      	expect {
-	     	   post :create , attributes_for(:saR)
+	   			post :create , attributes_for(:mcR, mc_answer_id: answer.id, question_id: question.id)
+	   		}.to change(McResponse, :count).by(1)
+	    end
+	    it "should sa response record" do
+	    	student = create :student_with_saR
+	    	course = student.courses.first
+	    	session = course.sessions.first
+	    	question = session.questions.first
+	    	answer = question.answers.first
+	      	expect {
+	     	   post :create , attributes_for(:saR, sa_answer_id: answer.id, question_id: question.id)
 	      	}.to change(SaResponse, :count).by(1)
 	    end
 	    it "should num response record" do
-	      	# attributes_for returns a hash of values as they're defined in factories.rb
+	    	student = create :student_with_numR
+	    	course = student.courses.first
+	    	session = course.sessions.first
+	    	question = session.questions.first
+	    	answer = question.answers.first
 	      	expect {
-	     	   post :create , attributes_for(:numR)
+	     	   post :create , attributes_for(:numR, num_answer_id: answer.id, question_id: question.id)
 	      	}.to change(NumResponse, :count).by(1)
 	    end
-	    it "should mc response record" do
-	   		# attributes_for returns a hash of values as they're defined in factories.rb
-	   		expect {
-	   			post :create , attributes_for(:mcR)
-	   		}.to change(McResponse, :count).by(1)
-	    end
+	    
 	    it "should la response record" do
-	      	# attributes_for returns a hash of values as they're defined in factories.rb
+	    	student = create :student_with_laR
+	    	course = student.courses.first
+	    	session = course.sessions.first
+	    	question = session.questions.first
 	      	expect {
-	     	   post :create , attributes_for(:laR)
+	     	   post :create , attributes_for(:laR, question_id: question.id)
 	      	}.to change(LaResponse, :count).by(1)
 	    end
 

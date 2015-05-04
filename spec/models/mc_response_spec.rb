@@ -6,7 +6,7 @@ RSpec.describe McResponse, type: :model do
 	    expect(response.save).to be false
 	end
 
-		it "should require a user_id" do
+	it "should require a user_id" do
 	    response = build(:mcR, user_id: nil)
 	    expect(response.save).to be false
 	end

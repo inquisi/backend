@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'User API', type: :request do
+RSpec.describe 'User API', type: :request do 
 
   describe "/signup" do
     it "should return a user token json if signup successful" do

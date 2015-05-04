@@ -1,6 +1,6 @@
 class SaAnswer < ActiveRecord::Base
-	belongs_to 	:SA_question
-	has_many	:sa_responses
+	belongs_to 	:Sa
+	has_many	:responses, class_name: "SaResponse"
 
 	
 	validates 	:name,			presence: true

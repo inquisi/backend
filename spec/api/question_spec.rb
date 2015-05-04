@@ -87,7 +87,7 @@ RSpec.describe 'Question API', type: :request do
 
   describe "/questions" do
       it 'should return a question json containing an array of questions that belong to the instructor' do
-      user = create(:instructor_with_questions)
+      user = create(:instructor_with_courses_with_sessions_with_questions)
       get '/questions', token: user.token, course_id: user.courses.first.id, session_id: user.courses.first.sessions.first.id
 
       body = JSON.parse(response.body)
@@ -128,7 +128,7 @@ RSpec.describe 'Question API', type: :request do
 
   describe "/questions/#id" do
     it 'should return a question json containing a question that belong to the instructor' do
-      user = create(:instructor_with_questions)
+      user = create(:instructor_with_courses_with_sessions_with_questions)
       course = user.courses.first
       session = course.sessions.first
       first_question = user.courses.first.sessions.first.questions.first

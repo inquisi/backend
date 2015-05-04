@@ -1,3 +1,3 @@
 class MC < Question
-	has_many :mc_answers , foreign_key: :question_id
+	has_many :answers, class_name: "McAnswer" , foreign_key: :question_id
 end

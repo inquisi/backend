@@ -1,17 +1,17 @@
 json.question_id 		question.id
 
 if question.category == "MC"
-	json.name	 mc_answer.name
-	json.correct mc_answer.correct
-	json.order	 mc_answer.order
+	json.name	 answer.name
+	json.correct answer.correct
+	json.order	 answer.order
 end
 
 if question.category == "SA"
-	json.name	 sa_answer.name
+	json.name	 answer.name
 end
 
 if question.category == "NUM"
-	json.num	 num_answer.num
+	json.num	 answer.num
 
 end
 

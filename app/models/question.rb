@@ -1,6 +1,6 @@
 class Question < ActiveRecord::Base
 	belongs_to 	:session
-	self.inheritance_column = 'category' #currently category
+	self.inheritance_column = 'category' 
 	
 	#Validates
 	validates 	:name,			 presence: true
