@@ -14,6 +14,11 @@ RSpec.describe Question, type: :model do
     expect(question.save).to be false
   end
 
+  it "should require an active" do
+    question = build(:mc, active: "")
+    expect(question.save).to be false
+  end
+
   it "should require a session_id" do
     question = build(:mc, session_id: "")
     expect(question.save).to be false

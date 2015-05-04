@@ -13,6 +13,11 @@ RSpec.describe Session, type: :model do
     expect(session.save).to be false
   end
 
+  it "should require an active" do
+    question = build(:session, active: "")
+    expect(question.save).to be false
+  end
+
   it "should require a course_id" do
     session = build(:session, course_id: "")
     expect(session.save).to be false

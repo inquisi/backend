@@ -20,13 +20,6 @@ RSpec.describe 'Question API', type: :request do
         expect(JSON.parse(response.body)["data"]["question"]).to include("id")
       end
 
-      it "should return an error if question creation unsuccessful" do
-        question_hash = attributes_for(:mc)
-        question_hash[:name] = ""
-        post '/questions', question_hash.merge!({session_id: @session.id})
-        expect(response.body).to eql({status: 'failure', message: 'Failed to create a question', data: {}}.to_json)
-      end
-      
       it "should return a SA question confirm json if creation successful" do
         post '/questions', attributes_for(:sa).merge!({session_id: @session.id})
 
@@ -40,13 +33,6 @@ RSpec.describe 'Question API', type: :request do
 
       end
 
-      it "should return an error if SA question creation unsuccessful" do
-        question_hash = attributes_for(:sa).merge!({session_id: @session.id})
-        question_hash[:name] = ""
-        post '/questions', question_hash
-        expect(response.body).to eql({status: 'failure', message: 'Failed to create a question', data: {}}.to_json)
-      end
-
       it "should return a NUM question confirm json if creation successful" do
         post '/questions', attributes_for(:num).merge!({session_id: @session.id})
 
@@ -58,14 +44,7 @@ RSpec.describe 'Question API', type: :request do
         expect(JSON.parse(response.body)["data"]["question"]).to include("category")
         expect(JSON.parse(response.body)["data"]["question"]).to include("id")
 
-      end
-
-      it "should return an error if NUM question creation unsuccessful" do
-        question_hash = attributes_for(:num).merge!({session_id: @session.id})
-        question_hash[:name] = ""
-        post '/questions', question_hash
-        expect(response.body).to eql({status: 'failure', message: 'Failed to create a question', data: {}}.to_json)
-      end
+      end      
 
       it "should return a LA question confirm json if creation successful" do
         post '/questions', attributes_for(:la).merge!({session_id: @session.id})
@@ -78,6 +57,28 @@ RSpec.describe 'Question API', type: :request do
         expect(JSON.parse(response.body)["data"]["question"]).to include("category")
         expect(JSON.parse(response.body)["data"]["question"]).to include("id")
 
+      end
+
+
+      it "should return an error if mc question creation unsuccessful" do
+        question_hash = attributes_for(:mc)
+        question_hash[:name] = ""
+        post '/questions', question_hash.merge!({session_id: @session.id})
+        expect(response.body).to eql({status: 'failure', message: 'Failed to create a question', data: {}}.to_json)
+      end
+
+      it "should return an error if SA question creation unsuccessful" do
+        question_hash = attributes_for(:sa).merge!({session_id: @session.id})
+        question_hash[:name] = ""
+        post '/questions', question_hash
+        expect(response.body).to eql({status: 'failure', message: 'Failed to create a question', data: {}}.to_json)
+      end
+
+      it "should return an error if NUM question creation unsuccessful" do
+        question_hash = attributes_for(:num).merge!({session_id: @session.id})
+        question_hash[:name] = ""
+        post '/questions', question_hash
+        expect(response.body).to eql({status: 'failure', message: 'Failed to create a question', data: {}}.to_json)
       end
 
       it "should return an error if LA question creation unsuccessful" do
@@ -102,6 +103,7 @@ RSpec.describe 'Question API', type: :request do
 
       expect(question['name']).to eql('hello world')
     end
+
   end
 
   describe "/delete" do
@@ -126,6 +128,7 @@ RSpec.describe 'Question API', type: :request do
       
       expect(User.first.responses.length).to eql(0)
     end
+
   end
 
   describe "/questions" do
@@ -167,6 +170,7 @@ RSpec.describe 'Question API', type: :request do
 
       expect(questions.length).to eql(0)
     end
+    
   end
 
   describe "/questions/#id" do
