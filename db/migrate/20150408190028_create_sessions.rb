@@ -1,7 +1,7 @@
 class CreateSessions < ActiveRecord::Migration
   def change
     create_table :sessions do |t|
-    	t.boolean		:active
+    	t.boolean		:active, default: false
       	t.string 		:name
       	t.date 			:date
       	t.belongs_to 	:course,	index: true

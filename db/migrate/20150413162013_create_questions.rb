@@ -1,7 +1,7 @@
 class CreateQuestions < ActiveRecord::Migration
   def change
     create_table :questions do |t|
-        t.boolean 	:active
+        t.boolean 	:active, default: false
         #FOR STI
         t.string    :category
 
