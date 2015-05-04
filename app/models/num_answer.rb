@@ -1,6 +1,6 @@
 class NumAnswer < ActiveRecord::Base
-	belongs_to 	:NUM_question
-	has_many	:num_responses
+	belongs_to 	:Num
+	has_many	:responses, class_name: "NumResponse"
 
 	
 	validates 	:num,			presence: true

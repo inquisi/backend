@@ -1,5 +1,5 @@
 class SaResponse < ActiveRecord::Base
-	belongs_to 		:sa_answer
+	belongs_to 		:answer, class_name: "SaAnswer"
 	belongs_to 		:user
 
 	validates	:name,				presence: true

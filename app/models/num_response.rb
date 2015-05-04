@@ -1,5 +1,5 @@
 class NumResponse < ActiveRecord::Base
-	belongs_to 		:num_answer
+	belongs_to 		:answer, class_name: "NumAnswer"
 	belongs_to 		:user
 
 	validates	:num,				presence: true

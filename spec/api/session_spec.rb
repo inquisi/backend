@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Session API', type: :request do
-  # render_views
-
-
 
   describe "/create" do
       it "should return a session confirm json if creation successful" do
@@ -26,15 +23,6 @@ RSpec.describe 'Session API', type: :request do
         expect(response.body).to eql({status: 'failure', message: 'Failed to create a session', data: {}}.to_json)
       end
     
-  end
-
-
-
-  #Return all students in session (Attendence) -> Other way??
-  describe '' do
-    it 'should ' do
-      
-    end
   end
 
   describe '/sessions' do
@@ -95,9 +83,6 @@ RSpec.describe 'Session API', type: :request do
       
     end
   end
-
-
-
 
   
 end

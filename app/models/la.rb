@@ -1,3 +1,3 @@
 class LA < Question
-	has_many :la_responses, foreign_key: :question_id
+	has_many :responses, class_name: "LaResponse", foreign_key: :question_id
 end
