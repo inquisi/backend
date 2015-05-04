@@ -5,7 +5,6 @@ class Question < ActiveRecord::Base
 
 
 	#Validates
-	validates 	:active, inclusion: { in: [true, false] }
 	validates 	:name,			 presence: true
 	validates 	:session_id, 	 presence: true
 	validates 	:category, inclusion: { in: ['MC', 'SA', 'LA', 'NUM'], message: "is required."}
