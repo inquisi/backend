@@ -6,8 +6,14 @@ require 'rails_helper'
   
 
 RSpec.describe 'Response API', type: :request do
+	before :each do
+		Timecop.freeze(Time.local(1990))
+	end
 
-
+	after do
+	    Timecop.return
+	end
+	
 	describe "/create" do
 
 		#EXPECTED SUCCESSES
