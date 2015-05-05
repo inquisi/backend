@@ -1,12 +1,17 @@
 class CoursesController < ApplicationController
 
   def create
+    @user = Instructor.find_by_token(params[:token])
+    if !@user.present?
+      @message = "Instructor authentication error"
+      render nothing: true, layout: 'failure'
+      return
+    end
 
-    @user = User.find_by_token(params[:token])
-    @course = Course.new(name: params[:name], start: params[:start], finish: params[:finish])
+    @course = @user.courses.new(name: params[:name], start: params[:start], finish: params[:finish])
+    @course.instructors << @user
 
     if @course.save
-      @user.courses << @course
       render 'courses/create'
     else
       @message = "The course was not created"

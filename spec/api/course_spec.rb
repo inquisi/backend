@@ -5,6 +5,7 @@ RSpec.describe 'Course API', type: :request do
   describe "/create" do
     before :each do
       @instructor = create :instructor
+      @student = create :student, email: "student@gmail.com"
     end
 
     #CREATE EXPECTED SUCCESS
@@ -19,15 +20,21 @@ RSpec.describe 'Course API', type: :request do
       expect(JSON.parse(response.body)["data"]["course"]).to include("start")
       expect(JSON.parse(response.body)["data"]["course"]).to include("finish")
       expect(JSON.parse(response.body)["data"]["course"]).to include("id")
+      expect(JSON.parse(response.body)["data"]["course"]).to include("instructor")
       expect(JSON.parse(response.body)["data"]["course"]).to include("enrollment_token")
     end
 
     #EXPECTED ERRORS
     it "should return an error if course creation unsuccessful" do
-      course_hash = attributes_for(:course)
+      course_hash = attributes_for(:course, token: @instructor.token)
       course_hash[:name] = ""
       post '/courses', course_hash
       expect(response.body).to eql({status: 'failure', message: 'The course was not created', data: {}}.to_json)
+    end
+
+    it "should not allow a student to create a course" do
+      post '/courses', attributes_for(:course).merge(token: @student.token)
+      expect(response.body).to eql({status: 'failure', message: 'Instructor authentication error', data: {}}.to_json)
     end
 
   end
@@ -79,7 +86,6 @@ RSpec.describe 'Course API', type: :request do
       courses = body['data']
       expect(courses.length).to eql(0)
     end
-
   end
 
   #SHOW
@@ -156,7 +162,8 @@ RSpec.describe 'Course API', type: :request do
         name: @course.name,
         start: @course.start.to_s,
         finish: @course.finish.to_s,
-        id: @course.id
+        id: @course.id,
+        instructor: @instructor1.name
       }
       post '/courses/enroll', {token: @student.token, enrollment_token: @course.enrollment_token}
 

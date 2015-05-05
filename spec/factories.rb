@@ -8,8 +8,12 @@ FactoryGirl.define do
     start      "04/05/1993"
     finish     "05/06/2015"
     students    []
-    instructors []
     # sessions    []  #Is this needed??
+    after :build do |course|
+      if(course.instructors.length == 0)
+        course.instructors = [create(:instructor, email: "courseInstructor@gmail.com", first_name: "Course", last_name: "Instructor")]
+      end
+    end
   end
 
   factory :session do

@@ -6,6 +6,7 @@ class Course < ActiveRecord::Base
 	has_and_belongs_to_many :instructors, association_foreign_key: :user_id
 
 	validates :name, :start, :finish, presence: true
+	validates :instructors, length: { minimum: 1 }
 
 	before_save :generate_enrollment_token
 

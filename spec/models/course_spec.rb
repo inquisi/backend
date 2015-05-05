@@ -16,6 +16,12 @@ RSpec.describe Course, type: :model do
     course = build(:course, finish: "")
     expect(course.save).to be false
   end
+
+  it "should require an instructor" do
+    course = build(:course)
+    course.instructors = []
+    expect(course.save).to eql(false)
+  end
   
   it "should generate a 6 digit enrollment token when it's saved" do
     course = build(:course)
