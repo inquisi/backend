@@ -19,6 +19,7 @@ RSpec.describe 'Course API', type: :request do
       expect(JSON.parse(response.body)["data"]["course"]).to include("start")
       expect(JSON.parse(response.body)["data"]["course"]).to include("finish")
       expect(JSON.parse(response.body)["data"]["course"]).to include("id")
+      expect(JSON.parse(response.body)["data"]["course"]).to include("enrollment_token")
     end
 
     #EXPECTED ERRORS
@@ -93,6 +94,7 @@ RSpec.describe 'Course API', type: :request do
       
       expect(course['name']).to eql(user.courses.first.name)
       expect(course['start']).to eql(user.courses.first.start.to_s)
+      expect(course['enrollment_token']).to be_nil
     end
 
     it 'should return the course which has the #id and which the instructor has access rights to' do
@@ -105,6 +107,7 @@ RSpec.describe 'Course API', type: :request do
       
       expect(course['name']).to eql(user.courses.first.name)
       expect(course['start']).to eql(user.courses.first.start.to_s)
+      expect(course['enrollment_token']).not_to be_nil
     end
 
   end
@@ -131,7 +134,46 @@ RSpec.describe 'Course API', type: :request do
 
     end
 
-  end 
+  end
+
+  describe "/courses/enroll" do
+    before :each do
+      @instructor1 = create(:instructor_with_courses, email: "jaime@gmail.com", first_name: "Jaime")
+      @instructor2 = create(:instructor_with_courses, email: "jaime2@gmail.com", first_name: "Jaime2")
+      @student = create :student
+      @course = @instructor1.courses.first
+    end
+
+    it "should return a success response containing the course a student enrolled in on success" do
+      course_hash = {
+        name: @course.name,
+        start: @course.start.to_s,
+        finish: @course.finish.to_s,
+        id: @course.id
+      }
+      post '/courses/enroll', {token: @student.token, enrollment_token: @course.enrollment_token}
+
+      body = JSON.parse(response.body).deep_symbolize_keys
+      
+      expect(body).to eql({status: "success", message: "You've been enrolled", data: {course: course_hash}})
+    end
+
+    it "should return an empty failure response when given an incorrect enrollment token" do
+      post '/courses/enroll', {token: @student.token, enrollment_token: "humbug!"}
+
+      body = JSON.parse(response.body).deep_symbolize_keys
+      
+      expect(body).to eql({status: "failure", message: "Incorrect enrollment code", data: {}})
+    end
+
+    it "should return an empty failure response when an instructor tries to enroll" do
+      post '/courses/enroll', {token: @instructor2.token, enrollment_token: @course.enrollment_token}
+
+      body = JSON.parse(response.body).deep_symbolize_keys
+      
+      expect(body).to eql({status: "failure", message: "Instructors can't enroll in courses", data: {}})
+    end
+  end
 
 end
 

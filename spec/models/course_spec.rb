@@ -17,5 +17,13 @@ RSpec.describe Course, type: :model do
     expect(course.save).to be false
   end
   
+  it "should generate a 6 digit enrollment token when it's saved" do
+    course = build(:course)
+    expect(course.enrollment_token).to be_nil
+
+    course.save!
+    expect(course.enrollment_token).to_not be_nil
+    expect(course.enrollment_token.to_s.length).to eql 6    
+  end
 end
 

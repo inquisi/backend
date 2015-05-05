@@ -40,7 +40,7 @@ class CoursesController < ApplicationController
       render nothing: true, layout: 'failure'
     end
   end
-  
+
 #NEEDS TESTS
   def delete
     if Instructor.find_by_token(params[:token]).courses.find(params[:id]).delete
@@ -58,4 +58,27 @@ class CoursesController < ApplicationController
     render 'courses/index'
   end
 
+  def enroll
+    @user = User.find_by_token(params[:token])
+
+    if(@user.role == "Instructor")
+      @message = "Instructors can't enroll in courses"
+      render nothing: true, layout: 'failure'
+      return
+    end
+
+    enrollment_token = params[:enrollment_token]
+    @course = Course.find_by_enrollment_token(enrollment_token)
+
+    if(!@course.present?)
+      @message = "Incorrect enrollment code"
+      render nothing: true, layout: 'failure'
+      return
+    end
+    
+    @course.students << @user unless @course.students.include? @user
+
+    @message = "You've been enrolled"
+    render 'courses/show', layout: 'application'
+  end
 end

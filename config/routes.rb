@@ -12,6 +12,7 @@ Backend::Application.routes.draw do
   put     'courses/:id'             => 'courses#update'   
   #^^^^^ /update if needed, Not but for consisentncy   ^^^^
   delete  'courses/:id'             => 'courses#delete'
+  post  'courses/enroll'             => 'courses#enroll'
 
   post    'sessions'                => 'sessions#create'
   get     'sessions'                => 'sessions#index'
