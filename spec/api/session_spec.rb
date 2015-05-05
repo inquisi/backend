@@ -102,7 +102,7 @@ RSpec.describe 'Session API', type: :request do
   end
 
   #UPDATE
-  describe '/sessions/#id/update' do
+  describe '/sessions/#id' do
 
     it 'should update the session corresponding to #id' do
       
@@ -110,7 +110,7 @@ RSpec.describe 'Session API', type: :request do
       course      = user.courses.first
       session     = course.sessions.first
 
-      put "/sessions/#{session.id}/update", token: user.token, name: "hello world"
+      put "/sessions/#{session.id}", token: user.token, name: "hello world"
 
       body = JSON.parse(response.body)
       s = body['data']['session']
@@ -125,9 +125,6 @@ RSpec.describe 'Session API', type: :request do
 
     xit 'should delete the session corresponding to #id' do
       #IMPLEMENT
-      
-
-
       delete "/sessions/#{number}"
 
       expect(JSON.parse(response.body)).to include("status")
@@ -146,7 +143,7 @@ RSpec.describe 'Session API', type: :request do
       course      = user.courses.first
       session     = course.sessions.first
 
-      put "/sessions/#{session.id}/activate", token: user.token, active: true
+      post "/sessions/#{session.id}/activate", token: user.token, active: true
 
       body = JSON.parse(response.body)
       s = body['data']['session']

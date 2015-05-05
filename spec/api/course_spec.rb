@@ -145,7 +145,7 @@ RSpec.describe 'Course API', type: :request do
 
   describe "/courses/enroll" do
     before :each do
-      @instructor1 = create(:instructor_with_courses, email: "jaime@gmail.com", first_name: "Jaime")
+      @instructor1 = create(:instructor_with_courses, email: "jaime1@gmail.com", first_name: "Jaime1")
       @instructor2 = create(:instructor_with_courses, email: "jaime2@gmail.com", first_name: "Jaime2")
       @student = create :student
       @course = @instructor1.courses.first

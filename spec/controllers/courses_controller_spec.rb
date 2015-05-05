@@ -15,32 +15,32 @@ RSpec.describe CoursesController, type: :controller do
 
   describe "enroll" do
   	before(:each) do
-  		@instructor1 = create(:instructor_with_courses, email: "jaime@gmail.com", first_name: "Jaime")
+  		@instructor1 = create(:instructor_with_courses, email: "jaime1@gmail.com", first_name: "Jaime1")
   		@instructor2 = create(:instructor_with_courses, email: "jaime2@gmail.com", first_name: "Jaime2")
   		@student = create :student
   	end
 
     it "should enroll a student in a course" do
-    	expect(Instructor.first.courses.first.students.length).to eql(0) 
+    	expect(Instructor.find_by_email("jaime1@gmail.com").courses.first.students.length).to eql(0) 
 
-		post :enroll, {token: @student.token, enrollment_token: @instructor1.courses.first.enrollment_token}
+  		post :enroll, {token: @student.token, enrollment_token: @instructor1.courses.first.enrollment_token}
 
-    	expect(Instructor.first.courses.first.students.length).to eql(1) 
+    	expect(Instructor.find_by_email("jaime1@gmail.com").courses.first.students.length).to eql(1) 
     end
 
     it "should not enroll an instructor" do
     	post :enroll, {token: @instructor2.token, enrollment_token: @instructor1.courses.first.enrollment_token}
 
-    	expect(Instructor.first.courses.first.students.length).to eql(0) 
+    	expect(Instructor.find_by_email("jaime1@gmail.com").courses.first.students.length).to eql(0) 
     end
 
     it "shouldnt change anything if a student enrolls twice in the same class" do
-    	expect(Instructor.first.courses.first.students.length).to eql(0) 
+    	expect(Instructor.find_by_email("jaime1@gmail.com").courses.first.students.length).to eql(0) 
 
-		post :enroll, {token: @student.token, enrollment_token: @instructor1.courses.first.enrollment_token}
-		post :enroll, {token: @student.token, enrollment_token: @instructor1.courses.first.enrollment_token}
+  		post :enroll, {token: @student.token, enrollment_token: @instructor1.courses.first.enrollment_token}
+  		post :enroll, {token: @student.token, enrollment_token: @instructor1.courses.first.enrollment_token}
     	
-    	expect(Instructor.first.courses.first.students.length).to eql(1) 
+    	expect(Instructor.find_by_email("jaime1@gmail.com").courses.first.students.length).to eql(1) 
     end
   end
 end

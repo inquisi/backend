@@ -198,14 +198,14 @@ RSpec.describe 'Question API', type: :request do
   end
 
   #UPDATE
-  describe "/questions/#id/update" do
+  describe "/questions/#id" do
     it "should update the question" do
       user = create(:instructor_with_courses_with_sessions_with_questions)
       course      = user.courses.first
       session     = course.sessions.first
       question    = session.questions.first
 
-      put "/questions/#{question.id}/update", token: user.token, name: "hello world"
+      put "/questions/#{question.id}", token: user.token, name: "hello world"
       body = JSON.parse(response.body)
       q = body['data']['question']
 
@@ -256,7 +256,7 @@ RSpec.describe 'Question API', type: :request do
 
       expect(question.active).to eql(false)
 
-      put "/questions/#{number}/activate", token: user.token, active: true
+      post "/questions/#{number}/activate", token: user.token, active: true
       body = JSON.parse(response.body)
       q = body['data']['question']
 

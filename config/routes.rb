@@ -24,8 +24,8 @@ Backend::Application.routes.draw do
   get     'sessions'                => 'sessions#index'
   get     'sessions/:id'            => 'sessions#show'         #Indivudual session
 
-  put     'sessions/:id/update'     => 'sessions#update' 
-  put     'sessions/:id/activate'   => 'sessions#activate' 
+  put     'sessions/:id'            => 'sessions#update' 
+  post    'sessions/:id/activate'   => 'sessions#activate' 
 
   delete  'sessions/:id'            => 'sessions#delete'
 
@@ -35,8 +35,8 @@ Backend::Application.routes.draw do
   get     'questions'               => 'questions#index'
   get     'questions/:id'           => 'questions#show'       #Indivudual question
 
-  put     'questions/:id/update'    => 'questions#update'       
-  put     'questions/:id/activate'  => 'questions#activate'   
+  put     'questions/:id'           => 'questions#update'       
+  post    'questions/:id/activate'  => 'questions#activate'   
 
   delete  'questions/:id'           => 'questions#delete'
 
