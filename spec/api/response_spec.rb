@@ -181,7 +181,7 @@ RSpec.describe 'Response API', type: :request do
 	   		expect(response['created_at'].to_s).to eql(sa_response.created_at.round.utc.to_s)
 		end
 
-		xit 'should return an array of num_responses that belong to the instructor' do
+		it 'should return an array of num_responses that belong to the instructor' do
 	  		user = create(:student_with_numR)
 			course = user.courses.first
 			session = course.sessions.first
@@ -194,7 +194,7 @@ RSpec.describe 'Response API', type: :request do
 			body = JSON.parse(response.body)
 			responses = body['data']
 
-			expect(responses.length.to_s).to eql(1)
+			expect(responses.length).to eql(1)
 
 			response = responses.first
 			
