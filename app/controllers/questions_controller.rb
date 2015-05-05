@@ -66,7 +66,8 @@ class QuestionsController < ApplicationController
   def activate
     @user = User.find_by_token(params[:token])
     @question = @user.questions.find(params[:id])
-    @question.assign_attributes(params.permit(:order))
+    @question.assign_attributes(params.permit(:active))
+
 
     if @question.save
       render 'questions/show'
