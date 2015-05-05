@@ -1,41 +1,58 @@
 Backend::Application.routes.draw do
+  #USERS
   post    'login'                   => 'users#login'
   post    'logout'                  => 'users#logout'
   post    'signup'                  => 'users#signup'
-  get     'user'                    => 'users#show'               #Individual User
+  get     'user'                    => 'users#show'             #Individual User
   #delete account ?? Not needed now
   delete  'user/:id'                => 'users#delete'
 
+  #COURSES
   post    'courses'                 => 'courses#create'
+  post  'courses/enroll'            => 'courses#enroll'
+
   get     'courses'                 => 'courses#index'
-  get     'courses/:id'             => 'courses#show'             #Indivudual course
+  get     'courses/:id'             => 'courses#show'  
+             #Indivudual course
   put     'courses/:id'             => 'courses#update'   
   #^^^^^ /update if needed, Not but for consisentncy   ^^^^
   delete  'courses/:id'             => 'courses#delete'
-  post  'courses/enroll'             => 'courses#enroll'
 
+  #SESSIONS
   post    'sessions'                => 'sessions#create'
+
   get     'sessions'                => 'sessions#index'
-  get     'sessions/:id'            => 'sessions#show'            #Indivudual session
+  get     'sessions/:id'            => 'sessions#show'         #Indivudual session
+
   put     'sessions/:id/update'     => 'sessions#update' 
   put     'sessions/:id/activate'   => 'sessions#activate' 
+
   delete  'sessions/:id'            => 'sessions#delete'
 
+  #Questions
   post    'questions'               => 'questions#create'
+
   get     'questions'               => 'questions#index'
   get     'questions/:id'           => 'questions#show'       #Indivudual question
+
   put     'questions/:id/update'    => 'questions#update'       
   put     'questions/:id/activate'  => 'questions#activate'   
+
   delete  'questions/:id'           => 'questions#delete'
 
-
+  #Answers
   post    'answers'                 => 'answers#create'
+
   get     'answers'                 => 'answers#index'
   get     'answers/:id'             => 'answers#show'      #Indivudual answer
-  put     'answers/:id'             => 'answers#update'       
+
+  put     'answers/:id'             => 'answers#update'    
+
   delete  'answers/:id'             => 'answers#delete'
 
+  #Responses
   post  'responses'                 => 'responses#create'
+
   get   'responses'                 => 'responses#index'
   get   'responses/:id'             => 'responses#show'    #Indivudual response
   #nesscary, maybe want to store each response, 
@@ -45,7 +62,7 @@ Backend::Application.routes.draw do
 
 
 
-
+  #TODO
   root 'todo#todo'
 
   # The priority is based upon order of creation: first created -> highest priority.

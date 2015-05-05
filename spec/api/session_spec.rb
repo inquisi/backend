@@ -34,31 +34,35 @@ RSpec.describe 'Session API', type: :request do
     #INDEX
     it 'should return a session json containing an array of sessions that belong to the instructor' do
       user = create(:instructor_with_courses_with_sessions)
-      get '/sessions', token: user.token, course_id: user.courses.first.id
+      course = user.courses.first
+      session = course.sessions.first
+      get '/sessions', token: user.token, course_id: course.id
 
       body = JSON.parse(response.body)
       sessions = body['data']
-      session = sessions.first
+      s = sessions.first
 
       expect(sessions.length).to eql(1)
-      expect(session['name']).to eql(user.courses.first.sessions.first.name)
-      expect(session['date']).to eql(user.courses.first.sessions.first.date.to_s)
-      expect(session['active']).to eql(user.courses.first.sessions.first.active)
+      expect(s['name']).to eql(session.name)
+      expect(s['date']).to eql(session.date.to_s)
+      expect(s['active']).to eql(session.active)
       
     end
 
     it 'should return a session json containing an array of sessions that belong to the student' do
       user = create(:student_with_courses_with_sessions)
-      get '/sessions', token: user.token, course_id: user.courses.first.id
+      course = user.courses.first
+      session = course.sessions.first
+      get '/sessions', token: user.token, course_id: course.id
 
       body = JSON.parse(response.body)
       sessions = body['data']
-      session = sessions.first
+      s = sessions.first
 
       expect(sessions.length).to eql(1)
-      expect(session['name']).to eql(user.courses.first.sessions.first.name)
-      expect(session['date']).to eql(user.courses.first.sessions.first.date.to_s)
-      expect(session['active']).to eql(user.courses.first.sessions.first.active)
+      expect(s['name']).to eql(session.name)
+      expect(s['date']).to eql(session.date.to_s)
+      expect(s['active']).to eql(session.active)
 
     end
   end
@@ -67,28 +71,32 @@ RSpec.describe 'Session API', type: :request do
   describe '/sessions/#id' do
     it 'should return a session json containing an array of sessions that belong to the instructor' do
       user = create(:instructor_with_courses_with_sessions)
-      get "/sessions/#{user.courses.first.sessions.first.id}", token: user.token, course_id: user.courses.first.id
+      course = user.courses.first
+      session = course.sessions.first
+      get "/sessions/#{session.id}", token: user.token, course_id: course.id
 
       body = JSON.parse(response.body)
       data = body['data']
-      session = data['session']
+      s = data['session']
 
-      expect(session['name']).to eql(user.courses.first.sessions.first.name)
-      expect(session['date']).to eql(user.courses.first.sessions.first.date.to_s)
+      expect(s['name']).to eql(session.name)
+      expect(s['date']).to eql(session.date.to_s)
       
     end
 
     it 'should return a session json containing an array of sessions that belong to the student' do
       user = create(:student_with_courses_with_sessions)
-      get "/sessions/#{user.courses.first.sessions.first.id}", token: user.token, course_id: user.courses.first.id
+      course = user.courses.first
+      session = course.sessions.first
+      get "/sessions/#{session.id}", token: user.token, course_id: course.id
 
       body = JSON.parse(response.body)
       data = body['data']
-      session = data['session']
+      s = data['session']
 
-      expect(session['name']).to eql(user.courses.first.sessions.first.name)
-      expect(session['date']).to eql(user.courses.first.sessions.first.date.to_s)
-      expect(session['active']).to eql(user.courses.first.sessions.first.active)
+      expect(s['name']).to eql(session.name)
+      expect(s['date']).to eql(session.date.to_s)
+      expect(s['active']).to eql(session.active)
       
     end
   end
@@ -98,9 +106,17 @@ RSpec.describe 'Session API', type: :request do
 
     xit 'should update the session corresponding to #id' do
       #IMPLEMENT
-      
+
       put "/sessions/#{number}/update"
 
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+      expect(JSON.parse(response.body)["data"]).to include("session")
+      expect(JSON.parse(response.body)["data"]["session"]).to include("name")
+      expect(JSON.parse(response.body)["data"]["session"]).to include("date")
+      expect(JSON.parse(response.body)["data"]["session"]).to include("id")
+      expect(JSON.parse(response.body)["data"]["session"]).to include("active")
     end
 
   end 
@@ -111,8 +127,13 @@ RSpec.describe 'Session API', type: :request do
     xit 'should delete the session corresponding to #id' do
       #IMPLEMENT
       
+
+
       delete "/sessions/#{number}"
 
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
     end
 
   end 
