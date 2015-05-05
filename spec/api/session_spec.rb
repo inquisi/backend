@@ -105,7 +105,7 @@ RSpec.describe 'Session API', type: :request do
   describe '/sessions/#id/update' do
 
     it 'should update the session corresponding to #id' do
-      #IMPLEMENT
+      
       user = create(:instructor_with_courses_with_sessions)
       course      = user.courses.first
       session     = course.sessions.first
@@ -140,10 +140,17 @@ RSpec.describe 'Session API', type: :request do
   #ACTIVATE
   describe '/sessions/#id/activate' do
 
-    xit 'should active the session corresponding to #id' do
-      #IMPLEMENT
+    it 'should active the session corresponding to #id' do
       
-      put "/sessions/#{number}/activate"
+      user = create(:instructor_with_courses_with_sessions)
+      course      = user.courses.first
+      session     = course.sessions.first
+
+      put "/sessions/#{session.id}/activate", token: user.token, active: true
+
+      body = JSON.parse(response.body)
+      s = body['data']['session']
+      expect(s['active']).to eql(true)
 
     end
 

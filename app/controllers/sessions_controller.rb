@@ -33,7 +33,7 @@ class SessionsController < ApplicationController
     render 'sessions/index'
   end
 
-#NEEDS TESTS
+
   def update
 
     @user = User.find_by_token(params[:token])
@@ -64,7 +64,7 @@ class SessionsController < ApplicationController
   end
 
   
-#NEEDS TESTS
+
   def activate
     @user = User.find_by_token(params[:token])
     @session = @user.sessions.find(params[:id])
