@@ -1,7 +1,7 @@
 class CreateSaAnswers < ActiveRecord::Migration
   def change
     create_table :sa_answers do |t|
-    	t.string       :name
+    	t.text         :name
     	t.belongs_to   :question,      index: true
         t.timestamps                   null: false
     end
