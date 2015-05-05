@@ -29,11 +29,12 @@ class CoursesController < ApplicationController
 
 #NEEDS TESTS
   def update
+    
     @user = User.find_by_token(params[:token])
     @course = @user.courses.find(params[:id])
     @course.assign_attributes(params.permit(:name, :start, :finsih, :user_id))
 
-    if @question.save
+    if @course.save
       render 'courses/show'
     else
       @message = "Failed to save a course"

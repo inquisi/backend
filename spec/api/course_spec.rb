@@ -115,10 +115,17 @@ RSpec.describe 'Course API', type: :request do
   #UPDATE
   describe '/courses/#id' do
 
-    xit 'should update the course corresponding to #id' do
+    it 'should update the course corresponding to #id' do
       #IMPLEMENT
+      user = create(:instructor_with_courses)
+      course      = user.courses.first
+
+      put "/courses/#{course.id}", token: user.token, name: "hello world"
+
+      body = JSON.parse(response.body)
+      c = body['data']['course']
+      expect(c['name']).to eql('hello world')
       
-      put "/courses/#{number}"
 
     end
 
