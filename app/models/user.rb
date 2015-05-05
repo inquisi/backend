@@ -2,8 +2,6 @@ class User < ActiveRecord::Base
 	has_secure_password
 	self.inheritance_column = 'role'
 
-	
-
 	validates 	:first_name, :last_name, presence: true
 	validates 	:email, uniqueness: true, email: true
 	validates 	:role, inclusion: { in: ['Student', 'Instructor'], message: "is required."}
@@ -19,6 +17,10 @@ class User < ActiveRecord::Base
 		if(self.role)
 			self.role = self.role.capitalize
 		end
+	end
+
+	def name
+		"#{first_name} #{last_name}"
 	end
 
 private
