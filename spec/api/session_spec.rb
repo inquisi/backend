@@ -104,19 +104,18 @@ RSpec.describe 'Session API', type: :request do
   #UPDATE
   describe '/sessions/#id/update' do
 
-    xit 'should update the session corresponding to #id' do
+    it 'should update the session corresponding to #id' do
       #IMPLEMENT
+      user = create(:instructor_with_courses_with_sessions)
+      course      = user.courses.first
+      session     = course.sessions.first
 
-      put "/sessions/#{number}/update"
+      put "/sessions/#{session.id}/update", token: user.token, name: "hello world"
 
-      expect(JSON.parse(response.body)).to include("status")
-      expect(JSON.parse(response.body)).to include("message")
-      expect(JSON.parse(response.body)).to include("data")
-      expect(JSON.parse(response.body)["data"]).to include("session")
-      expect(JSON.parse(response.body)["data"]["session"]).to include("name")
-      expect(JSON.parse(response.body)["data"]["session"]).to include("date")
-      expect(JSON.parse(response.body)["data"]["session"]).to include("id")
-      expect(JSON.parse(response.body)["data"]["session"]).to include("active")
+      body = JSON.parse(response.body)
+      s = body['data']['session']
+      expect(s['name']).to eql('hello world')
+
     end
 
   end 

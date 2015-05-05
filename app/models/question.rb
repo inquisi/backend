@@ -2,8 +2,7 @@ class Question < ActiveRecord::Base
 	self.inheritance_column = 'category'
 
 	belongs_to 	:session
-
-
+	
 	#Validates
 	validates 	:active, inclusion: { in: [true, false] }
 	validates 	:name,			 presence: true
