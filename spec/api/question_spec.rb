@@ -246,7 +246,6 @@ RSpec.describe 'Question API', type: :request do
   describe '/questions/#id/activate' do
 
     it 'should active the question corresponding to #id' do
-      #IMPLEMENT
       
       user = create(:instructor_with_courses_with_sessions_with_questions)
       course      = user.courses.first

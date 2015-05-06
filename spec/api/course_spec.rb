@@ -122,7 +122,7 @@ RSpec.describe 'Course API', type: :request do
   describe '/courses/#id' do
 
     it 'should update the course corresponding to #id' do
-      #IMPLEMENT
+      
       user = create(:instructor_with_courses)
       course      = user.courses.first
 

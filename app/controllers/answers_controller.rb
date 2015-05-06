@@ -153,6 +153,63 @@ class AnswersController < ApplicationController
 
   	end
 
+  	#Update
+  	def update
+
+    	@question = Question.find_by_id(params[:question_id])
+  		if ("MC" == @question.category)
+		    @user = User.find_by_token(params[:token])
+		    @course = @user.courses.find(params[:course_id])
+		    @session = @course.sessions.find(params[:session_id])
+		    @question = @session.questions.find(params[:question_id])
+		    @answer = @question.answers.find(params[:id])
+
+		    @answer.assign_attributes(params.permit(:name, :correct, :question_id, :order))
+		    if @answer.save
+		      render 'answers/show'
+		    else
+		      @message = "Failed to update a answer"
+		      render nothing: true, layout: 'failure'
+		    end
+
+	    elsif ("SA" == @question.category)
+	    	@user = User.find_by_token(params[:token])
+		    @course = @user.courses.find(params[:course_id])
+		    @session = @course.sessions.find(params[:session_id])
+		    @question = @session.questions.find(params[:question_id])
+		    @answer = @question.answers.find(params[:id])
+		    @answer.assign_attributes(params.permit(:name, :question_id))
+		    if @answer.save
+		      render 'answers/show'
+		    else
+		      @message = "Failed to update a answer"
+		      render nothing: true, layout: 'failure'
+		    end
+
+	    elsif ("NUM" == @question.category)
+	    	@user = User.find_by_token(params[:token])
+		    @course = @user.courses.find(params[:course_id])
+		    @session = @course.sessions.find(params[:session_id])
+		    @question = @session.questions.find(params[:question_id])
+		    @answer = @question.answers.find(params[:id])
+		    @answer.assign_attributes(params.permit(:num, :question_id))
+		    if @answer.save
+		      render 'answers/show'
+		    else
+		      @message = "Failed to update a answer"
+		      render nothing: true, layout: 'failure'
+		    end
+
+	    elsif ("LA" == @question.category)
+	    	#do nothing
+
+	    else 
+	    	#do nothing
+	    	#error?
+	    end
+
+  end
+
 end
 
     
