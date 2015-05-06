@@ -52,8 +52,9 @@ class SessionsController < ApplicationController
   
 #NEEDS TESTS
   def delete
-
-    if Instructor.find_by_token(params[:token]).sessions.find(params[:id]).delete
+    user = Instructor.find_by_token(params[:token])
+    
+    if user.sessions.find(params[:id]).delete
       @message = "Session deleted"
       render nothing: true, layout: 'application'
     else

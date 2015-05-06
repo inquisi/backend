@@ -1,5 +1,6 @@
 class NumAnswer < ActiveRecord::Base
-	belongs_to 	:Num
+	belongs_to 		:Question, class_name: "Num"
+	#belongs_to 	:Num
 	has_many	:responses, class_name: "NumResponse"
 
 	

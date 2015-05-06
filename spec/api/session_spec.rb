@@ -124,7 +124,10 @@ RSpec.describe 'Session API', type: :request do
   describe '/sessions/#id' do
 
     xit 'should delete the session corresponding to #id' do
-      #IMPLEMENT
+      user = create(:student_with_courses_with_sessions)
+      course = user.courses.first
+      session = course.sessions.first
+      number = session.id
       delete "/sessions/#{number}"
 
       expect(JSON.parse(response.body)).to include("status")
