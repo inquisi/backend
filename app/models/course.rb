@@ -1,6 +1,9 @@
 class Course < ActiveRecord::Base
 	#Sessions of the course
 	has_many :sessions
+	#For Active relations
+	has_many 	:questions, 	:through => :sessions
+
 	#The students of the course
 	has_and_belongs_to_many :students, association_foreign_key: :user_id, distinct: true
 	has_and_belongs_to_many :instructors, association_foreign_key: :user_id
