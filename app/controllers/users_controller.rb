@@ -34,5 +34,20 @@ class UsersController < ApplicationController
     end
 
   end
+
+  def update
+
+    @user = User.find_by_token(params[:token])
+    #Check for switching email to already assigned email? -> potential problem
+    @user.assign_attributes(params.permit(:first_name, :last_name, :email, :trial))
+
+    if @user.save
+      render 'users/show'
+    else
+      @message = "Failed to update a user"
+      render nothing: true, layout: 'failure'
+    end
+
+  end
   
 end

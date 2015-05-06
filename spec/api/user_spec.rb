@@ -112,4 +112,21 @@ RSpec.describe 'User API', type: :request do
 
   end
 
+   #UPDATE
+  describe '/users/#id' do
+
+    it 'should update the user corresponding to #id' do
+      
+      user = create(:instructor)
+
+      put "/users/#{user.id}", token: user.token, first_name: "bob"
+
+      body = JSON.parse(response.body)
+      s = body['data']['user']
+      expect(s['first_name']).to eql('bob')
+
+    end
+
+  end 
+
 end

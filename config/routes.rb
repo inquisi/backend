@@ -3,7 +3,10 @@ Backend::Application.routes.draw do
   post    'login'                   => 'users#login'
   post    'logout'                  => 'users#logout'
   post    'signup'                  => 'users#signup'
+
   get     'user'                    => 'users#show'             #Individual User
+
+  put     'users/:id'               => 'users#update'
   #delete account ?? Not needed now
   delete  'user/:id'                => 'users#delete'
 
