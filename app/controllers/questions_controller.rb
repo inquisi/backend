@@ -16,9 +16,7 @@ class QuestionsController < ApplicationController
   def show
     
     @user = User.find_by_token(params[:token])
-    @course = @user.courses.find(params[:course_id])
-    @session = @course.sessions.find(params[:session_id])
-    @question = @session.questions.find(params[:id])
+    @question = @user.questions.find(params[:id])
 
     if(@question.present? )
       render 'questions/show'
@@ -32,8 +30,7 @@ class QuestionsController < ApplicationController
   #show all
   def index
     @user = User.find_by_token(params[:token])
-    @course = @user.courses.find(params[:course_id])
-    @session = @course.sessions.find(params[:session_id])
+    @session = @user.sessions.find(params[:session_id])
     @questions = @session.questions
 
     render 'questions/index'
@@ -52,6 +49,7 @@ class QuestionsController < ApplicationController
     end
   end
 
+  #Working for just the question, not dependencies
   def delete
     if Instructor.find_by_token(params[:token]).questions.find(params[:id]).delete
       @message = "Question deleted"
