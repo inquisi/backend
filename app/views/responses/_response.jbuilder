@@ -9,6 +9,7 @@ end
 if question.category == "SA"	
 	json.answer_id 		response.sa_answer_id 
 	json.name 			response.name
+	json.correct		response.correct
 	
 end
 

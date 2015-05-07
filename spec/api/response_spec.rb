@@ -48,6 +48,7 @@ RSpec.describe 'Response API', type: :request do
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("name")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("created_at")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("answer_id")
+	        expect(JSON.parse(response.body)["data"]["response"]).to include("correct")
 		end
 
 		it "should num_response creation successful" do
@@ -66,6 +67,7 @@ RSpec.describe 'Response API', type: :request do
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("num")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("created_at")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("answer_id")
+	        expect(JSON.parse(response.body)["data"]["response"]).to include("correct")
 	    end
 
 		it "should la_response creation successful" do
@@ -405,7 +407,50 @@ RSpec.describe 'Response API', type: :request do
 	   		expect(response['created_at'].to_s).to eql(num_response.created_at.round.utc.to_s)
 		end
 
+		it 'should show that sa_response is correct' do
+	  		user = create(:student_with_saR)
+			course = user.courses.first
+			session = course.sessions.first
+			question = session.questions.first
+			answer = question.answers.first
+			sa_response = answer.responses.first
+			number = sa_response.id
+			get "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, sa_answer_id: answer.id
 
+			#If works
+			body = JSON.parse(response.body)
+			
+			data = body['data']
+	    	response = data['response']
+
+	    	expect(response['token']).to eql(user.token)
+			expect(response['name']).to eql(sa_response.name)
+			expect(response['correct']).to eql(sa_response.correct)
+	   		expect(response['created_at'].to_s).to eql(sa_response.created_at.round.utc.to_s)
+		end
+
+		it 'should show that sa_response is incorrect' do
+	  		user = create(:student_with_saR)
+			course = user.courses.first
+			session = course.sessions.first
+			question = session.questions.first
+			answer = question.answers.first
+			sa_response = answer.responses.first
+			number = sa_response.id
+			#Make an incorrect response UPDATE
+			put "/responses/#{number}", name: "wrong", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, sa_answer_id: answer.id
+			#Get Back updated response
+			get "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, sa_answer_id: answer.id
+			#If works
+			body = JSON.parse(response.body)
+			
+			data = body['data']
+	    	response = data['response']
+
+	    	expect(response['token']).to eql(user.token)
+			expect(response['name']).to eql("wrong")
+	   		expect(response['created_at'].to_s).to eql(sa_response.created_at.round.utc.to_s)
+		end
 
 
 

@@ -14,8 +14,38 @@ class ResponsesController < ApplicationController
 			end
 
 	    elsif ("SA" == @question.category)
-	    	@response = SaResponse.new(user_id: params[:user_id], sa_answer_id: params[:sa_answer_id], name: params[:name])
+
+	    	#Get Info
+	    	@response = SaResponse.new(user_id: params[:user_id], sa_answer_id: params[:sa_answer_id], name: params[:name], correct: false)
 			@user = User.find_by_id(params[:user_id])
+			
+			#Check correctness
+			answer = SaAnswer.find_by_id(params[:sa_answer_id])
+			n = answer.name
+
+
+			#BECAUSE STRINGS => LETS CONDITION INPUT
+			store = answer.name
+			input = params[:name]
+			
+			#NIL checks becuase if input bad, downcase fails
+			if store != nil
+				store.downcase.capitalize
+			end
+			if input != nil
+				input.downcase.capitalize
+			end
+###### IF NOT CONDITIONING STRINGS  #########
+			# if n == params[:name]
+			# 	@response.correct = true
+			# end
+##############################################
+
+			if store == input
+				@response.correct = true
+			end
+	
+			#Save It / Error Message
 			if 	@response.save
 				render 'responses/create'
 			else

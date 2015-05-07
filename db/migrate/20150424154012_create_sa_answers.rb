@@ -7,6 +7,7 @@ class CreateSaAnswers < ActiveRecord::Migration
     end
     create_table :sa_responses do |t|
     	t.string       :name
+        t.boolean      :correct
     	t.belongs_to   :sa_answer,     index: true
     	t.belongs_to   :user,          index: true
         t.timestamps                   null: false

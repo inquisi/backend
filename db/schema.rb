@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 20150504195050) do
 
   create_table "sa_responses", force: :cascade do |t|
     t.string   "name",         limit: 255
+    t.boolean  "correct",      limit: 1
     t.integer  "sa_answer_id", limit: 4
     t.integer  "user_id",      limit: 4
     t.datetime "created_at",               null: false

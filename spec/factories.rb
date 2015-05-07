@@ -88,8 +88,11 @@ FactoryGirl.define do
   end
 
   factory :saR, class: SaResponse, parent: :response do
-    name         "Test"
+    name         "Correct"
     sa_answer_id "1"
+    #defaults to wrong-> check for correctness when saved
+    correct       false
+
   end
 
   factory :numR, class: NumResponse, parent: :response do
@@ -97,10 +100,6 @@ FactoryGirl.define do
     num           1
     #defaults to wrong-> check for correctness when saved
     correct       false
-
-    factory :numR_wrong do
-      num         23
-    end
 
   end
 
