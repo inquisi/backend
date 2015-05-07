@@ -312,9 +312,50 @@ RSpec.describe 'Response API', type: :request do
 
 	#UPDATE
 	#?? or always new ones??
+	# Implementing for DEV testing/maintaing CRUD in case
+	describe '/responses/#id' do
+
+	    it 'should update the responses corresponding to #id' do
+	    	user = create(:student_with_saR)
+			course = user.courses.first
+			session = course.sessions.first
+			question = session.questions.first
+			answer = question.answers.first
+			sa_response = answer.responses.first
+			number = sa_response.id
+
+		    put "/responses/#{number}", token: user.token, name: "hello world", course_id: course.id, session_id: session.id, question_id: question.id, sa_answer_id: answer.id
+
+		    body = JSON.parse(response.body)
+		    s = body['data']['response']
+		    expect(s['name']).to eql('hello world')
+
+	    end
+
+	end
 
 	#DELETE
 	#Can you dlete a responses?
+	# Implementing for DEV testing/maintaing CRUD in case
+
+  	describe '/responses/#id' do
+
+	    it 'should delete the responses corresponding to #id' do
+		    user = create(:student_with_mcR)
+		    course = user.courses.first
+			session = course.sessions.first
+			question = session.questions.first
+			answer = question.answers.first
+			mc_response = answer.responses.first
+		    number = mc_response.id
+		    delete "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, mc_answer_id: answer.id
+
+		    expect(JSON.parse(response.body)).to include("status")
+		    expect(JSON.parse(response.body)).to include("message")
+		    expect(JSON.parse(response.body)).to include("data")
+	    end
+
+	end
 	  
     #SHOW
 	describe "correct reaponses" do
@@ -341,22 +382,18 @@ RSpec.describe 'Response API', type: :request do
 	   		expect(response['created_at'].to_s).to eql(num_response.created_at.round.utc.to_s)
 		end
 
-		xit 'should show that num_response is incorrect' do
+		it 'should show that num_response is incorrect' do
 	  		user = create(:student_with_numR)
 			course = user.courses.first
 			session = course.sessions.first
 			question = session.questions.first
 			answer = question.answers.first
 			num_response = answer.responses.first
-			#Make an incorrect response
-			r = create(:numR_wrong)
-			#NEED TO UPDATE A RESPONSE IN ORDER TO EASILY TEST THIS
-			
-
-			
 			number = num_response.id
+			#Make an incorrect response UPDATE
+			put "/responses/#{number}", num: 43, token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, num_answer_id: answer.id
+			#Get Back updated response
 			get "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, num_answer_id: answer.id
-
 			#If works
 			body = JSON.parse(response.body)
 			
@@ -364,7 +401,7 @@ RSpec.describe 'Response API', type: :request do
 	    	response = data['response']
 
 	    	expect(response['token']).to eql(user.token)
-			expect(response['num']).to eql(num_response.num)
+			expect(response['num']).to eql(43)
 	   		expect(response['created_at'].to_s).to eql(num_response.created_at.round.utc.to_s)
 		end
 

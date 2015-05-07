@@ -9,6 +9,9 @@ Backend::Application.routes.draw do
   put     'users/:id'               => 'users#update'
   #delete account ?? Not needed now
   delete  'users'                   => 'users#delete'
+  #to delete all 
+      #NOT NEEDED??
+
 
   #COURSES
   post    'courses'                 => 'courses#create'
@@ -70,7 +73,9 @@ Backend::Application.routes.draw do
   #that way could detect chnages over time in respones
   put   'responses/:id'             => 'responses#update' #iF WANT TO UPDATE RESPONSES
 
-
+  delete  'responses/:id'           => 'responses#delete'
+  #to delete all 
+  delete  'responses'               => 'responses#deleteAll'
 
 
   #TODO
