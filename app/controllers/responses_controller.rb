@@ -380,6 +380,98 @@ class ResponsesController < ApplicationController
 		  	render nothing: true, layout: 'failure'
 	    end
 
-  end
 
+ 	end
+
+ 	def deleteAll
+
+  		@question = Question.find_by_id(params[:question_id])
+
+	    if ("MC" == @question.category)
+		   	@user 		 = 	User.find_by_token(params[:token])
+	   		@course 	 = 	@user.courses.find(params[:course_id])
+	    	@session 	 = 	@course.sessions.find(params[:session_id])
+	    	@question 	 = 	@session.questions.find(params[:question_id])
+	    	@answer 	 =	@question.answers.find(params[:mc_answer_id])
+	    	@responses 	 = 	@answer.responses
+
+			#Iterate thru answers?
+			@responses.each do |response|
+				if response.delete
+					@message = "responses deleted"
+					render nothing: true, layout: 'application'
+				else
+					@message = "Error deleting responses"
+					render nothing: true, layout: 'failure'
+				end
+
+			end	
+
+	    elsif ("SA" == @question.category)
+	    	@user 		 = 	User.find_by_token(params[:token])
+	   		@course 	 = 	@user.courses.find(params[:course_id])
+	    	@session 	 = 	@course.sessions.find(params[:session_id])
+	    	@question 	 = 	@session.questions.find(params[:question_id])
+	    	@answer   	 = 	@question.answers.find(params[:sa_answer_id])
+	    	@responses 	 = 	@answer.responses
+
+			#Iterate thru answers?
+			@responses.each do |response|
+				if response.delete
+					@message = "responses deleted"
+					render nothing: true, layout: 'application'
+				else
+					@message = "Error deleting responses"
+					render nothing: true, layout: 'failure'
+				end
+
+			end	
+
+	    elsif ("NUM" == @question.category)
+			 
+			@user 		 = 	User.find_by_token(params[:token])
+	   		@course 	 = 	@user.courses.find(params[:course_id])
+	    	@session 	 = 	@course.sessions.find(params[:session_id])
+	    	@question 	 = 	@session.questions.find(params[:question_id])
+	    	@answer  	 = 	@question.answers.find(params[:num_answer_id])
+	    	@responses 	 = 	@answer.responses
+
+			#Iterate thru answers?
+			@responses.each do |response|
+				if response.delete
+					@message = "responses deleted"
+					render nothing: true, layout: 'application'
+				else
+					@message = "Error deleting responses"
+					render nothing: true, layout: 'failure'
+				end
+
+			end	 	
+
+	    elsif ("LA" == @question.category)
+	    	@user 		 = 	User.find_by_token(params[:token])
+	   		@course 	 = 	@user.courses.find(params[:course_id])
+	    	@session 	 = 	@course.sessions.find(params[:session_id])
+	    	@question 	 = 	@session.questions.find(params[:question_id])
+	    	@responses 	 = 	@question.responses
+
+			#Iterate thru answers?
+			@responses.each do |response|
+				if response.delete
+					@message = "responses deleted"
+					render nothing: true, layout: 'application'
+				else
+					@message = "Error deleting responses"
+					render nothing: true, layout: 'failure'
+				end
+
+			end	
+		  	
+	    else 
+	    	@message = "ERROR END OF CONTROLLER"
+		  	render nothing: true, layout: 'failure'
+	    end
+
+	end
+	
 end

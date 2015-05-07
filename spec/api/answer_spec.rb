@@ -338,5 +338,110 @@ RSpec.describe 'Answer API', type: :request do
 
   end 
 
+  #DELETE ALL
+  #CANT IMPLEMENT UNITL FIX FACTORIES///SEED FILE becuase need access questions, 
+  #which students dont have rights too
+  describe '/answers' do
+
+    xit 'should MC answer delete and its responses' do
+      user = create(:student_with_mcR)
+      course      = user.courses.first
+      session     = course.sessions.first
+      question    = session.questions.first
+      answer      = question.answers.first
+      number      = answer.id
+
+      #Delete all responses belonging to answer
+      delete "/responses", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, mc_answer_id: answer.id
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+
+      #Check For question answers
+      get '/responses', token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, mc_answer_id: answer.id
+
+      body = JSON.parse(response.body)
+      a = body['data']
+      expect(a.length).to eql(0)
+
+      number = question.id
+      delete "/answers/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, mc_answer_id: answer.id
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+
+
+    end
+
+    xit 'should SA answer delete and its responses' do
+      user = create(:student_with_saR)
+      course      = user.courses.first
+      session     = course.sessions.first
+      question    = session.questions.first
+      answer      = question.answers.first
+      number      = answer.id
+
+      #Delete all responses belonging to answer
+      delete "/responses", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, sa_answer_id: answer.id
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+
+      #Check For question answers
+      get '/responses', token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, sa_answer_id: answer.id
+
+      body = JSON.parse(response.body)
+      r = body['data']
+      expect(r.length).to eql(0)
+
+      number = question.id
+      delete "/answers/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, sa_answer_id: answer.id
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+
+    end
+
+    xit 'should NUM answer delete and its responses' do
+      user = create(:student_with_numR)
+      course      = user.courses.first
+      session     = course.sessions.first
+      question    = session.questions.first
+      answer      = question.answers.first
+      number      = answer.id
+
+      #Delete all responses belonging to answer
+      delete "/responses", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, num_answer_id: answer.id
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+
+      #Check For question answers
+      get '/responses', token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, num_answer_id: answer.id
+
+      body = JSON.parse(response.body)
+      r = body['data']
+      expect(r.length).to eql(0)
+
+      number = question.id
+      delete "/answers/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, num_answer_id: answer.id
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+
+    end
+
+    it 'should no LA to delete answer' do
+      #nothing
+    end
+
+  end 
+
 end
 
