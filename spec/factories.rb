@@ -95,6 +95,13 @@ FactoryGirl.define do
   factory :numR, class: NumResponse, parent: :response do
     num_answer_id "1"
     num           1
+    #defaults to wrong-> check for correctness when saved
+    correct       false
+
+    factory :numR_wrong do
+      num         23
+    end
+
   end
 
   factory :laR, class: LaResponse, parent: :response do

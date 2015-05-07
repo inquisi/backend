@@ -24,8 +24,19 @@ class ResponsesController < ApplicationController
 			end
 
 	    elsif ("NUM" == @question.category)
-	    	@response = NumResponse.new(user_id: params[:user_id], num_answer_id: params[:num_answer_id], num: params[:num])
+
+	    	#Get Info
+	    	@response = NumResponse.new(user_id: params[:user_id], num_answer_id: params[:num_answer_id], num: params[:num], correct: false)
 			@user = User.find_by_id(params[:user_id])
+
+			#Check correctness
+			answer = NumAnswer.find_by_id(params[:num_answer_id])
+			number = answer.num
+			if number == params[:num]
+				@response.correct = true
+			end
+
+			#Save It / Error Message
 			if 	@response.save
 				render 'responses/create'
 			else

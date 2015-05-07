@@ -16,4 +16,9 @@ RSpec.describe NumResponse, type: :model do
 	    expect(response.save).to be false
 	end
 
+	it "should require a correctness" do
+	    response = build(:numR, correct: nil)
+	    expect(response.save).to be false
+	end
+
 end

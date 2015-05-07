@@ -316,6 +316,62 @@ RSpec.describe 'Response API', type: :request do
 	#DELETE
 	#Can you dlete a responses?
 	  
-    
+    #SHOW
+	describe "correct reaponses" do
+
+		it 'should show that num_response is correct' do
+	  		user = create(:student_with_numR)
+			course = user.courses.first
+			session = course.sessions.first
+			question = session.questions.first
+			answer = question.answers.first
+			num_response = answer.responses.first
+			number = num_response.id
+			get "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, num_answer_id: answer.id
+
+			#If works
+			body = JSON.parse(response.body)
+			
+			data = body['data']
+	    	response = data['response']
+
+	    	expect(response['token']).to eql(user.token)
+			expect(response['num']).to eql(num_response.num)
+			expect(response['correct']).to eql(num_response.correct)
+	   		expect(response['created_at'].to_s).to eql(num_response.created_at.round.utc.to_s)
+		end
+
+		xit 'should show that num_response is incorrect' do
+	  		user = create(:student_with_numR)
+			course = user.courses.first
+			session = course.sessions.first
+			question = session.questions.first
+			answer = question.answers.first
+			num_response = answer.responses.first
+			#Make an incorrect response
+			r = create(:numR_wrong)
+			#NEED TO UPDATE A RESPONSE IN ORDER TO EASILY TEST THIS
+			
+
+			
+			number = num_response.id
+			get "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, num_answer_id: answer.id
+
+			#If works
+			body = JSON.parse(response.body)
+			
+			data = body['data']
+	    	response = data['response']
+
+	    	expect(response['token']).to eql(user.token)
+			expect(response['num']).to eql(num_response.num)
+	   		expect(response['created_at'].to_s).to eql(num_response.created_at.round.utc.to_s)
+		end
+
+
+
+
+
+	end
 
 end

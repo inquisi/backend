@@ -15,7 +15,7 @@ end
 if question.category == "NUM"
 	json.answer_id 		response.num_answer_id 
 	json.num			response.num
-	
+	json.correct		response.correct
 
 end
 

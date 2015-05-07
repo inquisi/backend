@@ -8,6 +8,7 @@ class CreateNumAnswers < ActiveRecord::Migration
     end
     create_table :num_responses do |t|
     	t.integer      :num
+        t.boolean      :correct
     	t.belongs_to   :num_answer,    index: true
     	t.belongs_to   :user,          index: true
         t.timestamps                   null: false

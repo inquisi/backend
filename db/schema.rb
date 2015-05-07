@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20150504195050) do
 
   create_table "num_responses", force: :cascade do |t|
     t.integer  "num",           limit: 4
+    t.boolean  "correct",       limit: 1
     t.integer  "num_answer_id", limit: 4
     t.integer  "user_id",       limit: 4
     t.datetime "created_at",              null: false
