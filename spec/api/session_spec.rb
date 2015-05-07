@@ -15,6 +15,7 @@ RSpec.describe 'Session API', type: :request do
         expect(JSON.parse(response.body)["data"]["session"]).to include("name")
         expect(JSON.parse(response.body)["data"]["session"]).to include("date")
         expect(JSON.parse(response.body)["data"]["session"]).to include("id")
+        expect(JSON.parse(response.body)["data"]["session"]).to include("course_id")
         expect(JSON.parse(response.body)["data"]["session"]).to include("active")
 
       end
@@ -32,7 +33,7 @@ RSpec.describe 'Session API', type: :request do
   describe '/sessions' do
 
     #INDEX
-    it 'should return a session json containing an array of sessions that belong to the instructor' do
+    it 'should return a session json containing an array of sessions that belong to the instructor and course given' do
       user = create(:instructor_with_courses_with_sessions)
       course = user.courses.first
       session = course.sessions.first
@@ -49,7 +50,7 @@ RSpec.describe 'Session API', type: :request do
       
     end
 
-    it 'should return a session json containing an array of sessions that belong to the student' do
+    it 'should return a session json containing an array of sessions that belong to the student and course given' do
       user = create(:student_with_courses_with_sessions)
       course = user.courses.first
       session = course.sessions.first
@@ -64,6 +65,18 @@ RSpec.describe 'Session API', type: :request do
       expect(s['date']).to eql(session.date.to_s)
       expect(s['active']).to eql(session.active)
 
+    end
+
+    it 'should return a session json containing an array of all sessions that belong to the instructor, for all the instrucotrs courses' do
+      user = create(:instructor_with_courses_with_sessions)
+      course = user.courses.first
+      course.sessions.create!(name: "Test Session", date: Date.today)
+      get '/sessions', token: user.token
+
+      body = JSON.parse(response.body)
+      sessions = body['data']
+
+      expect(sessions.length).to eql(2)
     end
   end
 

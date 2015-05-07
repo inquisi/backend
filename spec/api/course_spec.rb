@@ -22,6 +22,7 @@ RSpec.describe 'Course API', type: :request do
       expect(JSON.parse(response.body)["data"]["course"]).to include("id")
       expect(JSON.parse(response.body)["data"]["course"]).to include("instructor")
       expect(JSON.parse(response.body)["data"]["course"]).to include("enrollment_token")
+      expect(JSON.parse(response.body)["data"]["course"]).to include("active")
     end
 
     #EXPECTED ERRORS
@@ -171,7 +172,8 @@ RSpec.describe 'Course API', type: :request do
         start: @course.start.to_s,
         finish: @course.finish.to_s,
         id: @course.id,
-        instructor: @instructor1.name
+        instructor: @instructor1.name,
+        active: @course.active
       }
       post '/courses/enroll', {token: @student.token, enrollment_token: @course.enrollment_token}
 

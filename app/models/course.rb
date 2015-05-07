@@ -23,6 +23,10 @@ class Course < ActiveRecord::Base
 		instructors = [instructor]
 	end
 
+	def active
+		sessions.where(active: true).any?
+	end
+
 private
 	def generate_enrollment_token
 		self.enrollment_token = rand(100000..1000000)

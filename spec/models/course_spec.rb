@@ -31,5 +31,16 @@ RSpec.describe Course, type: :model do
     expect(course.enrollment_token).to_not be_nil
     expect(course.enrollment_token.to_s.length).to eql 6    
   end
+
+  it "should be active when any of it's sessions are active" do
+    instructor = create(:instructor_with_courses_with_sessions)
+    course = instructor.courses.first
+    session = course.sessions.first
+
+    expect(course.active).to eql false
+    session.active = true
+    session.save!
+    expect(course.active).to eql true
+  end
 end
 
