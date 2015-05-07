@@ -15,6 +15,7 @@ RSpec.describe 'Session API', type: :request do
         expect(JSON.parse(response.body)["data"]["session"]).to include("name")
         expect(JSON.parse(response.body)["data"]["session"]).to include("date")
         expect(JSON.parse(response.body)["data"]["session"]).to include("id")
+        expect(JSON.parse(response.body)["data"]["session"]).to include("course_id")
         expect(JSON.parse(response.body)["data"]["session"]).to include("active")
 
       end
