@@ -62,18 +62,21 @@ class QuestionsController < ApplicationController
 
   def deleteAll
 
-    user = Instructor.find_by_token(params[:token])
-    questions = user.questions
+    user = User.find_by_token(params[:token])
+    courses = user.courses
+    q = courses.first.questions
     #Iterate thru sessions?
-    questions.each do |question|
+    q.each do |question|
       if question.delete
-        @message = "Sessions deleted"
+        @message = "questions deleted"
         render nothing: true, layout: 'application'
       else
-        @message = "Error deleting sessions"
+        @message = "Error deleting questions"
         render nothing: true, layout: 'failure'
       end
+
     end
+    
   end
 
 

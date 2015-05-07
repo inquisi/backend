@@ -71,7 +71,7 @@ class SessionsController < ApplicationController
     #Iterate thru sessions?
     sessions.each do |session|
       if session.delete
-        @message = "Sessions & dependencies deleted"
+        @message = "Sessions"
         render nothing: true, layout: 'application'
       else
         @message = "Error deleting sessions"

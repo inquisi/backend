@@ -249,6 +249,71 @@ class AnswersController < ApplicationController
 	    end
   	end
 
+
+  	def deleteAll
+
+  		@question = Question.find_by_id(params[:question_id])
+
+  		if ("MC" == @question.category)
+  			@user = User.find_by_token(params[:token])
+  			@question = @user.questions.find(params[:question_id])
+  			@answers = @question.answers
+
+			#Iterate thru answers?
+			@answers.each do |answer|
+				if answer.delete
+					@message = "answers deleted"
+					render nothing: true, layout: 'application'
+				else
+					@message = "Error deleting answers"
+					render nothing: true, layout: 'failure'
+				end
+
+			end		    
+
+		elsif ("SA" == @question.category)
+			@user = User.find_by_token(params[:token])
+			@question = @user.questions.find(params[:question_id])
+			@answers = @question.answers
+		    Iterate thru answers?
+		    @answers.each do |answer|
+		    	if answer.delete
+		    		@message = "answers deleted"
+		    		render nothing: true, layout: 'application'
+		    	else
+		    		@message = "Error deleting answers"
+		    		render nothing: true, layout: 'failure'
+		    	end
+
+		    end
+
+		elsif ("NUM" == @question.category)
+			@user = User.find_by_token(params[:token])
+			@question = @user.questions.find(params[:question_id])
+			@answers = @question.answers
+
+		    Iterate thru answers?
+		    @answers.each do |answer|
+		    	if answer.delete
+		    		@message = "answers deleted"
+		    		render nothing: true, layout: 'application'
+		    	else
+		    		@message = "Error deleting answers"
+		    		render nothing: true, layout: 'failure'
+		    	end
+
+		    end    
+
+		elsif ("LA" == @question.category)
+	    	#do nothing
+
+	    else 
+	    	#do nothing
+	    	#error?
+	    end
+    
+  	end
+
 end
 
     
