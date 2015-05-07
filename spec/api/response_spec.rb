@@ -2,9 +2,6 @@ require 'rails_helper'
 
 #For all resposnes
 
-###############TERIBLELY BROKEN- CHNAGES PROBALLY HURT_> REDO?!?!?!?!?!?!
-  
-
 RSpec.describe 'Response API', type: :request do
 	before :each do
 		Timecop.freeze(Time.local(1990))

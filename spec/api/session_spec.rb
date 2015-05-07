@@ -123,12 +123,12 @@ RSpec.describe 'Session API', type: :request do
   #DELETE
   describe '/sessions/#id' do
 
-    xit 'should delete the session corresponding to #id' do
-      user = create(:student_with_courses_with_sessions)
+    it 'should delete the session corresponding to #id' do
+      user = create(:instructor_with_courses_with_sessions)
       course = user.courses.first
       session = course.sessions.first
       number = session.id
-      delete "/sessions/#{number}"
+      delete "/sessions/#{number}", token: user.token
 
       expect(JSON.parse(response.body)).to include("status")
       expect(JSON.parse(response.body)).to include("message")

@@ -1,5 +1,10 @@
 class CoursesController < ApplicationController
 
+#IMPLEMENT CRUD (Create, Read, Update, Delete)
+# Create -> create, Read -> show, Update -> update, Delete -> delete
+#Is this good
+
+
   def create
     @user = Instructor.find_by_token(params[:token])
     if !@user.present?
@@ -49,7 +54,9 @@ class CoursesController < ApplicationController
 
 #NEEDS TESTS
   def delete
-    if Instructor.find_by_token(params[:token]).courses.find(params[:id]).delete
+
+    user = Instructor.find_by_token(params[:token])
+    if user.courses.find(params[:id]).delete
       @message = "Course deleted"
       render nothing: true, layout: 'application'
     else

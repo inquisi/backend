@@ -112,7 +112,7 @@ RSpec.describe 'User API', type: :request do
 
   end
 
-   #UPDATE
+  #UPDATE
   describe '/users/#id' do
 
     it 'should update the user corresponding to #id' do
@@ -127,6 +127,46 @@ RSpec.describe 'User API', type: :request do
 
     end
 
+  end 
+
+#Are we gonna allow deleting?? Something to discuss
+
+  #DELETE
+  describe '/users/#id' do
+
+    xit 'should delete the instructor corresponding to #id' do
+      
+      user = create(:instructor)
+
+      
+
+    end
+
+
+
+    xit 'should delete the student corresponding to #id' do
+      
+      user = create(:student)
+
+      
+
+    end
+
+   xit 'should delete the instructor and dependencies corresponding to #id' do
+      
+      user = create(:instructor)
+
+      
+
+    end
+
+    xit 'should delete the student and dependencies corresponding to #id' do
+      
+      user = create(:student)
+
+      
+
+    end
   end 
 
 end

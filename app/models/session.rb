@@ -5,7 +5,7 @@ class Session < ActiveRecord::Base
 	has_many 	:questions
 
 	#Will work? many dif answer types, unsure
-	has_many 	:answers, 	:through => :questions
+	has_many 	:answers, 		:through => :questions
 
 	validates 	:name, :date, 	presence: true
 	validates 	:course_id, 	presence: true

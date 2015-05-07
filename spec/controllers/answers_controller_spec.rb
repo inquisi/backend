@@ -5,7 +5,7 @@ RSpec.describe AnswersController, type: :controller do
 	describe "create" do
 
 		it "should make a MC ANSWER record" do
-	      	student = create :student_with_mcA
+	      	student = create :instructor_with_mcA
 	      	course = student.courses.first
 	    	session = course.sessions.first
 	    	question = session.questions.first
@@ -15,7 +15,7 @@ RSpec.describe AnswersController, type: :controller do
 	    end
 
 	    it "should make a SA ANSWER record" do
-	    	student = create :student_with_saA
+	    	student = create :instructor_with_saA
 	      	course = student.courses.first
 	    	session = course.sessions.first
 	    	question = session.questions.first
@@ -25,7 +25,7 @@ RSpec.describe AnswersController, type: :controller do
 	    end
 
 	    it "should make a NUM ANSWER record" do
-	    	student = create :student_with_numA
+	    	student = create :instructor_with_numA
 	      	course = student.courses.first
 	    	session = course.sessions.first
 	    	question = session.questions.first

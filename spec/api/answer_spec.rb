@@ -108,7 +108,7 @@ RSpec.describe 'Answer API', type: :request do
       session = course.sessions.first
       question = session.questions.first
       answer = question.answers.first
-      get '/answers', token: user.token, course_id: course.id, session_id: session.id, question_id: question.id
+      get '/answers', token: user.token, question_id: question.id
 
       body = JSON.parse(response.body)
       answers = body['data']
@@ -125,13 +125,13 @@ RSpec.describe 'Answer API', type: :request do
       session = course.sessions.first
       question = session.questions.first
       answer = question.answers.first
-      get '/answers', token: user.token, course_id: course.id, session_id: session.id, question_id: question.id
+      get '/answers', token: user.token, question_id: question.id
 
       body = JSON.parse(response.body)
       answers = body['data']
       a = answers.first
       expect(answers.length).to eql(1)
-      expect(a['name']).to eql(answer.name)
+      expect(a['name']).to eql(answer.name) 
     end
 
     it 'should return an num_answer json containing an array of num_answers that belong to the instructor' do
@@ -140,7 +140,7 @@ RSpec.describe 'Answer API', type: :request do
       session = course.sessions.first
       question = session.questions.first
       answer = question.answers.first
-      get '/answers', token: user.token, course_id: course.id, session_id: session.id, question_id: question.id
+      get '/answers', token: user.token, question_id: question.id
 
       body = JSON.parse(response.body)
       answers = body['data']
@@ -165,7 +165,7 @@ RSpec.describe 'Answer API', type: :request do
       question = session.questions.first
       answer = question.answers.first
       number = answer.id
-      get "/answers/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id
+      get "/answers/#{number}", token: user.token, question_id: question.id
 
       body = JSON.parse(response.body)
       data = body['data']
@@ -183,7 +183,7 @@ RSpec.describe 'Answer API', type: :request do
       question = session.questions.first
       answer = question.answers.first
       number = answer.id
-      get "/answers/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id
+      get "/answers/#{number}", token: user.token, question_id: question.id
 
       body = JSON.parse(response.body)
       data = body['data']
@@ -199,7 +199,7 @@ RSpec.describe 'Answer API', type: :request do
       question = session.questions.first
       answer = question.answers.first
       number = answer.id
-      get "/answers/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id
+      get "/answers/#{number}", token: user.token, question_id: question.id
 
       body = JSON.parse(response.body)
       data = body['data']
@@ -216,8 +216,7 @@ RSpec.describe 'Answer API', type: :request do
 
    #UPDATE
   describe '/answers/#id' do
-    #NEEDS IMPELMENTATION
-    it 'should update the mc_answer corresponding to #id, for a given question_id ' do
+      it 'should update the mc_answer corresponding to #id, for a given question_id ' do
       
       user = create(:instructor_with_mcA)
       course = user.courses.first
@@ -225,7 +224,7 @@ RSpec.describe 'Answer API', type: :request do
       question = session.questions.first
       answer = question.answers.first
       number = answer.id
-      put "/answers/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, name: "Random"
+      put "/answers/#{number}", token: user.token, question_id: question.id, name: "Random"
 
 
       body = JSON.parse(response.body)
@@ -238,14 +237,14 @@ RSpec.describe 'Answer API', type: :request do
     end
 
     it 'should update the sa_answer corresponding to #id, for a given question_id ' do
-      #IMPLEMENT
+      
       user = create(:instructor_with_saA)
       course = user.courses.first
       session = course.sessions.first
       question = session.questions.first
       answer = question.answers.first
       number = answer.id
-      put "/answers/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, name: "Random"
+      put "/answers/#{number}", token: user.token, question_id: question.id, name: "Random"
 
 
       body = JSON.parse(response.body)
@@ -256,14 +255,14 @@ RSpec.describe 'Answer API', type: :request do
     end
 
     it 'should update the num_answer corresponding to #id, for a given question_id ' do
-      #IMPLEMENT
+      
       user = create(:instructor_with_numA)
       course = user.courses.first
       session = course.sessions.first
       question = session.questions.first
       answer = question.answers.first
       number = answer.id
-      put "/answers/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, num: 53
+      put "/answers/#{number}", token: user.token, question_id: question.id, num: 53
 
 
       body = JSON.parse(response.body)
@@ -283,24 +282,53 @@ RSpec.describe 'Answer API', type: :request do
   describe '/answers/#id' do
 
 
-    xit 'should MC question delete' do
-      #IMPLEMENT
+    it 'should MC answer delete' do
+      user = create(:instructor_with_mcA)
+      course      = user.courses.first
+      session     = course.sessions.first
+      question    = session.questions.first
+      answer      = question.answers.first
+      number      = answer.id
+
+      delete "/answers/#{number}", token: user.token, question_id: question.id
       
-      delete "/answers/#{number}"
+      body = JSON.parse(response.body)
+
+      expect(body['data']).to eql({})
+      
+      
 
     end
 
-    xit 'should SA question delete' do
-      #IMPLEMENT
+    it 'should SA answer delete' do
+      user = create(:instructor_with_saA)
+      course      = user.courses.first
+      session     = course.sessions.first
+      question    = session.questions.first
+      answer      = question.answers.first
+      number      = answer.id
+
+      delete "/answers/#{number}", token: user.token, question_id: question.id
       
-      delete "/answers/#{number}"
+      body = JSON.parse(response.body)
+
+      expect(body['data']).to eql({})
 
     end
 
-    xit 'should NUM question delete' do
-      #IMPLEMENT
+    it 'should NUM answer delete' do
+      user = create(:instructor_with_numA)
+      course      = user.courses.first
+      session     = course.sessions.first
+      question    = session.questions.first
+      answer      = question.answers.first
+      number      = answer.id
+
+      delete "/answers/#{number}", token: user.token, question_id: question.id
       
-      delete "/answers/#{number}"
+      body = JSON.parse(response.body)
+
+      expect(body['data']).to eql({})
 
     end
 

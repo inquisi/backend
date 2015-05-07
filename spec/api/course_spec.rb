@@ -140,10 +140,16 @@ RSpec.describe 'Course API', type: :request do
   #DELETE
   describe '/courses/#id' do
 
-    xit 'should delete the course corresponding to #id' do
-      #IMPLEMENT
+    it 'should delete the course corresponding to #id' do
       
-      delete "/courses/#{number}"
+      user = create(:instructor_with_courses)
+      course = user.courses.first
+      number = course.id
+      delete "/courses/#{number}", token: user.token
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
 
     end
 
