@@ -8,7 +8,7 @@ Backend::Application.routes.draw do
 
   put     'users/:id'               => 'users#update'
   #delete account ?? Not needed now
-  delete  'user/:id'                => 'users#delete'
+  delete  'users'                   => 'users#delete'
 
   #COURSES
   post    'courses'                 => 'courses#create'

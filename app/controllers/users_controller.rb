@@ -49,5 +49,20 @@ class UsersController < ApplicationController
     end
 
   end
+
+  def delete
+
+  @user = User.find_by_token(params[:token])
+  #Check for switching email to already assigned email? -> potential problem
+  
+  if @user.delete
+    @message = "Session deleted"
+    render nothing: true, layout: 'application'
+  else
+    @message = "Failed to update a user"
+    render nothing: true, layout: 'failure'
+  end
+
+end
   
 end

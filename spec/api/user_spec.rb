@@ -134,22 +134,30 @@ RSpec.describe 'User API', type: :request do
   #DELETE
   describe '/users/#id' do
 
-    xit 'should delete the instructor corresponding to #id' do
+    it 'should delete the instructor corresponding to #id' do
       
       user = create(:instructor)
 
       
+      delete "/users", token: user.token
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
 
     end
 
 
 
-    xit 'should delete the student corresponding to #id' do
+    it 'should delete the student corresponding to #id' do
       
       user = create(:student)
-
       
+      delete "/users/", token: user.token
 
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
     end
 
    xit 'should delete the instructor and dependencies corresponding to #id' do
