@@ -199,9 +199,14 @@ RSpec.describe 'Question API', type: :request do
       expect(body['data']).to eql({})
     end
 
-    xit "should delete the question and its answers " do #and responses??
+    xit "should delete the question and its answers " do 
       instructor = create(:instructor_with_mcA)
-      #student = create(:student_with_mcR)
+      #Delete all answers belonging to user
+      delete "/answers", token: user.token
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
 
       question = instructor.questions.first
 

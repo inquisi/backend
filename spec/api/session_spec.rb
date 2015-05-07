@@ -134,6 +134,34 @@ RSpec.describe 'Session API', type: :request do
       expect(JSON.parse(response.body)).to include("message")
       expect(JSON.parse(response.body)).to include("data")
     end
+    #In progress
+    xit 'should delete the session and dependencies corresponding to #id' do
+      
+      user = create(:instructor_with_courses_with_sessions)
+      #Delete all questions belonging to sessions
+      delete "/questions", token: user.token
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+
+      #Check For user courses
+      get '/questions', token: user.token  
+      body = JSON.parse(response.body)
+      questions = body['data']
+      expect(questions.length).to eql(0)
+
+      #Delete session itself
+      course = user.courses.first
+      session = course.sessions.first
+      number = session.id
+      delete "/sessions/#{number}", token: user.token
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+
+    end
 
   end 
 

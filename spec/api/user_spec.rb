@@ -160,21 +160,32 @@ RSpec.describe 'User API', type: :request do
       expect(JSON.parse(response.body)).to include("data")
     end
 
-   xit 'should delete the instructor and dependencies corresponding to #id' do
+    
+   it 'should delete the instructor and dependencies corresponding to #id' do
       
-      user = create(:instructor)
+      user = create(:instructor_with_courses)
+      #Delete all courses belonging to user
+      delete "/courses", token: user.token
 
-      
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+
+      #Check For user courses
+      get '/courses', token: user.token  
+      body = JSON.parse(response.body)
+      courses = body['data']
+      expect(courses.length).to eql(0)
+
+      #Delete User itself
+      delete "/users", token: user.token
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
 
     end
 
-    xit 'should delete the student and dependencies corresponding to #id' do
-      
-      user = create(:student)
-
-      
-
-    end
   end 
 
 end

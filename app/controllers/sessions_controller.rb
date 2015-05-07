@@ -50,10 +50,10 @@ class SessionsController < ApplicationController
 
   end
   
-#NEEDS TESTS
+
   def delete
     user = Instructor.find_by_token(params[:token])
-    
+
     if user.sessions.find(params[:id]).delete
       @message = "Session deleted"
       render nothing: true, layout: 'application'
@@ -64,7 +64,21 @@ class SessionsController < ApplicationController
 
   end
 
-  
+  def deleteAll
+
+    user = Instructor.find_by_token(params[:token])
+    sessions = user.sessions
+    #Iterate thru sessions?
+    sessions.each do |session|
+      if session.delete
+        @message = "Sessions & dependencies deleted"
+        render nothing: true, layout: 'application'
+      else
+        @message = "Error deleting sessions"
+        render nothing: true, layout: 'failure'
+      end
+    end
+  end
 
   def activate
     @user = User.find_by_token(params[:token])

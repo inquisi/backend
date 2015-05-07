@@ -37,7 +37,7 @@ class CoursesController < ApplicationController
     
   end
 
-#NEEDS TESTS
+
   def update
     
     @user = User.find_by_token(params[:token])
@@ -52,7 +52,7 @@ class CoursesController < ApplicationController
     end
   end
 
-#NEEDS TESTS
+
   def delete
 
     user = Instructor.find_by_token(params[:token])
@@ -62,6 +62,22 @@ class CoursesController < ApplicationController
     else
       @message = "Error deleting course"
       render nothing: true, layout: 'failure'
+    end
+  end
+
+  def deleteAll
+
+    user = Instructor.find_by_token(params[:token])
+    courses = user.courses
+    #Iterate thru courses?
+    courses.each do |course|
+      if course.delete
+        @message = "Courses deleted"
+        render nothing: true, layout: 'application'
+      else
+        @message = "Error deleting courses"
+        render nothing: true, layout: 'failure'
+      end
     end
   end
 

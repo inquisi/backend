@@ -60,6 +60,22 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def deleteAll
+
+    user = Instructor.find_by_token(params[:token])
+    questions = user.questions
+    #Iterate thru sessions?
+    questions.each do |question|
+      if question.delete
+        @message = "Sessions deleted"
+        render nothing: true, layout: 'application'
+      else
+        @message = "Error deleting sessions"
+        render nothing: true, layout: 'failure'
+      end
+    end
+  end
+
 
   def activate
     @user = User.find_by_token(params[:token])

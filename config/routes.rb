@@ -12,7 +12,7 @@ Backend::Application.routes.draw do
 
   #COURSES
   post    'courses'                 => 'courses#create'
-  post  'courses/enroll'            => 'courses#enroll'
+  post    'courses/enroll'          => 'courses#enroll'
 
   get     'courses'                 => 'courses#index'
   get     'courses/:id'             => 'courses#show'  
@@ -20,6 +20,8 @@ Backend::Application.routes.draw do
   put     'courses/:id'             => 'courses#update'   
   #^^^^^ /update if needed, Not but for consisentncy   ^^^^
   delete  'courses/:id'             => 'courses#delete'
+  #to delete all 
+  delete  'courses'                 => 'courses#deleteAll'
 
   #SESSIONS
   post    'sessions'                => 'sessions#create'
@@ -31,6 +33,8 @@ Backend::Application.routes.draw do
   post    'sessions/:id/activate'   => 'sessions#activate' 
 
   delete  'sessions/:id'            => 'sessions#delete'
+  #to delete all 
+  delete  'sessions'                => 'sessions#deleteAll'
 
   #Questions
   post    'questions'               => 'questions#create'
@@ -42,6 +46,8 @@ Backend::Application.routes.draw do
   post    'questions/:id/activate'  => 'questions#activate'   
 
   delete  'questions/:id'           => 'questions#delete'
+  #to delete all 
+  delete  'questions'               => 'questions#deleteAll'
 
   #Answers
   post    'answers'                 => 'answers#create'
@@ -52,6 +58,8 @@ Backend::Application.routes.draw do
   put     'answers/:id'             => 'answers#update'    
 
   delete  'answers/:id'             => 'answers#delete'
+  #to delete all 
+  delete  'answers'                 => 'answers#deleteAll'
 
   #Responses
   post  'responses'                 => 'responses#create'
