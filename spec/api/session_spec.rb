@@ -8,8 +8,10 @@ RSpec.describe 'Session API', type: :request do
 
     #NOT SURE WHY BROKEN!?!?!?!?
     
-      xit "should return a session confirm json if creation successful" do
-        post '/sessions', attributes_for(:session)
+      it "should return a session confirm json if creation successful" do
+        instructor = create(:instructor_with_courses)
+
+        post '/sessions', attributes_for(:session, token: instructor.token, course_id: instructor.courses.first.id)
 
         expect(JSON.parse(response.body)).to include("status")
         expect(JSON.parse(response.body)).to include("message")
@@ -25,9 +27,8 @@ RSpec.describe 'Session API', type: :request do
 
       #EXPECTED ERRORS
       it "should return an error if session creation unsuccessful" do
-        session_hash = attributes_for(:session)
-        session_hash[:name] = ""
-        post '/sessions', session_hash
+        instructor = create(:instructor_with_courses)
+        post '/sessions', attributes_for(:session, token: instructor.token, course_id: instructor.courses.first.id, name: "")
         expect(response.body).to eql({status: 'failure', message: 'Failed to create a session', data: {}}.to_json)
       end
     

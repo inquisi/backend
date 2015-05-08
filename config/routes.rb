@@ -6,6 +6,8 @@ Backend::Application.routes.draw do
 
   get     'user'                    => 'users#show'             #Individual User
 
+  get     'user/students'           => 'users#students'         #students belonging to instructor
+
   put     'users/:id'               => 'users#update'
   #delete account ?? Not needed now
   delete  'users'                   => 'users#delete'

@@ -1,7 +1,9 @@
 class SessionsController < ApplicationController
   
 	def create
-    @session = Session.new(name: params[:name], date: params[:date], course_id: params[:course_id], active: params[:active])
+    @user = User.find_by_token(params[:token])
+    @course = @user.courses.find(params[:course_id])
+    @session = @course.sessions.new(name: params[:name], date: params[:date], active: params[:active])
 
     if @session.save
       render 'sessions/create'
