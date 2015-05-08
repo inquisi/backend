@@ -1,4 +1,5 @@
 json.question_id 		question.id
+json.id 	answer.id
 
 if question.category == "MC"
 	json.name	 answer.name

@@ -22,6 +22,7 @@ RSpec.describe 'Answer API', type: :request do
       expect(JSON.parse(response.body)["data"]["answer"]).to include("correct")
       expect(JSON.parse(response.body)["data"]["answer"]).to include("order")
       expect(JSON.parse(response.body)["data"]["answer"]).to include("question_id")
+      expect(JSON.parse(response.body)["data"]["answer"]).to include("id")
 
     end
 
