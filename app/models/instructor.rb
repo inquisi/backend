@@ -4,6 +4,6 @@ class Instructor < User
 
 	has_many 	:sessions, 		:through => :courses
 	has_many 	:questions, 	:through => :sessions
-	#Not sure if works-> many Answer types?
+	#Unsure If works?
 	has_many 	:answers, 		:through => :questions
 end

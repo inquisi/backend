@@ -97,6 +97,7 @@ class ResponsesController < ApplicationController
   		@question = Question.find_by_id(params[:question_id])
 	    if ("MC" == @question.category)
 		   	@user 		 = 	User.find_by_token(params[:token])
+		   	# @response = @user.mc_responses.find_by_id(params[:id])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
 	    	@session 	 = 	@course.sessions.find(params[:session_id])
 	    	@question 	 = 	@session.questions.find(params[:question_id])

@@ -129,8 +129,6 @@ RSpec.describe 'User API', type: :request do
 
   end 
 
-#Are we gonna allow deleting?? Something to discuss
-
   #DELETE
   describe '/users/#id' do
 

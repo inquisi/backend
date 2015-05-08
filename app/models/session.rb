@@ -4,7 +4,7 @@ class Session < ActiveRecord::Base
 	belongs_to 	:course
 	has_many 	:questions
 
-	#Will work? many dif answer types, unsure
+	#Unsure If works?
 	has_many 	:answers, 		:through => :questions
 
 	validates 	:name, :date, 	presence: true

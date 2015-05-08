@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 	has_secure_password
-	0
+	
 	self.inheritance_column = 'role'
 
 	validates 	:first_name, :last_name, presence: true

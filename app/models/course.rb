@@ -3,7 +3,7 @@ class Course < ActiveRecord::Base
 	has_many :sessions
 	#For Active relations
 	has_many 	:questions, 	:through => :sessions
-	#Will this work becuase many sub tables?? of answers
+	#Unsure If works?
 	has_many 	:answers, 		:through => :questions
 
 	#The students of the course
