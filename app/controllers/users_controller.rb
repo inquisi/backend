@@ -38,14 +38,16 @@ class UsersController < ApplicationController
   def students
 
     @user = User.find_by_token(params[:token])
+
     if(@user.present? )
       if ( @user.role == "Instructor")
-        #
-
-
+        #@user is the instructor
+        #Get all students from courses
+        @students = @user.students
+        render 'users/students'
       else
-      @message = "Not an instructor"
-      render nothing: true, layout: 'failure'
+        @message = "Not an instructor"
+        render nothing: true, layout: 'failure'
       end
     else
       @message = "Invalid User"

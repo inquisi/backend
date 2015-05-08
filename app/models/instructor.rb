@@ -6,4 +6,5 @@ class Instructor < User
 	has_many 	:questions, 	:through => :sessions
 	#Unsure If works?
 	has_many 	:answers, 		:through => :questions
+	has_many 	:students, 		:through => :courses
 end
