@@ -1,3 +1,7 @@
 json.array! @students do |student|
-	json.partial! 'users/student', student: student, user: @user
+	if @session
+		json.partial! 'users/students', student: student, user: @user, session: @session
+	else
+		json.partial! 'users/students', student: student, user: @user
+	end
 end

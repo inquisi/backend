@@ -42,9 +42,15 @@ class UsersController < ApplicationController
     if(@user.present? )
       if ( @user.role == "Instructor")
         #@user is the instructor
+        if (params[:session_id])
+          #Get students from a session
+          @session.find_by_id(params[:session_id])
+        end
         #Get all students from courses
         @students = @user.students
         render 'users/students'
+        
+
       else
         @message = "Not an instructor"
         render nothing: true, layout: 'failure'
