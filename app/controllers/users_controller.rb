@@ -37,26 +37,21 @@ class UsersController < ApplicationController
 
   def students
 
-    @user = User.find_by_token(params[:token])
+    @user = Instructor.find_by_token(params[:token])
 
-    if(@user.present? )
-      if ( @user.role == "Instructor")
-        #@user is the instructor
+    if(@user.present?)
         if (params[:session_id])
-          #Get students from a session
-          @session.find_by_id(params[:session_id])
+          # Get students for a session
+          @session = @user.sessions.find_by_id(params[:session_id])
+          @students = @session.course.students
+        else
+          # Get students for an instructor
+          @students = @user.students
         end
-        #Get all students from courses
-        @students = @user.students
-        render 'users/students'
-        
 
-      else
-        @message = "Not an instructor"
-        render nothing: true, layout: 'failure'
-      end
+        render 'users/students'
     else
-      @message = "Invalid User"
+      @message = "Instructor not found"
       render nothing: true, layout: 'failure'
     end
 

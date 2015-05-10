@@ -118,25 +118,26 @@ RSpec.describe 'User API', type: :request do
     it 'should show the students who are in the instructors courses' do
       user = create(:instructor_with_courses)
       course = user.courses.first
+      course2 = user.courses.new(name: "cs293", start: Date.today, finish: Date.tomorrow)
       s1 = create(:student, email: "test@test.com")
       s2 = create(:student, email: "t@test.com")
       s3 = create(:student, email: "tes@test.com")
 
       course.students = [s1, s2, s3]
-
+      course2.students = [s1, s3]
+      course2.instructors << user
+      course.save!
+      course2.save!
 
       get "/user/students", token: user.token
-
-
 
       body = JSON.parse(response.body)
       #Body has an array of students
       s = body['data']
       expect(s.length).to eql(3)
-      expect(JSON.parse(response.body)).to include("status")
-      expect(JSON.parse(response.body)).to include("message")
-      expect(JSON.parse(response.body)).to include("data")
-
+      expect(s[0]['first_name']).to eql(s1.first_name)
+      expect(s[0]['email']).to eql(s1.email)
+      expect(s[0]['id']).to eql(s1.id)
       expect(s[0]['courses'][0]['id']).to eql(course.id)
 
     end
