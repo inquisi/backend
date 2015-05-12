@@ -81,10 +81,12 @@ FactoryGirl.define do
   factory :response do
     user_id        "1"
 
+
   end
 
   factory :mcR, class: McResponse, parent: :response do
     mc_answer_id    "1"
+
   end
 
   factory :saR, class: SaResponse, parent: :response do

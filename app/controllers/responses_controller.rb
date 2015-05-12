@@ -2,10 +2,12 @@ class ResponsesController < ApplicationController
 
 	def create 
 
-		@question = Question.find_by_id(params[:question_id])
-		if ("MC" == @question.category)
-			@response = McResponse.new(user_id: params[:user_id], mc_answer_id: params[:mc_answer_id])
-			@user = User.find_by_id(params[:user_id])
+		# @question = Question.find_by_id(params[:question_id])
+		
+		if (params[:mc_answer_id].present?)
+			@user = User.find_by_token(params[:token])
+			@response = McResponse.new(user_id: @user.id, mc_answer_id: params[:mc_answer_id])
+			
 			if 	@response.save
 				render 'responses/create'
 			else
@@ -16,8 +18,9 @@ class ResponsesController < ApplicationController
 	    elsif ("SA" == @question.category)
 
 	    	#Get Info
+	    	@user = User.find_by_id(params[:user_id])
 	    	@response = SaResponse.new(user_id: params[:user_id], sa_answer_id: params[:sa_answer_id], name: params[:name], correct: false)
-			@user = User.find_by_id(params[:user_id])
+			
 			
 			#Check correctness
 			answer = SaAnswer.find_by_id(params[:sa_answer_id])
@@ -56,8 +59,9 @@ class ResponsesController < ApplicationController
 	    elsif ("NUM" == @question.category)
 
 	    	#Get Info
+	    	@user = User.find_by_id(params[:user_id])
 	    	@response = NumResponse.new(user_id: params[:user_id], num_answer_id: params[:num_answer_id], num: params[:num], correct: false)
-			@user = User.find_by_id(params[:user_id])
+			
 
 			#Check correctness
 			answer = NumAnswer.find_by_id(params[:num_answer_id])
@@ -75,8 +79,9 @@ class ResponsesController < ApplicationController
 			end	
 
 	    elsif ("LA" == @question.category)
+	    	@user = User.find_by_id(params[:user_id])
 		    @response = LaResponse.new(user_id: params[:user_id], question_id: params[:question_id], name: params[:name])
-			@user = User.find_by_id(params[:user_id])
+			
 			if 	@response.save
 				render 'responses/create'
 			else

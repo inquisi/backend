@@ -22,7 +22,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', user_id: user.id, mc_answer_id: answer.id, question_id: question.id
+			post '/responses', token: user.token, mc_answer_id: answer.id
 
 			expect(JSON.parse(response.body)).to include("status")
 			expect(JSON.parse(response.body)).to include("message")
