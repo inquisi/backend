@@ -95,7 +95,10 @@ RSpec.describe 'Question API', type: :request do
   describe "/questions" do
       it 'should return a question json containing an array of questions that belong to the instructor' do
       user = create(:instructor_with_courses_with_sessions_with_questions)
-      get '/questions', token: user.token, course_id: user.courses.first.id, session_id: user.courses.first.sessions.first.id
+      course = user.courses.first
+      session = course.sessions.first
+
+      get '/questions', token: user.token, course_id: course.id, session_id: session.id
 
       body = JSON.parse(response.body)
       questions = body['data']
@@ -110,8 +113,11 @@ RSpec.describe 'Question API', type: :request do
     
     it 'should return an empty array if instructor has no questions' do
       user = create(:instructor_with_courses_with_sessions)
-      get '/questions', token: user.token, course_id: user.courses.first.id, session_id: user.courses.first.sessions.first.id
+      course = user.courses.first
+      session = course.sessions.first
 
+      get '/questions', token: user.token, course_id: course.id, session_id: session.id
+      
       body = JSON.parse(response.body)
       questions = body['data']
       question = questions.first

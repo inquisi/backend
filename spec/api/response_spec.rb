@@ -3,6 +3,7 @@ require 'rails_helper'
 #For all resposnes
 
 RSpec.describe 'Response API', type: :request do
+	#Fixing time sync issue
 	before :each do
 		Timecop.freeze(Time.local(1990))
 	end

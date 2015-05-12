@@ -289,6 +289,7 @@ RSpec.describe 'Answer API', type: :request do
       session     = course.sessions.first
       question    = session.questions.first
       answer      = question.answers.first
+
       number      = answer.id
 
       delete "/answers/#{number}", token: user.token, question_id: question.id
@@ -367,7 +368,7 @@ RSpec.describe 'Answer API', type: :request do
       expect(a.length).to eql(0)
 
       number = question.id
-      delete "/answers/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, mc_answer_id: answer.id
+      delete "/answers/#{number}", token: user.token, question_id: question.id
 
       expect(JSON.parse(response.body)).to include("status")
       expect(JSON.parse(response.body)).to include("message")

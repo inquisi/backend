@@ -5,8 +5,6 @@ RSpec.describe 'Session API', type: :request do
   describe "/create" do
 
     #CREATE EXPECTED SUCCESS
-
-    #NOT SURE WHY BROKEN!?!?!?!?
     
       it "should return a session confirm json if creation successful" do
         instructor = create(:instructor_with_courses)

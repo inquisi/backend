@@ -22,6 +22,8 @@ Backend::Application.routes.draw do
   get     'courses'                 => 'courses#index'
   get     'courses/:id'             => 'courses#show'  
              #Indivudual course
+  get     'course/students'         => 'users#students'         #students belonging to course
+
   put     'courses/:id'             => 'courses#update'   
   #^^^^^ /update if needed, Not but for consisentncy   ^^^^
   delete  'courses/:id'             => 'courses#delete'
@@ -33,6 +35,8 @@ Backend::Application.routes.draw do
 
   get     'sessions'                => 'sessions#index'
   get     'sessions/:id'            => 'sessions#show'         #Indivudual session
+
+  get     'session/students'        => 'users#students'        #students belonging to session
 
   put     'sessions/:id'            => 'sessions#update' 
   post    'sessions/:id/activate'   => 'sessions#activate' 
