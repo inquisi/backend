@@ -44,11 +44,11 @@ class AnswersController < ApplicationController
 
   	def show
 
-  		@question = Question.find_by_id(params[:question_id])
-	    if ("MC" == @question.category)
+  		# @question = Question.find_by_id(params[:question_id])
+	    if (params[:mc_answer_id].present?)
 		    @user = User.find_by_token(params[:token])
-		    @question = @user.questions.find(params[:question_id])
-		    @answer = @question.answers.find(params[:id])
+		    # @question = @user.questions.find(params[:question_id])
+		    @answer = @user.answers.find(params[:id])
 
 		    if(@answer.present? )
 		      render 'answers/show'
@@ -57,10 +57,10 @@ class AnswersController < ApplicationController
 		      render nothing: true, layout: 'failure'
 		    end
 
-	    elsif ("SA" == @question.category)
+	    elsif (params[:sa_answer_id].present?)
 	    	@user = User.find_by_token(params[:token])
-		    @question = @user.questions.find(params[:question_id])
-		    @answer = @question.answers.find(params[:id])
+		    # @question = @user.questions.find(params[:question_id])
+		    @answer = @user.answers.find(params[:id])
 
 		    if(@answer.present? )
 		      render 'answers/show'
@@ -69,10 +69,10 @@ class AnswersController < ApplicationController
 		      render nothing: true, layout: 'failure'
 		    end
 
-	    elsif ("NUM" == @question.category)
+	    elsif (params[:num_answer_id].present?)
 	    	@user = User.find_by_token(params[:token])
-		    @question = @user.questions.find(params[:question_id])
-		    @answer = @question.answers.find(params[:id])
+		    # @question = @user.questions.find(params[:question_id])
+		    @answer = @user.answers.find(params[:id])
 
 		    if(@answer.present? )
 		      render 'answers/show'
@@ -81,7 +81,7 @@ class AnswersController < ApplicationController
 		      render nothing: true, layout: 'failure'
 		    end
 
-	    elsif ("LA" == @question.category)
+	    # elsif ("LA" == @question.category)
 	    	#do nothing
 
 	    else 
@@ -144,11 +144,11 @@ class AnswersController < ApplicationController
   	#Update
   	def update
 
-    	@question = Question.find_by_id(params[:question_id])
-  		if ("MC" == @question.category)
+    	# @question = Question.find_by_id(params[:question_id])
+  		if (params[:mc_answer_id].present?)
 		    @user = User.find_by_token(params[:token])
-		    @question = @user.questions.find(params[:question_id])
-		    @answer = @question.answers.find(params[:id])
+		    # @question = @user.questions.find(params[:question_id])
+		    @answer = @user.answers.find(params[:id])
 
 		    @answer.assign_attributes(params.permit(:name, :correct, :question_id, :order))
 		    if @answer.save
@@ -158,10 +158,10 @@ class AnswersController < ApplicationController
 		      render nothing: true, layout: 'failure'
 		    end
 
-	    elsif ("SA" == @question.category)
+	    elsif (params[:sa_answer_id].present?)
 	    	@user = User.find_by_token(params[:token])
-		    @question = @user.questions.find(params[:question_id])
-		    @answer = @question.answers.find(params[:id])
+		    # @question = @user.questions.find(params[:question_id])
+		    @answer = @user.answers.find(params[:id])
 
 		    @answer.assign_attributes(params.permit(:name, :question_id))
 		    if @answer.save
@@ -171,10 +171,10 @@ class AnswersController < ApplicationController
 		      render nothing: true, layout: 'failure'
 		    end
 
-	    elsif ("NUM" == @question.category)
+	    elsif (params[:num_answer_id].present?)
 	    	@user = User.find_by_token(params[:token])
-		    @question = @user.questions.find(params[:question_id])
-		    @answer = @question.answers.find(params[:id])
+		    # @question = @user.questions.find(params[:question_id])
+		    @answer = @user.answers.find(params[:id])
 
 		    @answer.assign_attributes(params.permit(:num, :question_id))
 		    if @answer.save
@@ -184,7 +184,7 @@ class AnswersController < ApplicationController
 		      render nothing: true, layout: 'failure'
 		    end
 
-	    elsif ("LA" == @question.category)
+	    # elsif ("LA" == @question.category)
 	    	#do nothing
 
 	    else 

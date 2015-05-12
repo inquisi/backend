@@ -15,7 +15,7 @@ class ResponsesController < ApplicationController
 				render nothing: true, layout: 'failure'
 			end
 
-	    elsif ("SA" == @question.category)
+	    elsif (params[:sa_answer_id].present?)
 
 	    	#Get Info
 	    	@user = User.find_by_id(params[:user_id])
@@ -56,7 +56,7 @@ class ResponsesController < ApplicationController
 				render nothing: true, layout: 'failure'
 			end
 
-	    elsif ("NUM" == @question.category)
+	    elsif (params[:num_answer_id].present?)
 
 	    	#Get Info
 	    	@user = User.find_by_id(params[:user_id])
@@ -78,7 +78,7 @@ class ResponsesController < ApplicationController
 				render nothing: true, layout: 'failure'
 			end	
 
-	    elsif ("LA" == @question.category)
+	    elsif (params[:question_id].present?)
 	    	@user = User.find_by_id(params[:user_id])
 		    @response = LaResponse.new(user_id: params[:user_id], question_id: params[:question_id], name: params[:name])
 			
@@ -99,8 +99,7 @@ class ResponsesController < ApplicationController
 
   	def show
 
-  		@question = Question.find_by_id(params[:question_id])
-	    if ("MC" == @question.category)
+	    if (params[:mc_answer_id].present?)
 		   	@user 		 = 	User.find_by_token(params[:token])
 		   	# @response = @user.mc_responses.find_by_id(params[:id])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
@@ -115,7 +114,7 @@ class ResponsesController < ApplicationController
 		  		render nothing: true, layout: 'failure'
 		  	end
 
-	    elsif ("SA" == @question.category)
+	    elsif (params[:sa_answer_id].present?)
 	    	@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
 	    	@session 	 = 	@course.sessions.find(params[:session_id])
@@ -130,7 +129,7 @@ class ResponsesController < ApplicationController
 		  		render nothing: true, layout: 'failure'
 		  	end
 
-	    elsif ("NUM" == @question.category)
+	    elsif (params[:num_answer_id].present?)
 			 
 			@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
@@ -146,7 +145,7 @@ class ResponsesController < ApplicationController
 		  		render nothing: true, layout: 'failure'
 		  	end   	
 
-	    elsif ("LA" == @question.category)
+	    elsif (params[:question_id].present?)
 	    	@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
 	    	@session 	 = 	@course.sessions.find(params[:session_id])
@@ -170,8 +169,8 @@ class ResponsesController < ApplicationController
 
   	#show all
   	def index
-  		@question = Question.find_by_id(params[:question_id])
-  		if ("MC" == @question.category)
+  		
+  		if (params[:mc_answer_id].present?)
 		    @user 			= User.find_by_token(params[:token])
 	   		@course 		= @user.courses.find(params[:course_id])
 	    	@session 	 	= @course.sessions.find(params[:session_id])
@@ -186,7 +185,7 @@ class ResponsesController < ApplicationController
 		  		render nothing: true, layout: 'failure'
 		  	end
 
-	    elsif ("SA" == @question.category)
+	    elsif (params[:sa_answer_id].present?)
 	    	@user 			= User.find_by_token(params[:token])
 	   		@course 		= @user.courses.find(params[:course_id])
 	    	@session 	 	= @course.sessions.find(params[:session_id])
@@ -201,7 +200,7 @@ class ResponsesController < ApplicationController
 		  		render nothing: true, layout: 'failure'
 		  	end
 
-	    elsif ("NUM" == @question.category)
+	    elsif (params[:num_answer_id].present?)
 	    	@user 			= User.find_by_token(params[:token])
 	   		@course 		= @user.courses.find(params[:course_id])
 	    	@session 	 	= @course.sessions.find(params[:session_id])
@@ -216,7 +215,7 @@ class ResponsesController < ApplicationController
 		  		render nothing: true, layout: 'failure'
 		  	end
 	    	
-	    elsif ("LA" == @question.category)
+	    elsif (params[:question_id].present?)
 	    	@user 			= User.find_by_token(params[:token])
 	   		@course 		= @user.courses.find(params[:course_id])
 	    	@session 	 	= @course.sessions.find(params[:session_id])
@@ -238,8 +237,8 @@ class ResponsesController < ApplicationController
   	end
 
   	def update
-  		@question = Question.find_by_id(params[:question_id])
-	    if ("MC" == @question.category)
+  		
+	    if (params[:mc_answer_id].present?)
 		   	@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
 	    	@session 	 = 	@course.sessions.find(params[:session_id])
@@ -255,7 +254,7 @@ class ResponsesController < ApplicationController
 		      render nothing: true, layout: 'failure'
 		    end
 
-	    elsif ("SA" == @question.category)
+	    elsif (params[:sa_answer_id].present?)
 	    	@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
 	    	@session 	 = 	@course.sessions.find(params[:session_id])
@@ -271,7 +270,7 @@ class ResponsesController < ApplicationController
 		      render nothing: true, layout: 'failure'
 		    end
 
-	    elsif ("NUM" == @question.category)
+	    elsif (params[:num_answer_id].present?)
 			 
 			@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
@@ -288,7 +287,7 @@ class ResponsesController < ApplicationController
 		      render nothing: true, layout: 'failure'
 		    end  	
 
-	    elsif ("LA" == @question.category)
+	    elsif (params[:question_id].present?)
 	    	@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
 	    	@session 	 = 	@course.sessions.find(params[:session_id])
@@ -317,8 +316,8 @@ class ResponsesController < ApplicationController
 
 
   	def delete
-  		@question = Question.find_by_id(params[:question_id])
-	    if ("MC" == @question.category)
+  		
+	    if (params[:mc_answer_id].present?)
 		   	@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
 	    	@session 	 = 	@course.sessions.find(params[:session_id])
@@ -333,7 +332,7 @@ class ResponsesController < ApplicationController
 		      render nothing: true, layout: 'failure'
 		    end
 
-	    elsif ("SA" == @question.category)
+	    elsif (params[:sa_answer_id].present?)
 	    	@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
 	    	@session 	 = 	@course.sessions.find(params[:session_id])
@@ -349,7 +348,7 @@ class ResponsesController < ApplicationController
 		      render nothing: true, layout: 'failure'
 		    end
 
-	    elsif ("NUM" == @question.category)
+	    elsif (params[:num_answer_id].present?)
 			 
 			@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
@@ -366,7 +365,7 @@ class ResponsesController < ApplicationController
 		      render nothing: true, layout: 'failure'
 		    end  	
 
-	    elsif ("LA" == @question.category)
+	    elsif (params[:question_id].present?)
 	    	@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
 	    	@session 	 = 	@course.sessions.find(params[:session_id])
@@ -391,9 +390,7 @@ class ResponsesController < ApplicationController
 
  	def deleteAll
 
-  		@question = Question.find_by_id(params[:question_id])
-
-	    if ("MC" == @question.category)
+	    if (params[:mc_answer_id].present?)
 		   	@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
 	    	@session 	 = 	@course.sessions.find(params[:session_id])
@@ -413,7 +410,7 @@ class ResponsesController < ApplicationController
 
 			end	
 
-	    elsif ("SA" == @question.category)
+	    elsif (params[:sa_answer_id].present?)
 	    	@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
 	    	@session 	 = 	@course.sessions.find(params[:session_id])
@@ -433,7 +430,7 @@ class ResponsesController < ApplicationController
 
 			end	
 
-	    elsif ("NUM" == @question.category)
+	    elsif (params[:num_answer_id].present?)
 			 
 			@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
@@ -454,7 +451,7 @@ class ResponsesController < ApplicationController
 
 			end	 	
 
-	    elsif ("LA" == @question.category)
+	    elsif (params[:question_id].present?)
 	    	@user 		 = 	User.find_by_token(params[:token])
 	   		@course 	 = 	@user.courses.find(params[:course_id])
 	    	@session 	 = 	@course.sessions.find(params[:session_id])

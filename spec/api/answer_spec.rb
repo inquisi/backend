@@ -166,7 +166,7 @@ RSpec.describe 'Answer API', type: :request do
       question = session.questions.first
       answer = question.answers.first
       number = answer.id
-      get "/answers/#{number}", token: user.token, question_id: question.id
+      get "/answers/#{number}", token: user.token
 
       body = JSON.parse(response.body)
       data = body['data']
@@ -184,7 +184,7 @@ RSpec.describe 'Answer API', type: :request do
       question = session.questions.first
       answer = question.answers.first
       number = answer.id
-      get "/answers/#{number}", token: user.token, question_id: question.id
+      get "/answers/#{number}", token: user.token
 
       body = JSON.parse(response.body)
       data = body['data']
@@ -200,7 +200,7 @@ RSpec.describe 'Answer API', type: :request do
       question = session.questions.first
       answer = question.answers.first
       number = answer.id
-      get "/answers/#{number}", token: user.token, question_id: question.id
+      get "/answers/#{number}", token: user.token
 
       body = JSON.parse(response.body)
       data = body['data']
@@ -225,7 +225,7 @@ RSpec.describe 'Answer API', type: :request do
       question = session.questions.first
       answer = question.answers.first
       number = answer.id
-      put "/answers/#{number}", token: user.token, question_id: question.id, name: "Random"
+      put "/answers/#{number}", token: user.token, name: "Random"
 
 
       body = JSON.parse(response.body)
@@ -245,7 +245,7 @@ RSpec.describe 'Answer API', type: :request do
       question = session.questions.first
       answer = question.answers.first
       number = answer.id
-      put "/answers/#{number}", token: user.token, question_id: question.id, name: "Random"
+      put "/answers/#{number}", token: user.token, name: "Random"
 
 
       body = JSON.parse(response.body)
@@ -263,7 +263,7 @@ RSpec.describe 'Answer API', type: :request do
       question = session.questions.first
       answer = question.answers.first
       number = answer.id
-      put "/answers/#{number}", token: user.token, question_id: question.id, num: 53
+      put "/answers/#{number}", token: user.token, num: 53
 
 
       body = JSON.parse(response.body)
@@ -292,7 +292,7 @@ RSpec.describe 'Answer API', type: :request do
 
       number      = answer.id
 
-      delete "/answers/#{number}", token: user.token, question_id: question.id
+      delete "/answers/#{number}", token: user.token
       
       body = JSON.parse(response.body)
 
@@ -310,7 +310,7 @@ RSpec.describe 'Answer API', type: :request do
       answer      = question.answers.first
       number      = answer.id
 
-      delete "/answers/#{number}", token: user.token, question_id: question.id
+      delete "/answers/#{number}", token: user.token
       
       body = JSON.parse(response.body)
 
@@ -326,7 +326,7 @@ RSpec.describe 'Answer API', type: :request do
       answer      = question.answers.first
       number      = answer.id
 
-      delete "/answers/#{number}", token: user.token, question_id: question.id
+      delete "/answers/#{number}", token: user.token
       
       body = JSON.parse(response.body)
 
@@ -354,21 +354,21 @@ RSpec.describe 'Answer API', type: :request do
       number      = answer.id
 
       #Delete all responses belonging to answer
-      delete "/responses", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, mc_answer_id: answer.id
+      delete "/responses", token: user.token, mc_answer_id: answer.id
 
       expect(JSON.parse(response.body)).to include("status")
       expect(JSON.parse(response.body)).to include("message")
       expect(JSON.parse(response.body)).to include("data")
 
       #Check For question answers
-      get '/responses', token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, mc_answer_id: answer.id
+      get '/responses', token: user.token, mc_answer_id: answer.id
 
       body = JSON.parse(response.body)
       a = body['data']
       expect(a.length).to eql(0)
 
       number = question.id
-      delete "/answers/#{number}", token: user.token, question_id: question.id
+      delete "/answers/#{number}", token: user.token
 
       expect(JSON.parse(response.body)).to include("status")
       expect(JSON.parse(response.body)).to include("message")

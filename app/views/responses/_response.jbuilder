@@ -6,21 +6,21 @@ if params[:mc_answer_id].present?
 	
 end
 
-if question.category == "SA"	
+if params[:sa_answer_id].present?	
 	json.answer_id 		response.sa_answer_id 
 	json.name 			response.name
 	json.correct		response.correct
 	
 end
 
-if question.category == "NUM"
+if params[:num_answer_id].present?
 	json.answer_id 		response.num_answer_id 
 	json.num			response.num
 	json.correct		response.correct
 
 end
 
-if question.category == "LA"
+if params[:question_id].present?
 	json.question_id 	response.question_id
 	json.name 			response.name
 	

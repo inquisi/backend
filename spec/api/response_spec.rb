@@ -39,7 +39,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', user_id: user.id, sa_answer_id: answer.id, question_id: question.id, name: "1"
+			post '/responses', token: user.token, sa_answer_id: answer.id, name: "1"
 
 			expect(JSON.parse(response.body)).to include("status")
 			expect(JSON.parse(response.body)).to include("message")
@@ -58,7 +58,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', user_id: user.id, num_answer_id: answer.id, question_id: question.id, num: 1
+			post '/responses', token: user.token, num_answer_id: answer.id, num: 1
 
 			expect(JSON.parse(response.body)).to include("status")
 			expect(JSON.parse(response.body)).to include("message")
@@ -76,7 +76,7 @@ RSpec.describe 'Response API', type: :request do
 			course 			= user.courses.first
 			session 		= course.sessions.first
 			question 		= session.questions.first
-			post '/responses', user_id: user.id, question_id: question.id, name: "name"
+			post '/responses', token: user.token, question_id: question.id, name: "name"
 
 			expect(JSON.parse(response.body)).to include("status")
 			expect(JSON.parse(response.body)).to include("message")
@@ -96,7 +96,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', user_id: nil, mc_answer_id: answer.id, question_id: question.id
+			post '/responses', token: nil, mc_answer_id: answer.id
 			
 			expect(response.body).to eql({status: 'failure', message: 'Failed to create a mc_response', data: {}}.to_json)
 		end
@@ -107,7 +107,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', user_id: nil, sa_answer_id: answer.id, question_id: question.id
+			post '/responses', token: nil, sa_answer_id: answer.id
 			
 			expect(response.body).to eql({status: 'failure', message: 'Failed to create a sa_response', data: {}}.to_json)
 		end
@@ -118,7 +118,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', user_id: nil, num_answer_id: answer.id, question_id: question.id
+			post '/responses', token: nil, num_answer_id: answer.id
 			
 			expect(response.body).to eql({status: 'failure', message: 'Failed to create a num_response', data: {}}.to_json)
 		end
@@ -128,7 +128,7 @@ RSpec.describe 'Response API', type: :request do
 			course 			= user.courses.first
 			session 		= course.sessions.first
 			question 		= session.questions.first
-			post '/responses', user_id: nil, name: "yi", question_id: question.id
+			post '/responses', token: nil, name: "yi", question_id: question.id
 			
 			expect(response.body).to eql({status: 'failure', message: 'Failed to create a la_response', data: {}}.to_json)
 		end
@@ -146,7 +146,7 @@ RSpec.describe 'Response API', type: :request do
 			answer = question.answers.first
 			responses = answer.responses
 			mc_response = responses.first
-			get '/responses', token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, mc_answer_id: answer.id
+			get '/responses', token: user.token, mc_answer_id: answer.id
 			
 			body = JSON.parse(response.body)
 			rs = body['data']
@@ -167,7 +167,7 @@ RSpec.describe 'Response API', type: :request do
 			answer = question.answers.first
 			responses = answer.responses
 			sa_response = responses.first
-			get '/responses', token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, sa_answer_id: answer.id
+			get '/responses', token: user.token, sa_answer_id: answer.id
 
 			body = JSON.parse(response.body)
 			responses = body['data']
@@ -189,7 +189,7 @@ RSpec.describe 'Response API', type: :request do
 			answer = question.answers.first
 			responses = answer.responses
 			num_response = responses.first
-			get '/responses', token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, num_answer_id: answer.id
+			get '/responses', token: user.token, num_answer_id: answer.id
 
 			body = JSON.parse(response.body)
 			responses = body['data']
@@ -209,7 +209,7 @@ RSpec.describe 'Response API', type: :request do
 			session = course.sessions.first
 			question = session.questions.first
 			la_response  = question.responses.first
-			get '/responses', token: user.token, course_id: course.id, session_id: session.id, question_id: question.id 
+			get '/responses', token: user.token, question_id: question.id 
 
 			body = JSON.parse(response.body)
 			responses = body['data']
@@ -236,7 +236,7 @@ RSpec.describe 'Response API', type: :request do
 			answer = question.answers.first
 			mc_response = answer.responses.first
 			number = mc_response.id
-			get "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, mc_answer_id: answer.id
+			get "/responses/#{number}", token: user.token
 
 			#If works
 			body = JSON.parse(response.body)
@@ -257,7 +257,7 @@ RSpec.describe 'Response API', type: :request do
 			answer = question.answers.first
 			sa_response = answer.responses.first
 			number = sa_response.id
-			get "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, sa_answer_id: answer.id
+			get "/responses/#{number}", token: user.token
 
 			#If works
 			body = JSON.parse(response.body)
@@ -278,7 +278,7 @@ RSpec.describe 'Response API', type: :request do
 			answer = question.answers.first
 			num_response = answer.responses.first
 			number = num_response.id
-			get "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, num_answer_id: answer.id
+			get "/responses/#{number}", token: user.token
 
 			#If works
 			body = JSON.parse(response.body)
@@ -298,7 +298,7 @@ RSpec.describe 'Response API', type: :request do
 			question = session.questions.first
 			la_response = question.responses.first
 			number = la_response.id
-			get "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id
+			get "/responses/#{number}", token: user.token
 
 			#If works
 			body = JSON.parse(response.body)
@@ -327,7 +327,7 @@ RSpec.describe 'Response API', type: :request do
 			sa_response = answer.responses.first
 			number = sa_response.id
 
-		    put "/responses/#{number}", token: user.token, name: "hello world", course_id: course.id, session_id: session.id, question_id: question.id, sa_answer_id: answer.id
+		    put "/responses/#{number}", token: user.token, name: "hello world"
 
 		    body = JSON.parse(response.body)
 		    s = body['data']['response']
@@ -351,7 +351,7 @@ RSpec.describe 'Response API', type: :request do
 			answer = question.answers.first
 			mc_response = answer.responses.first
 		    number = mc_response.id
-		    delete "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, mc_answer_id: answer.id
+		    delete "/responses/#{number}", token: user.token
 
 		    expect(JSON.parse(response.body)).to include("status")
 		    expect(JSON.parse(response.body)).to include("message")
@@ -371,7 +371,7 @@ RSpec.describe 'Response API', type: :request do
 			answer = question.answers.first
 			num_response = answer.responses.first
 			number = num_response.id
-			get "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, num_answer_id: answer.id
+			get "/responses/#{number}", token: user.token
 
 			#If works
 			body = JSON.parse(response.body)
@@ -396,7 +396,7 @@ RSpec.describe 'Response API', type: :request do
 			#Make an incorrect response UPDATE
 			put "/responses/#{number}", num: 43, token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, num_answer_id: answer.id
 			#Get Back updated response
-			get "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, num_answer_id: answer.id
+			get "/responses/#{number}", token: user.token
 			#If works
 			body = JSON.parse(response.body)
 			
@@ -416,7 +416,7 @@ RSpec.describe 'Response API', type: :request do
 			answer = question.answers.first
 			sa_response = answer.responses.first
 			number = sa_response.id
-			get "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, sa_answer_id: answer.id
+			get "/responses/#{number}", token: user.token
 
 			#If works
 			body = JSON.parse(response.body)
@@ -439,9 +439,9 @@ RSpec.describe 'Response API', type: :request do
 			sa_response = answer.responses.first
 			number = sa_response.id
 			#Make an incorrect response UPDATE
-			put "/responses/#{number}", name: "wrong", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, sa_answer_id: answer.id
+			put "/responses/#{number}", name: "wrong", token: user.token
 			#Get Back updated response
-			get "/responses/#{number}", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id, sa_answer_id: answer.id
+			get "/responses/#{number}", token: user.token
 			#If works
 			body = JSON.parse(response.body)
 			
