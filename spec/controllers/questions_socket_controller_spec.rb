@@ -14,6 +14,10 @@ RSpec.describe "QuestionsSocketController" do
 			expect(Question.first.active).to eql true
 		end
 
+		xit "should broadcast activation to the appropriate session channel" do
+			event = create_event('questions.activate', {token: @user.token, question_id: @question.id})
+		end
+
 		it "should render a failure if an instructor isn't found" do
 			event = create_event('questions.activate', {token: "BLAH", question_id: @question.id})
 			expect(event.dispatch).to trigger_failure_message({message: "Invalid instructor token"})
