@@ -90,13 +90,14 @@ class SessionsController < ApplicationController
   def activate
     @user = User.find_by_token(params[:token])
     @session = @user.sessions.find(params[:id])
-    @session.assign_attributes(params.permit(:active))
+    @session.active = params[:active]
 
     if @session.save
       render 'sessions/show'
     else
       @message = "Failed to activate a session"
       render nothing: true, layout: 'failure'
+      
     end
     
   end

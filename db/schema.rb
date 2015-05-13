@@ -124,11 +124,12 @@ ActiveRecord::Schema.define(version: 20150504195050) do
   add_index "sa_responses", ["user_id"], name: "index_sa_responses_on_user_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
+    t.boolean  "active",     limit: 1,     default: false
     t.text     "name",       limit: 65535
     t.date     "date"
     t.integer  "course_id",  limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   add_index "sessions", ["course_id"], name: "index_sessions_on_course_id", using: :btree
