@@ -1,6 +1,4 @@
 class Session < ActiveRecord::Base
-	include Activatable
-	
 	belongs_to 	:course
 	has_many 	:questions
 
@@ -9,4 +7,8 @@ class Session < ActiveRecord::Base
 
 	validates 	:name, :date, 	presence: true
 	validates 	:course_id, 	presence: true
+
+	def active
+		questions.where(active: true).any?
+	end
 end
