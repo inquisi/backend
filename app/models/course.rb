@@ -24,7 +24,7 @@ class Course < ActiveRecord::Base
 	end
 
 	def active
-		questions.where(active: true).any?
+		sessions.where(active: true).any?
 	end
 
 private

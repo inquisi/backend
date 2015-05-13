@@ -7,11 +7,20 @@ RSpec.describe "QuestionsSocketController" do
 
 	describe "activate" do
 		it "should activate a given question" do
+			allow_any_instance_of(WebsocketRails::BaseController).to receive(:connection_store).and_return({})
 			event = create_event('questions.activate', {token: @user.token, question_id: @question.id})
 
 			expect(Question.first.active).to eql false
 			event.dispatch
 			expect(Question.first.active).to eql true
+		end
+
+		it "should set a sesion_id on connection_store" do
+			event = create_event('questions.activate', {token: @user.token, question_id: @question.id})
+			connection_store = {}
+			expect_any_instance_of(WebsocketRails::BaseController).to receive(:connection_store).and_return(connection_store)
+			event.dispatch
+			expect(connection_store[:session_id]).to eql @question.session.id
 		end
 
 		xit "should broadcast activation to the appropriate session channel" do
