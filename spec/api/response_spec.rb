@@ -22,7 +22,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', token: user.token, mc_answer_id: answer.id
+			post '/responses', token: user.token, mc_answer_id: answer.id, question_id: question.id
 
 			expect(JSON.parse(response.body)).to include("status")
 			expect(JSON.parse(response.body)).to include("message")
@@ -39,7 +39,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', user_id: user.id, sa_answer_id: answer.id, question_id: question.id, name: "1"
+			post '/responses', token: user.token, sa_answer_id: answer.id, question_id: question.id, name: "1"
 
 			expect(JSON.parse(response.body)).to include("status")
 			expect(JSON.parse(response.body)).to include("message")
@@ -58,7 +58,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', user_id: user.id, num_answer_id: answer.id, question_id: question.id, num: 1
+			post '/responses', token: user.token, num_answer_id: answer.id, question_id: question.id, num: 1
 
 			expect(JSON.parse(response.body)).to include("status")
 			expect(JSON.parse(response.body)).to include("message")
@@ -76,7 +76,7 @@ RSpec.describe 'Response API', type: :request do
 			course 			= user.courses.first
 			session 		= course.sessions.first
 			question 		= session.questions.first
-			post '/responses', user_id: user.id, question_id: question.id, name: "name"
+			post '/responses', token: user.token, question_id: question.id, name: "name"
 
 			expect(JSON.parse(response.body)).to include("status")
 			expect(JSON.parse(response.body)).to include("message")
@@ -96,7 +96,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', user_id: nil, mc_answer_id: answer.id, question_id: question.id
+			post '/responses', token: nil, mc_answer_id: answer.id, question_id: question.id
 			
 			expect(response.body).to eql({status: 'failure', message: 'Failed to create a mc_response', data: {}}.to_json)
 		end
@@ -107,7 +107,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', user_id: nil, sa_answer_id: answer.id, question_id: question.id
+			post '/responses', token: nil, sa_answer_id: answer.id, question_id: question.id
 			
 			expect(response.body).to eql({status: 'failure', message: 'Failed to create a sa_response', data: {}}.to_json)
 		end
@@ -118,7 +118,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', user_id: nil, num_answer_id: answer.id, question_id: question.id
+			post '/responses', token: nil, num_answer_id: answer.id, question_id: question.id
 			
 			expect(response.body).to eql({status: 'failure', message: 'Failed to create a num_response', data: {}}.to_json)
 		end
@@ -128,7 +128,7 @@ RSpec.describe 'Response API', type: :request do
 			course 			= user.courses.first
 			session 		= course.sessions.first
 			question 		= session.questions.first
-			post '/responses', user_id: nil, name: "yi", question_id: question.id
+			post '/responses', token: nil, name: "yi", question_id: question.id
 			
 			expect(response.body).to eql({status: 'failure', message: 'Failed to create a la_response', data: {}}.to_json)
 		end

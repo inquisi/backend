@@ -1,7 +1,7 @@
 json.token			user.token	
 json.created_at 	response.created_at.to_s
 
-if params[:mc_answer_id].present?
+if question.category == "MC"	
 	json.answer_id 		response.mc_answer_id 
 	
 end

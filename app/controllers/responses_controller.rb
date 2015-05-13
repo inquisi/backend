@@ -2,9 +2,9 @@ class ResponsesController < ApplicationController
 
 	def create 
 
-		# @question = Question.find_by_id(params[:question_id])
+		@question = Question.find_by_id(params[:question_id])
 		
-		if (params[:mc_answer_id].present?)
+		if ("MC" == @question.category)
 			@user = User.find_by_token(params[:token])
 			@response = McResponse.new(user_id: @user.id, mc_answer_id: params[:mc_answer_id])
 			
@@ -101,11 +101,8 @@ class ResponsesController < ApplicationController
 
   		@question = Question.find_by_id(params[:question_id])
 	    if ("MC" == @question.category)
-		   	@user 		 = 	User.find_by_token(params[:token])
-		   	# @response = @user.mc_responses.find_by_id(params[:id])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+	    	@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer 	 =	@question.answers.find(params[:mc_answer_id])
 	    	@response 	 = 	@answer.responses.find(params[:id])
 			if(@response.present? )
@@ -116,10 +113,8 @@ class ResponsesController < ApplicationController
 		  	end
 
 	    elsif ("SA" == @question.category)
-	    	@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+	   		@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer   	 = 	@question.answers.find(params[:sa_answer_id])
 	    	@response 	 =	@answer.responses.find(params[:id])
 	    	
@@ -133,9 +128,7 @@ class ResponsesController < ApplicationController
 	    elsif ("NUM" == @question.category)
 			 
 			@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer  	 = 	@question.answers.find(params[:num_answer_id])
 	    	@response 	 =	@answer.responses.find(params[:id])
 	    	
@@ -147,10 +140,8 @@ class ResponsesController < ApplicationController
 		  	end   	
 
 	    elsif ("LA" == @question.category)
-	    	@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+			@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@response 	 =	@question.responses.find(params[:id])
 	    	
 			if(@response.present? )
@@ -172,10 +163,9 @@ class ResponsesController < ApplicationController
   	def index
   		@question = Question.find_by_id(params[:question_id])
   		if ("MC" == @question.category)
-		    @user 			= User.find_by_token(params[:token])
-	   		@course 		= @user.courses.find(params[:course_id])
-	    	@session 	 	= @course.sessions.find(params[:session_id])
-	    	@question 		= @session.questions.find(params[:question_id])
+
+			@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer 	 	= @question.answers.find(params[:mc_answer_id])
 	    	@responses 	  	= @answer.responses
 
@@ -187,10 +177,8 @@ class ResponsesController < ApplicationController
 		  	end
 
 	    elsif ("SA" == @question.category)
-	    	@user 			= User.find_by_token(params[:token])
-	   		@course 		= @user.courses.find(params[:course_id])
-	    	@session 	 	= @course.sessions.find(params[:session_id])
-	    	@question 		= @session.questions.find(params[:question_id])
+			@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer   		= @question.answers.find(params[:sa_answer_id])
 	    	@responses 		= @answer.responses
 
@@ -202,10 +190,8 @@ class ResponsesController < ApplicationController
 		  	end
 
 	    elsif ("NUM" == @question.category)
-	    	@user 			= User.find_by_token(params[:token])
-	   		@course 		= @user.courses.find(params[:course_id])
-	    	@session 	 	= @course.sessions.find(params[:session_id])
-	    	@question 		= @session.questions.find(params[:question_id])
+			@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer   		= @question.answers.find(params[:num_answer_id])
 	    	@responses 		= @answer.responses
 
@@ -217,10 +203,8 @@ class ResponsesController < ApplicationController
 		  	end
 	    	
 	    elsif ("LA" == @question.category)
-	    	@user 			= User.find_by_token(params[:token])
-	   		@course 		= @user.courses.find(params[:course_id])
-	    	@session 	 	= @course.sessions.find(params[:session_id])
-	    	@question 		= @session.questions.find(params[:question_id])
+			@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@responses 		= @question.responses
 	    	
 		  	if(@responses.present? )
@@ -240,10 +224,8 @@ class ResponsesController < ApplicationController
   	def update
   		@question = Question.find_by_id(params[:question_id])
 	    if ("MC" == @question.category)
-		   	@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+			@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer 	 =	@question.answers.find(params[:mc_answer_id])
 	    	@response 	 = 	@answer.responses.find(params[:id])
 
@@ -256,10 +238,8 @@ class ResponsesController < ApplicationController
 		    end
 
 	    elsif ("SA" == @question.category)
-	    	@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+			@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer   	 = 	@question.answers.find(params[:sa_answer_id])
 	    	@response 	 =	@answer.responses.find(params[:id])
 	    	
@@ -274,9 +254,7 @@ class ResponsesController < ApplicationController
 	    elsif ("NUM" == @question.category)
 			 
 			@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer  	 = 	@question.answers.find(params[:num_answer_id])
 	    	@response 	 =	@answer.responses.find(params[:id])
 	    	
@@ -289,10 +267,8 @@ class ResponsesController < ApplicationController
 		    end  	
 
 	    elsif ("LA" == @question.category)
-	    	@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+			@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@response 	 =	@question.responses.find(params[:id])
 	    	
 			@response.assign_attributes(params.permit(:name, :question_id))
@@ -319,10 +295,8 @@ class ResponsesController < ApplicationController
   	def delete
   		@question = Question.find_by_id(params[:question_id])
 	    if ("MC" == @question.category)
-		   	@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+			@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer 	 =	@question.answers.find(params[:mc_answer_id])
 	    	@response 	 = 	@answer.responses.find(params[:id])
 			if(@response.delete )
@@ -334,10 +308,8 @@ class ResponsesController < ApplicationController
 		    end
 
 	    elsif ("SA" == @question.category)
-	    	@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+			@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer   	 = 	@question.answers.find(params[:sa_answer_id])
 	    	@response 	 =	@answer.responses.find(params[:id])
 	    	
@@ -352,9 +324,7 @@ class ResponsesController < ApplicationController
 	    elsif ("NUM" == @question.category)
 			 
 			@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer  	 = 	@question.answers.find(params[:num_answer_id])
 	    	@response 	 =	@answer.responses.find(params[:id])
 	    	
@@ -367,10 +337,8 @@ class ResponsesController < ApplicationController
 		    end  	
 
 	    elsif ("LA" == @question.category)
-	    	@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+			@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@response 	 =	@question.responses.find(params[:id])
 	    	
 			if(@response.delete )
@@ -394,10 +362,8 @@ class ResponsesController < ApplicationController
   		@question = Question.find_by_id(params[:question_id])
 
 	    if ("MC" == @question.category)
-		   	@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+			@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer 	 =	@question.answers.find(params[:mc_answer_id])
 	    	@responses 	 = 	@answer.responses
 
@@ -414,10 +380,8 @@ class ResponsesController < ApplicationController
 			end	
 
 	    elsif ("SA" == @question.category)
-	    	@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+			@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer   	 = 	@question.answers.find(params[:sa_answer_id])
 	    	@responses 	 = 	@answer.responses
 
@@ -436,9 +400,7 @@ class ResponsesController < ApplicationController
 	    elsif ("NUM" == @question.category)
 			 
 			@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer  	 = 	@question.answers.find(params[:num_answer_id])
 	    	@responses 	 = 	@answer.responses
 
@@ -455,10 +417,8 @@ class ResponsesController < ApplicationController
 			end	 	
 
 	    elsif ("LA" == @question.category)
-	    	@user 		 = 	User.find_by_token(params[:token])
-	   		@course 	 = 	@user.courses.find(params[:course_id])
-	    	@session 	 = 	@course.sessions.find(params[:session_id])
-	    	@question 	 = 	@session.questions.find(params[:question_id])
+			@user 		 = 	User.find_by_token(params[:token])
+	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@responses 	 = 	@question.responses
 
 			#Iterate thru answers?
