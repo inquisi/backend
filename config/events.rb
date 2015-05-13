@@ -13,7 +13,7 @@ WebsocketRails::EventMap.describe do
   # The above will handle an event triggered on the client like `product.new`.
 
   # subscribe :connection_closed, to: QuestionsSocketController, with_method: :deactivate_all
-  subscribe :client_disconnected, to: QuestionsSocketController, with_method: :deactivate_all
+  subscribe :client_disconnected, to: QuestionsSocketController, with_method: :session_end
 
   namespace :questions do
     subscribe :activate, to: QuestionsSocketController, with_method: :activate
