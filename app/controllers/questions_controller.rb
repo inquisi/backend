@@ -51,7 +51,18 @@ class QuestionsController < ApplicationController
 
   #Working for just the question, not dependencies
   def delete
-    if Instructor.find_by_token(params[:token]).questions.find(params[:id]).delete
+      @user = Instructor.find_by_token(params[:token])
+      @question = @user.questions.find(params[:id])
+
+      #for question delete all responses if nesscary
+      if @question.category == "LA"
+        delete "/responses", token: @user.token, question_id: @question.id
+      else
+        #for question delete all answers
+        delete "/answers", token: @user.token, question_id: @question.id
+      end
+
+    if @question.delete
       @message = "Question deleted"
       render nothing: true, layout: 'application'
     else
@@ -67,6 +78,15 @@ class QuestionsController < ApplicationController
     q = courses.first.questions
     #Iterate thru sessions?
     q.each do |question|
+
+       #for each question delete all responses if nesscary
+      if @question.category == "LA"
+        delete "/responses", token: @user.token, question_id: question.id
+      else
+        #for each question delete all answers
+        delete "/answers", token: @user.token, question_id: question.id
+      end
+
       if question.delete
         @message = "questions deleted"
         render nothing: true, layout: 'application'

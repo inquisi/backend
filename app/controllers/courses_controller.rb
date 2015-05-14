@@ -56,6 +56,9 @@ class CoursesController < ApplicationController
   def delete
 
     user = Instructor.find_by_token(params[:token])
+     #for course delete all sessions
+    delete "/sessions", token: @user.token
+    
     if user.courses.find(params[:id]).delete
       @message = "Course deleted"
       render nothing: true, layout: 'application'
@@ -71,6 +74,9 @@ class CoursesController < ApplicationController
     courses = user.courses
     #Iterate thru courses?
     courses.each do |course|
+      #for each course delete all sessions
+      delete "/sessions", token: @user.token
+
       if course.delete
         @message = "Courses deleted"
         render nothing: true, layout: 'application'

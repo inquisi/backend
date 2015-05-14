@@ -428,5 +428,60 @@ class ResponsesController < ApplicationController
 	    end
 
 	end
+
+	#NEEDS TESTING
+	#delete all responses for a student
+	def deleteStudent
+		@user 	 = 	User.find_by_token(params[:token])
+		@responses = McResponses.find_by_user_id(@user.id)
+		#Iterate thru mc_responses?
+		@responses.each do |response|
+			if response.delete
+				@message = "responses deleted"
+				render nothing: true, layout: 'application'
+			else
+				@message = "Error deleting responses"
+				render nothing: true, layout: 'failure'
+			end
+
+		end	
+		@responses = SaResponses.find_by_user_id(@user.id)
+		#Iterate thru sa_responses
+		@responses.each do |response|
+			if response.delete
+				@message = "responses deleted"
+				render nothing: true, layout: 'application'
+			else
+				@message = "Error deleting responses"
+				render nothing: true, layout: 'failure'
+			end
+
+		end	
+		@responses = NumResponses.find_by_user_id(@user.id)
+		#Iterate thru num_responses
+		@responses.each do |response|
+			if response.delete
+				@message = "responses deleted"
+				render nothing: true, layout: 'application'
+			else
+				@message = "Error deleting responses"
+				render nothing: true, layout: 'failure'
+			end
+
+		end	
+		@responses = LaResponses.find_by_user_id(@user.id)
+		#Iterate thru la_responses
+		@responses.each do |response|
+			if response.delete
+				@message = "responses deleted"
+				render nothing: true, layout: 'application'
+			else
+				@message = "Error deleting responses"
+				render nothing: true, layout: 'failure'
+			end
+
+		end	
+
+	end
 	
 end

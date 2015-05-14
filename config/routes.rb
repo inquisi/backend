@@ -82,6 +82,8 @@ Backend::Application.routes.draw do
   delete  'responses/:id'           => 'responses#delete'
   #to delete all 
   delete  'responses'               => 'responses#deleteAll'
+  #student responses
+  delete  'responses/student'       => 'responses#deleteStudent'
 
 
   #TODO

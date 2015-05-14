@@ -76,7 +76,16 @@ class UsersController < ApplicationController
 
     @user = User.find_by_token(params[:token])
     #Check for switching email to already assigned email? -> potential problem
-    
+  
+
+    #For Deleteing sub resources
+    if @user.role == instructor
+      delete "/courses", token: @user.token
+    else
+      #student
+      delete "/responses/student", token: @user.token
+    end
+    #Delete User themselves (Both instructor and Student)
     if @user.delete
       @message = "User deleted"
       render nothing: true, layout: 'application'

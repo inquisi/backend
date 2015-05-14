@@ -203,6 +203,9 @@ class AnswersController < ApplicationController
 		    @user = User.find_by_token(params[:token])
 		    @question = @user.questions.find(params[:question_id])
 		    @answer = @question.answers.find(params[:id])
+
+		    #Delete Responses
+		    delete "/responses", token: @user.token, mc_answer_id: @answer.id, question_id: @question.id
 			
 			if @answer.delete
 			    @message = "Answer deleted"
@@ -218,6 +221,10 @@ class AnswersController < ApplicationController
 	    	@user = User.find_by_token(params[:token])
 		    @question = @user.questions.find(params[:question_id])
 		    @answer = @question.answers.find(params[:id])
+
+		    #Delete Responses
+			delete "/responses", token: @user.token, sa_answer_id: @answer.id, question_id: @question.id
+
 		    if @answer.delete
 			    @message = "Answer deleted"
 			    render nothing: true, layout: 'application'
@@ -231,6 +238,10 @@ class AnswersController < ApplicationController
 	    	@user = User.find_by_token(params[:token])
 		    @question = @user.questions.find(params[:question_id])
 		    @answer = @question.answers.find(params[:id])
+
+		    #Delete Responses
+		    delete "/responses", token: @user.token, num_answer_id: @answer.id, question_id: @question.id
+
 		    if @answer.delete
 			    @message = "Answer deleted"
 			    render nothing: true, layout: 'application'
@@ -261,6 +272,10 @@ class AnswersController < ApplicationController
 
 			#Iterate thru answers?
 			@answers.each do |answer|
+
+				#Delete Responses
+				delete "/responses", token: @user.token, mc_answer_id: @answer.id, question_id: @question.id
+
 				if answer.delete
 					@message = "answers deleted"
 					render nothing: true, layout: 'application'
@@ -275,8 +290,12 @@ class AnswersController < ApplicationController
 			@user = User.find_by_token(params[:token])
 			@question = @user.questions.find(params[:question_id])
 			@answers = @question.answers
-		    Iterate thru answers?
+		    #Iterate thru answers?
 		    @answers.each do |answer|
+
+		    	#Delete Responses
+		    	delete "/responses", token: @user.token, sa_answer_id: @answer.id, question_id: @question.id
+
 		    	if answer.delete
 		    		@message = "answers deleted"
 		    		render nothing: true, layout: 'application'
@@ -292,8 +311,12 @@ class AnswersController < ApplicationController
 			@question = @user.questions.find(params[:question_id])
 			@answers = @question.answers
 
-		    Iterate thru answers?
+		    #Iterate thru answers?
 		    @answers.each do |answer|
+
+		    	#Delete Responses
+		    	delete "/responses", token: @user.token, num_answer_id: @answer.id, question_id: @question.id
+		    	
 		    	if answer.delete
 		    		@message = "answers deleted"
 		    		render nothing: true, layout: 'application'
