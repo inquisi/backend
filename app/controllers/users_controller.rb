@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     #Check for switching email to already assigned email? -> potential problem
     
     if @user.delete
-      @message = "Session deleted"
+      @message = "User deleted"
       render nothing: true, layout: 'application'
     else
       @message = "Failed to update a user"

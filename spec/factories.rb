@@ -170,103 +170,103 @@ FactoryGirl.define do
 #####################################################################################################
 #STUDENTS CANT HAVE QUESTIONS OR ANSWERS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!###########################
     # #Question with no answers or responses
-    # factory :student_with_mc do
-    #   after :create do |student|
-    #     courses = [create(:course, students: [student])]
-    #     sessions = [create(:session, course_id: "#{courses.first.id}")]
-    #     questions = [create(:mc, session_id: "#{sessions.first.id}")]
+    factory :student_with_mc do
+      after :create do |student|
+        courses = [create(:course, students: [student])]
+        sessions = [create(:session, course_id: "#{courses.first.id}")]
+        questions = [create(:mc, session_id: "#{sessions.first.id}")]
         
-    #     sessions.first.questions = questions
-    #     courses.first.sessions = sessions
-    #     student.courses = courses
-    #   end
+        sessions.first.questions = questions
+        courses.first.sessions = sessions
+        student.courses = courses
+      end
 
-    # end
+    end
 
-    # factory :student_with_sa do
-    #   after :create do |student|
-    #     courses = [create(:course, students: [student])]
-    #     sessions = [create(:session, course_id: "#{courses.first.id}")]
-    #     questions = [create(:sa, session_id: "#{sessions.first.id}")]
+    factory :student_with_sa do
+      after :create do |student|
+        courses = [create(:course, students: [student])]
+        sessions = [create(:session, course_id: "#{courses.first.id}")]
+        questions = [create(:sa, session_id: "#{sessions.first.id}")]
         
-    #     sessions.first.questions = questions
-    #     courses.first.sessions = sessions
-    #     student.courses = courses
-    #   end
+        sessions.first.questions = questions
+        courses.first.sessions = sessions
+        student.courses = courses
+      end
 
-    # end    
+    end    
 
-    # factory :student_with_num do
-    #   after :create do |student|
-    #     courses = [create(:course, students: [student])]
-    #     sessions = [create(:session, course_id: "#{courses.first.id}")]
-    #     questions = [create(:num, session_id: "#{sessions.first.id}")]
+    factory :student_with_num do
+      after :create do |student|
+        courses = [create(:course, students: [student])]
+        sessions = [create(:session, course_id: "#{courses.first.id}")]
+        questions = [create(:num, session_id: "#{sessions.first.id}")]
         
-    #     sessions.first.questions = questions
-    #     courses.first.sessions = sessions
-    #     student.courses = courses
-    #   end
+        sessions.first.questions = questions
+        courses.first.sessions = sessions
+        student.courses = courses
+      end
 
-    # end
+    end
 
-    # factory :student_with_la do
-    #   after :create do |student|
-    #     courses = [create(:course, students: [student])]
-    #     sessions = [create(:session, course_id: "#{courses.first.id}")]
-    #     questions = [create(:la, session_id: "#{sessions.first.id}")]
+    factory :student_with_la do
+      after :create do |student|
+        courses = [create(:course, students: [student])]
+        sessions = [create(:session, course_id: "#{courses.first.id}")]
+        questions = [create(:la, session_id: "#{sessions.first.id}")]
         
-    #     sessions.first.questions = questions
-    #     courses.first.sessions = sessions
-    #     student.courses = courses
-    #   end
+        sessions.first.questions = questions
+        courses.first.sessions = sessions
+        student.courses = courses
+      end
 
-    # end
+    end
 
     # #Question with Answers
-    # factory :student_with_mcA do
-    #   after :create do |student|
-    #     courses = [create(:course, students: [student])]
-    #     sessions = [create(:session, course_id: "#{courses.first.id}")]
-    #     questions = [create(:mc, session_id: "#{sessions.first.id}")]
-    #     answers = [create(:mcA, question_id: "#{questions.first.id}")]
+    factory :student_with_mcA do
+      after :create do |student|
+        courses = [create(:course, students: [student])]
+        sessions = [create(:session, course_id: "#{courses.first.id}")]
+        questions = [create(:mc, session_id: "#{sessions.first.id}")]
+        answers = [create(:mcA, question_id: "#{questions.first.id}")]
  
-    #     questions.first.answers = answers
-    #     sessions.first.questions = questions
-    #     courses.first.sessions = sessions
-    #     student.courses = courses
-    #   end
+        questions.first.answers = answers
+        sessions.first.questions = questions
+        courses.first.sessions = sessions
+        student.courses = courses
+      end
 
-    # end
+    end
 
-    # factory :student_with_saA do
-    #   after :create do |student|
-    #     courses = [create(:course, students: [student])]
-    #     sessions = [create(:session, course_id: "#{courses.first.id}")]
-    #     questions = [create(:sa, session_id: "#{sessions.first.id}")]
-    #     answers = [create(:saA, question_id: "#{questions.first.id}")]
+    factory :student_with_saA do
+      after :create do |student|
+        courses = [create(:course, students: [student])]
+        sessions = [create(:session, course_id: "#{courses.first.id}")]
+        questions = [create(:sa, session_id: "#{sessions.first.id}")]
+        answers = [create(:saA, question_id: "#{questions.first.id}")]
  
-    #     questions.first.answers = answers
-    #     sessions.first.questions = questions
-    #     courses.first.sessions = sessions
-    #     student.courses = courses
-    #   end
+        questions.first.answers = answers
+        sessions.first.questions = questions
+        courses.first.sessions = sessions
+        student.courses = courses
+      end
 
-    # end
+    end
 
-    # factory :student_with_numA do
-    #   after :create do |student|
-    #     courses = [create(:course, students: [student])]
-    #     sessions = [create(:session, course_id: "#{courses.first.id}")]
-    #     questions = [create(:num, session_id: "#{sessions.first.id}")]
-    #     answers = [create(:numA, question_id: "#{questions.first.id}")]
+    factory :student_with_numA do
+      after :create do |student|
+        courses = [create(:course, students: [student])]
+        sessions = [create(:session, course_id: "#{courses.first.id}")]
+        questions = [create(:num, session_id: "#{sessions.first.id}")]
+        answers = [create(:numA, question_id: "#{questions.first.id}")]
  
-    #     questions.first.answers = answers
-    #     sessions.first.questions = questions
-    #     courses.first.sessions = sessions
-    #     student.courses = courses
-    #   end
+        questions.first.answers = answers
+        sessions.first.questions = questions
+        courses.first.sessions = sessions
+        student.courses = courses
+      end
 
-    # end
+    end
 ###############################DONT DELETE ^^^^^ IN CASE NEED LATER ##################################
 
     #Question with Responses
@@ -276,7 +276,7 @@ FactoryGirl.define do
         sessions = [create(:session, course_id: "#{courses.first.id}")]
         questions = [create(:mc, session_id: "#{sessions.first.id}")]
         answers = [create(:mcA, question_id: "#{questions.first.id}")]
-        responses = [create(:mcR, mc_answer_id: "#{answers.first.id}")]
+        responses = [create(:mcR, mc_answer_id: "#{answers.first.id}", user_id: "#{student.id}")]
         
         answers.first.responses = responses
         questions.first.answers = answers        
@@ -293,7 +293,7 @@ FactoryGirl.define do
         sessions = [create(:session, course_id: "#{courses.first.id}")]
         questions = [create(:sa, session_id: "#{sessions.first.id}")]
         answers = [create(:saA, question_id: "#{questions.first.id}")]
-        responses = [create(:saR, sa_answer_id: "#{answers.first.id}")]
+        responses = [create(:saR, sa_answer_id: "#{answers.first.id}", user_id: "#{student.id}")]
         
         answers.first.responses = responses
         questions.first.answers = answers
@@ -310,7 +310,7 @@ FactoryGirl.define do
         sessions = [create(:session, course_id: "#{courses.first.id}")]
         questions = [create(:num, session_id: "#{sessions.first.id}")]
         answers = [create(:numA, question_id: "#{questions.first.id}")]
-        responses = [create(:numR, num_answer_id: "#{answers.first.id}")]
+        responses = [create(:numR, num_answer_id: "#{answers.first.id}", user_id: "#{student.id}")]
         
         answers.first.responses = responses
         questions.first.answers = answers
@@ -327,7 +327,7 @@ FactoryGirl.define do
         courses = [create(:course, students: [student])]
         sessions = [create(:session, course_id: "#{courses.first.id}")]
         questions = [create(:la, session_id: "#{sessions.first.id}")]
-        responses = [create(:laR, question_id: "#{questions.first.id}")]
+        responses = [create(:laR, question_id: "#{questions.first.id}", user_id: "#{student.id}")]
  
         questions.first.responses = responses
         sessions.first.questions = questions
@@ -482,72 +482,72 @@ FactoryGirl.define do
 ############################################################################################################
 ############################################################################################################
     #Question with Responses (INSTRUCTORS DON'T HAVE RESPONSES)
-    # factory :instructor_with_mcR do
-    #   after :create do |instructor|
-    #     courses = [create(:course, instructors: [instructor])]
-    #     sessions = [create(:session, course_id: "#{courses.first.id}")]
-    #     questions = [create(:mc, session_id: "#{sessions.first.id}")]
-    #     answers = [create(:mcA, question_id: "#{questions.first.id}")]
-    #     responses = [create(:mcR, mc_answer_id: "#{answers.first.id}")]
+    factory :instructor_with_mcR do
+      after :create do |instructor|
+        courses = [create(:course, instructors: [instructor])]
+        sessions = [create(:session, course_id: "#{courses.first.id}")]
+        questions = [create(:mc, session_id: "#{sessions.first.id}")]
+        answers = [create(:mcA, question_id: "#{questions.first.id}")]
+        responses = [create(:mcR, mc_answer_id: "#{answers.first.id}")]
         
-    #     answers.first.responses = responses
-    #     questions.first.answers = answers        
-    #     sessions.first.questions = questions
-    #     courses.first.sessions = sessions
-    #     instructor.courses = courses
-    #   end
+        answers.first.responses = responses
+        questions.first.answers = answers        
+        sessions.first.questions = questions
+        courses.first.sessions = sessions
+        instructor.courses = courses
+      end
 
-    # end
+    end
 
-    # factory :instructor_with_saR do
-    #   after :create do |instructor|
-    #     courses = [create(:course, instructors: [instructor])]
-    #     sessions = [create(:session, course_id: "#{courses.first.id}")]
-    #     questions = [create(:sa, session_id: "#{sessions.first.id}")]
-    #     answers = [create(:saA, question_id: "#{questions.first.id}")]
-    #     responses = [create(:saR, sa_answer_id: "#{answers.first.id}")]
+    factory :instructor_with_saR do
+      after :create do |instructor|
+        courses = [create(:course, instructors: [instructor])]
+        sessions = [create(:session, course_id: "#{courses.first.id}")]
+        questions = [create(:sa, session_id: "#{sessions.first.id}")]
+        answers = [create(:saA, question_id: "#{questions.first.id}")]
+        responses = [create(:saR, sa_answer_id: "#{answers.first.id}")]
         
-    #     answers.first.responses = responses
-    #     questions.first.answers = answers
-    #     sessions.first.questions = questions
-    #     courses.first.sessions = sessions
-    #     instructor.courses = courses
-    #   end
+        answers.first.responses = responses
+        questions.first.answers = answers
+        sessions.first.questions = questions
+        courses.first.sessions = sessions
+        instructor.courses = courses
+      end
 
-    # end
+    end
 
-    # factory :instructor_with_numR do
-    #   after :create do |instructor|
-    #     courses = [create(:course, instructors: [instructor])]
-    #     sessions = [create(:session, course_id: "#{courses.first.id}")]
-    #     questions = [create(:num, session_id: "#{sessions.first.id}")]
-    #     answers = [create(:numA, question_id: "#{questions.first.id}")]
-    #     responses = [create(:numR, num_answer_id: "#{answers.first.id}")]
+    factory :instructor_with_numR do
+      after :create do |instructor|
+        courses = [create(:course, instructors: [instructor])]
+        sessions = [create(:session, course_id: "#{courses.first.id}")]
+        questions = [create(:num, session_id: "#{sessions.first.id}")]
+        answers = [create(:numA, question_id: "#{questions.first.id}")]
+        responses = [create(:numR, num_answer_id: "#{answers.first.id}")]
         
-    #     answers.first.responses = responses
-    #     questions.first.answers = answers
-    #     sessions.first.questions = questions
-    #     courses.first.sessions = sessions
-    #     instructor.courses = courses
-    #   end
+        answers.first.responses = responses
+        questions.first.answers = answers
+        sessions.first.questions = questions
+        courses.first.sessions = sessions
+        instructor.courses = courses
+      end
 
-    # end
+    end
 
     # #Special Case, no answer for LaR
-    # factory :instructor_with_laR do
-    #   after :create do |instructor|
-    #     courses = [create(:course, instructors: [instructor])]
-    #     sessions = [create(:session, course_id: "#{courses.first.id}")]
-    #     questions = [create(:la, session_id: "#{sessions.first.id}")]
-    #     responses = [create(:laR, question_id: "#{questions.first.id}")]
+    factory :instructor_with_laR do
+      after :create do |instructor|
+        courses = [create(:course, instructors: [instructor])]
+        sessions = [create(:session, course_id: "#{courses.first.id}")]
+        questions = [create(:la, session_id: "#{sessions.first.id}")]
+        responses = [create(:laR, question_id: "#{questions.first.id}")]
  
-    #     questions.first.responses = responses
-    #     sessions.first.questions = questions
-    #     courses.first.sessions = sessions
-    #     instructor.courses = courses
-    #   end
+        questions.first.responses = responses
+        sessions.first.questions = questions
+        courses.first.sessions = sessions
+        instructor.courses = courses
+      end
 
-    # end
+    end
 ###############################DONT DELETE ^^^^^ IN CASE NEED LATER ##################################
 
     #End Of Instructor Factories

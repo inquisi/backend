@@ -232,25 +232,25 @@ RSpec.describe 'Question API', type: :request do
       expect(JSON.parse(response.body)).to include("data")
     end
       
-      #SPECIAL CASE for laR (ALL RESPONSE THINGS NOT WORKING GOOD)
-    xit "should delete the question and its la responses " do 
-      user = create(:student_with_laR)
+      #SPECIAL CASE for laR
+    it "should delete the question and its la responses " do 
+      user        = create(:instructor_with_laR) 
+      #Wierd case becasue students can't own a question, so could not delete 
       course      = user.courses.first
-      session     = course.sessions.first
-      question    = session.questions.first
+      question    = user.questions.first
       number      = question.id
      
 
-      question = instructor.questions.first
+      
       #Delete all answers belonging to user
-      delete "/responses", token: user.token, course_id: course.id, session_id: session.id, question_id: question.id
+      delete "/responses", token: user.token, question_id: question.id
 
       expect(JSON.parse(response.body)).to include("status")
       expect(JSON.parse(response.body)).to include("message")
       expect(JSON.parse(response.body)).to include("data")
 
       #Check For question answers
-      get '/answers', token: user.token, question_id: question.id
+      get '/responses', token: user.token, question_id: question.id
 
       body = JSON.parse(response.body)
       a = body['data']
@@ -258,7 +258,6 @@ RSpec.describe 'Question API', type: :request do
  
       #Delete question itself
       
-      number = question.id
       delete "/questions/#{number}", token: user.token
 
       expect(JSON.parse(response.body)).to include("status")

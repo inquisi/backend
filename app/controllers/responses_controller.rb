@@ -18,17 +18,21 @@ class ResponsesController < ApplicationController
 	    elsif ("SA" == @question.category)
 
 	    	#Get Info
-	    	@user = User.find_by_id(params[:user_id])
-	    	@response = SaResponse.new(user_id: params[:user_id], sa_answer_id: params[:sa_answer_id], name: params[:name], correct: false)
-			
+	    	@user = User.find_by_token(params[:token])
+	    	@response = SaResponse.new(user_id: @user.id, sa_answer_id: params[:sa_answer_id], name: params[:name], correct: false)
 			
 			#Check correctness
 			answer = SaAnswer.find_by_id(params[:sa_answer_id])
-			n = answer.name
-
+			#Null Check
+			if answer.present?
+				n = answer.name
+			end
 
 			#BECAUSE STRINGS => LETS CONDITION INPUT
-			store = answer.name
+			#Null Check
+			if answer.present?
+				store = answer.name
+			end
 			input = params[:name]
 			
 			#NIL checks becuase if input bad, downcase fails
@@ -50,6 +54,7 @@ class ResponsesController < ApplicationController
 	
 			#Save It / Error Message
 			if 	@response.save
+
 				render 'responses/create'
 			else
 				@message = "Failed to create a sa_response"
@@ -59,13 +64,17 @@ class ResponsesController < ApplicationController
 	    elsif ("NUM" == @question.category)
 
 	    	#Get Info
-	    	@user = User.find_by_id(params[:user_id])
-	    	@response = NumResponse.new(user_id: params[:user_id], num_answer_id: params[:num_answer_id], num: params[:num], correct: false)
+	    	@user = User.find_by_token(params[:token])
+	    	@response = NumResponse.new(user_id: @user.id, num_answer_id: params[:num_answer_id], num: params[:num], correct: false)
 			
 
 			#Check correctness
 			answer = NumAnswer.find_by_id(params[:num_answer_id])
-			number = answer.num
+			#Null Check
+			if answer.present?
+				number = answer.num
+			end
+
 			if number == params[:num]
 				@response.correct = true
 			end
@@ -79,8 +88,8 @@ class ResponsesController < ApplicationController
 			end	
 
 	    elsif ("LA" == @question.category)
-	    	@user = User.find_by_id(params[:user_id])
-		    @response = LaResponse.new(user_id: params[:user_id], question_id: params[:question_id], name: params[:name])
+	    	@user = User.find_by_token(params[:token])
+		    @response = LaResponse.new(user_id: @user.id, question_id: params[:question_id], name: params[:name])
 			
 			if 	@response.save
 				render 'responses/create'
@@ -102,7 +111,6 @@ class ResponsesController < ApplicationController
   		@question = Question.find_by_id(params[:question_id])
 	    if ("MC" == @question.category)
 	    	@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer 	 =	@question.answers.find(params[:mc_answer_id])
 	    	@response 	 = 	@answer.responses.find(params[:id])
 			if(@response.present? )
@@ -114,7 +122,6 @@ class ResponsesController < ApplicationController
 
 	    elsif ("SA" == @question.category)
 	   		@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer   	 = 	@question.answers.find(params[:sa_answer_id])
 	    	@response 	 =	@answer.responses.find(params[:id])
 	    	
@@ -128,7 +135,6 @@ class ResponsesController < ApplicationController
 	    elsif ("NUM" == @question.category)
 			 
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer  	 = 	@question.answers.find(params[:num_answer_id])
 	    	@response 	 =	@answer.responses.find(params[:id])
 	    	
@@ -141,7 +147,6 @@ class ResponsesController < ApplicationController
 
 	    elsif ("LA" == @question.category)
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@response 	 =	@question.responses.find(params[:id])
 	    	
 			if(@response.present? )
@@ -165,7 +170,6 @@ class ResponsesController < ApplicationController
   		if ("MC" == @question.category)
 
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer 	 	= @question.answers.find(params[:mc_answer_id])
 	    	@responses 	  	= @answer.responses
 
@@ -178,7 +182,6 @@ class ResponsesController < ApplicationController
 
 	    elsif ("SA" == @question.category)
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer   		= @question.answers.find(params[:sa_answer_id])
 	    	@responses 		= @answer.responses
 
@@ -191,7 +194,6 @@ class ResponsesController < ApplicationController
 
 	    elsif ("NUM" == @question.category)
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer   		= @question.answers.find(params[:num_answer_id])
 	    	@responses 		= @answer.responses
 
@@ -204,7 +206,6 @@ class ResponsesController < ApplicationController
 	    	
 	    elsif ("LA" == @question.category)
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@responses 		= @question.responses
 	    	
 		  	if(@responses.present? )
@@ -225,7 +226,6 @@ class ResponsesController < ApplicationController
   		@question = Question.find_by_id(params[:question_id])
 	    if ("MC" == @question.category)
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer 	 =	@question.answers.find(params[:mc_answer_id])
 	    	@response 	 = 	@answer.responses.find(params[:id])
 
@@ -239,7 +239,6 @@ class ResponsesController < ApplicationController
 
 	    elsif ("SA" == @question.category)
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer   	 = 	@question.answers.find(params[:sa_answer_id])
 	    	@response 	 =	@answer.responses.find(params[:id])
 	    	
@@ -254,7 +253,6 @@ class ResponsesController < ApplicationController
 	    elsif ("NUM" == @question.category)
 			 
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer  	 = 	@question.answers.find(params[:num_answer_id])
 	    	@response 	 =	@answer.responses.find(params[:id])
 	    	
@@ -268,7 +266,6 @@ class ResponsesController < ApplicationController
 
 	    elsif ("LA" == @question.category)
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@response 	 =	@question.responses.find(params[:id])
 	    	
 			@response.assign_attributes(params.permit(:name, :question_id))
@@ -296,7 +293,6 @@ class ResponsesController < ApplicationController
   		@question = Question.find_by_id(params[:question_id])
 	    if ("MC" == @question.category)
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer 	 =	@question.answers.find(params[:mc_answer_id])
 	    	@response 	 = 	@answer.responses.find(params[:id])
 			if(@response.delete )
@@ -309,7 +305,6 @@ class ResponsesController < ApplicationController
 
 	    elsif ("SA" == @question.category)
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer   	 = 	@question.answers.find(params[:sa_answer_id])
 	    	@response 	 =	@answer.responses.find(params[:id])
 	    	
@@ -324,7 +319,6 @@ class ResponsesController < ApplicationController
 	    elsif ("NUM" == @question.category)
 			 
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer  	 = 	@question.answers.find(params[:num_answer_id])
 	    	@response 	 =	@answer.responses.find(params[:id])
 	    	
@@ -338,7 +332,6 @@ class ResponsesController < ApplicationController
 
 	    elsif ("LA" == @question.category)
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@response 	 =	@question.responses.find(params[:id])
 	    	
 			if(@response.delete )
@@ -363,7 +356,6 @@ class ResponsesController < ApplicationController
 
 	    if ("MC" == @question.category)
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer 	 =	@question.answers.find(params[:mc_answer_id])
 	    	@responses 	 = 	@answer.responses
 
@@ -381,7 +373,6 @@ class ResponsesController < ApplicationController
 
 	    elsif ("SA" == @question.category)
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer   	 = 	@question.answers.find(params[:sa_answer_id])
 	    	@responses 	 = 	@answer.responses
 
@@ -400,7 +391,6 @@ class ResponsesController < ApplicationController
 	    elsif ("NUM" == @question.category)
 			 
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@answer  	 = 	@question.answers.find(params[:num_answer_id])
 	    	@responses 	 = 	@answer.responses
 
@@ -418,7 +408,6 @@ class ResponsesController < ApplicationController
 
 	    elsif ("LA" == @question.category)
 			@user 		 = 	User.find_by_token(params[:token])
-	    	@question 	 = 	@user.questions.find(params[:question_id])
 	    	@responses 	 = 	@question.responses
 
 			#Iterate thru answers?

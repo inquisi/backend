@@ -10,8 +10,8 @@ class Student < User
 	has_many :answers, :through => :questions
 
 #Have many responses
-	has_many 				:mc_responses
-	has_many 				:sa_responses
-	has_many 				:num_responses
-	has_many 				:la_responses
+	has_many 				:mc_responses, 		foreign_key: :user_id
+	has_many 				:sa_responses, 		foreign_key: :user_id
+	has_many 				:num_responses, 	foreign_key: :user_id
+	has_many 				:la_responses, 		foreign_key: :user_id
 end

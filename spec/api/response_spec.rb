@@ -34,7 +34,7 @@ RSpec.describe 'Response API', type: :request do
 		end
 
 		it "should sa_response creation successful" do
-			user 			= create(:student_with_saR)
+			user 			= create(:student_with_saA)
 			course 			= user.courses.first
 			session 		= course.sessions.first
 			question 		= session.questions.first
@@ -53,7 +53,7 @@ RSpec.describe 'Response API', type: :request do
 		end
 
 		it "should num_response creation successful" do
-			user 			= create(:student_with_numR)
+			user 			= create(:student_with_numA)
 			course 			= user.courses.first
 			session 		= course.sessions.first
 			question 		= session.questions.first
@@ -70,7 +70,7 @@ RSpec.describe 'Response API', type: :request do
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("answer_id")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("correct")
 	    end
-
+ 
 		it "should la_response creation successful" do
 			user 			= create(:student_with_laR)
 			course 			= user.courses.first
@@ -96,7 +96,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', token: nil, mc_answer_id: answer.id, question_id: question.id
+			post '/responses', token: user.token, mc_answer_id: nil, question_id: question.id
 			
 			expect(response.body).to eql({status: 'failure', message: 'Failed to create a mc_response', data: {}}.to_json)
 		end
@@ -107,7 +107,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', token: nil, sa_answer_id: answer.id, question_id: question.id
+			post '/responses', token: user.token, sa_answer_id: nil, question_id: question.id, name: "Bob"
 			
 			expect(response.body).to eql({status: 'failure', message: 'Failed to create a sa_response', data: {}}.to_json)
 		end
@@ -118,7 +118,7 @@ RSpec.describe 'Response API', type: :request do
 			session 		= course.sessions.first
 			question 		= session.questions.first
 			answer 			= question.answers.first
-			post '/responses', token: nil, num_answer_id: answer.id, question_id: question.id
+			post '/responses', token: user.token, num_answer_id: nil, question_id: question.id, num: 5
 			
 			expect(response.body).to eql({status: 'failure', message: 'Failed to create a num_response', data: {}}.to_json)
 		end
@@ -128,7 +128,7 @@ RSpec.describe 'Response API', type: :request do
 			course 			= user.courses.first
 			session 		= course.sessions.first
 			question 		= session.questions.first
-			post '/responses', token: nil, name: "yi", question_id: question.id
+			post '/responses', token: user.token, name: nil, question_id: question.id
 			
 			expect(response.body).to eql({status: 'failure', message: 'Failed to create a la_response', data: {}}.to_json)
 		end
