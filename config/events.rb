@@ -18,5 +18,6 @@ WebsocketRails::EventMap.describe do
   namespace :questions do
     subscribe :activate, to: QuestionsSocketController, with_method: :activate
     subscribe :deactivate, to: QuestionsSocketController, with_method: :deactivate
+    subscribe :deactivate_all, to: QuestionsSocketController, with_method: :session_end
   end
 end
