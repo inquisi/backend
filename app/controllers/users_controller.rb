@@ -44,6 +44,10 @@ class UsersController < ApplicationController
           # Get students for a session
           @session = @user.sessions.find_by_id(params[:session_id])
           @students = @session.course.students
+        elsif (params[:course_id])
+          # Get students for a session
+          @course = @user.courses.find_by_id(params[:course_id])
+          @students = @course.students
         else
           # Get students for an instructor
           @students = @user.students

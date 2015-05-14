@@ -142,6 +142,66 @@ RSpec.describe 'User API', type: :request do
 
     end
 
+    it 'should show the students who are in the course' do
+      user = create(:instructor_with_courses)
+      course = user.courses.first
+      course2 = user.courses.new(name: "cs293", start: Date.today, finish: Date.tomorrow)
+      s1 = create(:student, email: "test@test.com")
+      s2 = create(:student, email: "t@test.com")
+      s3 = create(:student, email: "tes@test.com")
+
+      course.students = [s1, s2, s3]
+      course2.students = [s1, s3]
+      course2.instructors << user
+      course.save!
+      course2.save!
+
+      get "/user/students", token: user.token, course_id: course2.id
+      
+      body = JSON.parse(response.body)
+      #Body has an array of students
+      s = body['data']
+      expect(s.length).to eql(2)
+      expect(s[0]['first_name']).to eql(s1.first_name)
+      expect(s[0]['email']).to eql(s1.email)
+      expect(s[0]['id']).to eql(s1.id)
+
+    end
+
+    it 'should show the students who are in the session' do
+      user = create(:instructor_with_courses_with_sessions)
+      course = user.courses.first
+      course2 = user.courses.new(name: "cs293", start: Date.today, finish: Date.tomorrow)
+      s1 = create(:student, email: "test@test.com")
+      s2 = create(:student, email: "t@test.com")
+      s3 = create(:student, email: "tes@test.com")
+      session = user.sessions.first
+
+      course.students = [s1, s2, s3]
+      course2.students = [s1, s3]
+      course2.instructors << user
+      course.save!
+      course2.save!
+      #Make session
+      
+      #session.students = [s1, s2]
+      course2.sessions << session
+
+      get "/user/students", token: user.token, session_id: session.id
+
+      body = JSON.parse(response.body)
+      #Body has an array of students
+      s = body['data']
+      expect(s.length).to eql(2)
+      expect(s[0]['first_name']).to eql(s1.first_name)
+      expect(s[0]['email']).to eql(s1.email)
+      expect(s[0]['id']).to eql(s1.id)
+      expect(s[1]['first_name']).to eql(s3.first_name)
+      expect(s[1]['email']).to eql(s3.email)
+      expect(s[1]['id']).to eql(s3.id)
+
+    end
+
   end
 
   #UPDATE
