@@ -48,4 +48,11 @@ class QuestionsSocketController < WebsocketRails::BaseController
 			trigger_success
 		end
 	end
+
+	def client_subscribed
+		WebsocketRails[message[:channel]].trigger(:student_subscribe, message)
+		# if message[:user][:role] == 'Student'
+		# 	WebsocketRails[:session_3].trigger(:student_subscribe, message[:user])
+		# end
+	end
 end

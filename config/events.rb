@@ -15,6 +15,12 @@ WebsocketRails::EventMap.describe do
   # subscribe :connection_closed, to: QuestionsSocketController, with_method: :deactivate_all
   subscribe :client_disconnected, to: QuestionsSocketController, with_method: :session_end
 
+  namespace :websocket_rails do 
+    subscribe :subscribe, to: QuestionsSocketController, with_method: :client_subscribed
+    # subscribe :subscribe_private, to: QuestionsRailsController, with_method: :client_subscribed_to_private
+  end
+
+
   namespace :questions do
     subscribe :activate, to: QuestionsSocketController, with_method: :activate
     subscribe :deactivate, to: QuestionsSocketController, with_method: :deactivate
