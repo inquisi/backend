@@ -40,8 +40,8 @@ class QuestionsSocketController < WebsocketRails::BaseController
 	end
 
 	def session_end
-		# only if instrucotr has left esssion
-		session = Session.find(connection_store[:session_id])
+		# only if instructor has left a session
+		session = Session.find_by_id(connection_store[:session_id])
 		if session.present?
 			session.questions.update_all(active: false)
 			WebsocketRails[:"session_#{connection_store[:session_id]}".to_sym].trigger(:session_end, nil)
@@ -49,10 +49,15 @@ class QuestionsSocketController < WebsocketRails::BaseController
 		end
 	end
 
-	def client_subscribed
-		WebsocketRails[message[:channel]].trigger(:student_subscribe, message)
-		# if message[:user][:role] == 'Student'
-		# 	WebsocketRails[:session_3].trigger(:student_subscribe, message[:user])
-		# end
+	def student_join_session
+		WebsocketRails[message[:channel_name]].trigger("student.join_session".to_sym, message[:user])
+		connection_store[:user] = message[:user]
+		connection_store[:session_channel] = message[:channel_name]
+	end	
+
+	def student_leave_session
+		if(connection_store[:user].present?)
+			WebsocketRails[connection_store[:session_channel]].trigger("student.leave_session".to_sym, connection_store[:user])
+		end
 	end
 end
