@@ -10,4 +10,14 @@ class SessionsSocketController < WebsocketRails::BaseController
 			WebsocketRails[connection_store[:session_channel]].trigger("student.leave_session".to_sym, connection_store[:user])
 		end
 	end
+
+	def connected_students
+		connected_students = []
+		WebsocketRails[message[:channel_name]].subscribers.each do |subscriber|
+			if(subscriber.data_store[:user].present?)
+				connected_students << subscriber.data_store[:user]
+			end
+		end
+		trigger_success(connected_students)
+	end
 end
