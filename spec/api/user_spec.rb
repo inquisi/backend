@@ -18,6 +18,7 @@ RSpec.describe 'User API', type: :request do
       expect(JSON.parse(response.body)["data"]["user"]).to include("role")
       expect(JSON.parse(response.body)["data"]["user"]).to include("trial")
       expect(JSON.parse(response.body)["data"]["user"]).to include("token")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("id")
     end
 
     #EXPECTED ERRORS
