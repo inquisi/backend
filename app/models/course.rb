@@ -15,6 +15,8 @@ class Course < ActiveRecord::Base
 
 	before_save :generate_enrollment_token
 
+
+
 	def instructor
 		instructors.first
 	end
@@ -29,7 +31,15 @@ class Course < ActiveRecord::Base
 
 private
 	def generate_enrollment_token
-		self.enrollment_token = rand(100000..1000000)
+		#Intail code
+		enroll = rand(100000..1000000)
+		#Continue getting new enroll token until a unique one is found
+		while Course.find_by_enrollment_token(enroll).present?
+			enroll = rand(100000..1000000)
+		end
+		#Assign it to course 
+		self.enrollment_token = enroll
+
 	end
 
 end
