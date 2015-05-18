@@ -7,7 +7,13 @@ if session.present?
 
 #Do nothing, just return students
 
-else
+end
+if course.present?
+
+#Do nothing, just return students
+
+end
+if !(session.present? || course.present?)
 	json.courses student.courses do |course|
 		#if course belongs to instructor
 		if @user.courses.include? (course)

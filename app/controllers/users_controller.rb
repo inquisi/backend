@@ -44,19 +44,27 @@ class UsersController < ApplicationController
           # Get students for a session
           @session = @user.sessions.find_by_id(params[:session_id])
           @students = @session.course.students
-        elsif (params[:course_id])
-          # Get students for a session
+
+        end
+
+        if (params[:course_id])
+          # Get students for a course
           @course = @user.courses.find_by_id(params[:course_id])
           @students = @course.students
-        else
+
+        end
+
+        if !(params[:course_id].present? || params[:session_id].present?)
           # Get students for an instructor
           @students = @user.students
+
         end
 
         render 'users/students'
     else
       @message = "Instructor not found"
       render nothing: true, layout: 'failure'
+
     end
 
   end
@@ -79,7 +87,6 @@ class UsersController < ApplicationController
   def delete
 
     @user = User.find_by_token(params[:token])
-    #Check for switching email to already assigned email? -> potential problem
     
     if @user.delete
       @message = "User deleted"
