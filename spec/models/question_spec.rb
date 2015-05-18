@@ -23,5 +23,4 @@ RSpec.describe Question, type: :model do
     question = build(:mc, session_id: "")
     expect(question.save).to be false
   end
-
 end

@@ -29,7 +29,8 @@ WebsocketRails::EventMap.describe do
     subscribe :connected_students, to: SessionsSocketController, with_method: :connected_students
   end
 
-  namespace :questions do
+  namespace :question do
+    subscribe :respond, to: QuestionsSocketController, with_method: :respond
     subscribe :activate, to: QuestionsSocketController, with_method: :activate
     subscribe :deactivate, to: QuestionsSocketController, with_method: :deactivate
     subscribe :deactivate_all, to: QuestionsSocketController, with_method: :session_end

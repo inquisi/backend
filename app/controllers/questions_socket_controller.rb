@@ -1,4 +1,33 @@
 class QuestionsSocketController < WebsocketRails::BaseController
+	def respond
+		@user = Student.find_by_token(message[:token])
+		if @user.nil?
+			trigger_failure({message: "Invalid student token"})
+			return
+		end
+		
+		@question = Question.find_by_id(message[:question_id])
+		if @question.nil?
+			trigger_failure({message: "Question not found"})
+			return
+		end
+
+		if(!@question.active)
+			trigger_failure({message: "Can't respond to a question that is not active"})
+			return
+		end
+
+		begin
+			response = @question.respond(@user.id, message[:answer_id])
+			WebsocketRails[connection_store[:session_channel]].trigger("question.respond".to_sym, {user_id: response.user_id, question_id: @question.id, answer_id: response.answer_id, created_at: response.created_at.utc})
+			trigger_success
+			return
+		rescue NotEnrolledException => e
+			trigger_failure({message: e.message})
+			return
+		end
+	end
+
 	def activate
 		@user = Instructor.find_by_token(message[:token])
 		if @user.nil?

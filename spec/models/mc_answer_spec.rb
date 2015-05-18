@@ -21,5 +21,4 @@ RSpec.describe McAnswer, type: :model do
     answer = build(:mcA, question_id: "")
     expect(answer.save).to be false
   end
-  
 end

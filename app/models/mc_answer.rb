@@ -1,5 +1,5 @@
 class McAnswer < ActiveRecord::Base
-	belongs_to 	:Question, class_name: "Mc"
+	belongs_to 	:question, class_name: "MC"
 
 	has_many	:responses, class_name: "McResponse"
 
