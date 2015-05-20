@@ -12,6 +12,7 @@ gem 'email_validator'
 # This guy's fork fixes an issue where websocket controllers can't be tested
 # https://github.com/websocket-rails/websocket-rails/issues/218
 gem 'websocket-rails', git: "https://github.com/depili/websocket-rails.git", branch: "testing_fix"
+gem 'render_anywhere'
 
 group :development, :test do
   gem 'rake'

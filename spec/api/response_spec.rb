@@ -28,7 +28,7 @@ RSpec.describe 'Response API', type: :request do
 			expect(JSON.parse(response.body)).to include("message")
 			expect(JSON.parse(response.body)).to include("data")
 			expect(JSON.parse(response.body)["data"]).to include("response")
-	        expect(JSON.parse(response.body)["data"]["response"]).to include("token")
+	        expect(JSON.parse(response.body)["data"]["response"]).to include("user_id")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("created_at")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("answer_id")
 		end
@@ -45,7 +45,7 @@ RSpec.describe 'Response API', type: :request do
 			expect(JSON.parse(response.body)).to include("message")
 			expect(JSON.parse(response.body)).to include("data")
 			expect(JSON.parse(response.body)["data"]).to include("response")
-			expect(JSON.parse(response.body)["data"]["response"]).to include("token")
+			expect(JSON.parse(response.body)["data"]["response"]).to include("user_id")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("name")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("created_at")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("answer_id")
@@ -64,7 +64,7 @@ RSpec.describe 'Response API', type: :request do
 			expect(JSON.parse(response.body)).to include("message")
 			expect(JSON.parse(response.body)).to include("data")
 			expect(JSON.parse(response.body)["data"]).to include("response")
-			expect(JSON.parse(response.body)["data"]["response"]).to include("token")
+			expect(JSON.parse(response.body)["data"]["response"]).to include("user_id")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("num")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("created_at")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("answer_id")
@@ -82,7 +82,7 @@ RSpec.describe 'Response API', type: :request do
 			expect(JSON.parse(response.body)).to include("message")
 			expect(JSON.parse(response.body)).to include("data")
 			expect(JSON.parse(response.body)["data"]).to include("response")
-			expect(JSON.parse(response.body)["data"]["response"]).to include("token")
+			expect(JSON.parse(response.body)["data"]["response"]).to include("user_id")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("name")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("created_at")
 	        expect(JSON.parse(response.body)["data"]["response"]).to include("question_id")
@@ -155,7 +155,7 @@ RSpec.describe 'Response API', type: :request do
 
 			r = rs.first
 			
-			expect(r['token']).to eql(user.token)
+			expect(r['user_id']).to eql(user.id)
 	   		expect(r['created_at']).to eql(mc_response.created_at.round.utc.to_s)
 		end
 
@@ -176,7 +176,7 @@ RSpec.describe 'Response API', type: :request do
 
 			response = responses.first
 			
-			expect(response['token']).to eql(user.token)
+			expect(response['user_id']).to eql(user.id)
 			expect(response['name']).to eql(sa_response.name)
 	   		expect(response['created_at'].to_s).to eql(sa_response.created_at.round.utc.to_s)
 		end
@@ -198,7 +198,7 @@ RSpec.describe 'Response API', type: :request do
 
 			response = responses.first
 			
-			expect(response['token']).to eql(user.token)
+			expect(response['user_id']).to eql(user.id)
 			expect(response['num']).to eql(num_response.num)
 	   		expect(response['created_at']).to eql(num_response.created_at.round.utc.to_s)
 		end
@@ -218,7 +218,7 @@ RSpec.describe 'Response API', type: :request do
 
 			response = responses.first
 			
-			expect(response['token']).to eql(user.token)
+			expect(response['user_id']).to eql(user.id)
 			expect(response['name']).to eql(la_response.name)
 	   		expect(response['created_at'].to_s).to eql(la_response.created_at.round.utc.to_s)
 		end
@@ -244,7 +244,7 @@ RSpec.describe 'Response API', type: :request do
 			data = body['data']
 	    	r = data['response']
 
-			expect(r['token']).to eql(user.token)
+			expect(r['user_id']).to eql(user.id)
 	   		expect(r['created_at'].to_s).to eql(mc_response.created_at.round.utc.to_s)
 			
 		end
@@ -265,7 +265,7 @@ RSpec.describe 'Response API', type: :request do
 			data = body['data']
 	    	response = data['response']
 
-	    	expect(response['token']).to eql(user.token)
+	    	expect(response['user_id']).to eql(user.id)
 			expect(response['name']).to eql(sa_response.name)
 	   		expect(response['created_at'].to_s).to eql(sa_response.created_at.round.utc.to_s)
 		end
@@ -286,7 +286,7 @@ RSpec.describe 'Response API', type: :request do
 			data = body['data']
 	    	response = data['response']
 
-	    	expect(response['token']).to eql(user.token)
+	    	expect(response['user_id']).to eql(user.id)
 			expect(response['num']).to eql(num_response.num)
 	   		expect(response['created_at'].to_s).to eql(num_response.created_at.round.utc.to_s)
 		end
@@ -306,7 +306,7 @@ RSpec.describe 'Response API', type: :request do
 			data = body['data']
 	    	response = data['response']
 
-			expect(response['token']).to eql(user.token)
+			expect(response['user_id']).to eql(user.id)
 			expect(response['name']).to eql(la_response.name)
 	   		expect(response['created_at'].to_s).to eql(la_response.created_at.round.utc.to_s)
 		end
@@ -379,7 +379,7 @@ RSpec.describe 'Response API', type: :request do
 			data = body['data']
 	    	response = data['response']
 
-	    	expect(response['token']).to eql(user.token)
+	    	expect(response['user_id']).to eql(user.id)
 			expect(response['num']).to eql(num_response.num)
 			expect(response['correct']).to eql(num_response.correct)
 	   		expect(response['created_at'].to_s).to eql(num_response.created_at.round.utc.to_s)
@@ -403,7 +403,7 @@ RSpec.describe 'Response API', type: :request do
 			data = body['data']
 	    	response = data['response']
 
-	    	expect(response['token']).to eql(user.token)
+	    	expect(response['user_id']).to eql(user.id)
 			expect(response['num']).to eql(43)
 	   		expect(response['created_at'].to_s).to eql(num_response.created_at.round.utc.to_s)
 		end
@@ -424,7 +424,7 @@ RSpec.describe 'Response API', type: :request do
 			data = body['data']
 	    	response = data['response']
 
-	    	expect(response['token']).to eql(user.token)
+	    	expect(response['user_id']).to eql(user.id)
 			expect(response['name']).to eql(sa_response.name)
 			expect(response['correct']).to eql(sa_response.correct)
 	   		expect(response['created_at'].to_s).to eql(sa_response.created_at.round.utc.to_s)
@@ -448,7 +448,7 @@ RSpec.describe 'Response API', type: :request do
 			data = body['data']
 	    	response = data['response']
 
-	    	expect(response['token']).to eql(user.token)
+	    	expect(response['user_id']).to eql(user.id)
 			expect(response['name']).to eql("wrong")
 	   		expect(response['created_at'].to_s).to eql(sa_response.created_at.round.utc.to_s)
 		end

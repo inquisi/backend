@@ -19,7 +19,7 @@ class QuestionsSocketController < WebsocketRails::BaseController
 
 		begin
 			response = @question.respond(@user.id, message[:answer_id])
-			WebsocketRails[connection_store[:session_channel]].trigger("question.respond".to_sym, {user_id: response.user_id, question_id: @question.id, answer_id: response.answer_id, created_at: response.created_at.utc})
+			WebsocketRails[connection_store[:session_channel]].trigger("question.respond".to_sym, response.as_json)
 			trigger_success
 			return
 		rescue NotEnrolledException => e

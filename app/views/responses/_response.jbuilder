@@ -1,5 +1,6 @@
-json.token			user.token	
+json.user_id		user.id	
 json.created_at 	response.created_at.to_s
+json.question_id	question.id
 
 if question.category == "MC"	
 	json.answer_id 		response.mc_answer_id 
@@ -15,7 +16,6 @@ elsif question.category == "NUM"
 	json.correct		response.correct
 
 elsif question.category == "LA"
-	json.question_id 	response.question_id
 	json.name 			response.name
 	
 else
