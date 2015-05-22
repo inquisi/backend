@@ -43,8 +43,8 @@ class QuestionsSocketController < WebsocketRails::BaseController
 
 		connection_store[:session_id] = @question.session.id
 		@question.update(active: true)
-		WebsocketRails[:"session_#{@question.session.id}".to_sym].trigger(:question_activate, @question)
-		trigger_success
+		WebsocketRails[:"session_#{@question.session.id}".to_sym].trigger("question.activate".to_sym, @question.as_json)
+		trigger_success(question: @question.as_json)
 	end
 
 	def deactivate

@@ -15,8 +15,6 @@ class McResponse < ActiveRecord::Base
 		JSON.parse(render(
 						'responses/_response.jbuilder', 
 						locals: { 
-							user: user, 
-							question: answer.question, 
 							response: self
 						}, 
 						layout: false ), 
