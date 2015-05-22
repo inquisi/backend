@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
 	def create
     @user = User.find_by_token(params[:token])
     @course = @user.courses.find(params[:course_id])
-    @session = @course.sessions.new(name: params[:name], date: params[:date], active: params[:active])
+    @session = @course.sessions.new(name: params[:name], date: params[:date], active: params[:active], allow_anonymous: params[:allow_anonymous])
 
     if @session.save
       render 'sessions/create'
@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
     @user = User.find_by_token(params[:token])
     @session = @user.sessions.find(params[:id])
 
-    @session.assign_attributes(params.permit(:name, :date, :course_id, :active))
+    @session.assign_attributes(params.permit(:name, :date, :course_id, :active, :allow_anonymous))
 
     if @session.save
       render 'sessions/show'

@@ -21,17 +21,14 @@ FactoryGirl.define do
     date        "05/03/2015"
     course_id   "1"
     active      false
-    # questions    [] #Is this needed??
+    allow_anonymous false
   end
 
-  #Start of Questions
   factory :question do
     name        "Test"
     order       1
     session_id  "1"
     active      false
-    # answers     []  #Is this needed??
-
   end
 
   factory :mc, class: MC, parent: :question do

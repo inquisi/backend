@@ -23,4 +23,19 @@ RSpec.describe Session, type: :model do
     expect(session.save).to be false
   end
 
+  describe "anonymous participation" do
+    it "should generate a token if anonymous_participation goes from false to true" do
+      session = create(:session)
+      expect(session.token).to eql nil
+      session.update(allow_anonymous: true)
+      expect(session.token).not_to eql nil
+    end
+
+    it "should generate a new token if anonymous_participation goes from false to true after a token has previously been generated" do
+      session = create(:session, token: "test")
+      expect(session.token).to eql "test"
+      session.update(allow_anonymous: true)
+      expect(session.token).not_to eql "test"
+    end
+  end
 end
