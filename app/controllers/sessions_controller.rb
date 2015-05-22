@@ -15,16 +15,26 @@ class SessionsController < ApplicationController
   end
 
   def show
-    @user = User.find_by_token(params[:token])
-    @course = @user.courses.find(params[:course_id])
-    @session = @course.sessions.find(params[:id])
-    if(@session.present? )
-      render 'sessions/show'
+    if(params[:anonymous] == "true")
+      @session = Session.find_by_token(params[:id])
+      
+      if(@session.present?)
+        render 'sessions/show'
+      else
+        @message = "Session not found"
+        render nothing: true, layout: 'failure'
+      end
     else
-      @message = "No Sessions"
-      render nothing: true, layout: 'failure'
+      @user = User.find_by_token(params[:token])
+      @course = @user.courses.find(params[:course_id])
+      @session = @course.sessions.find(params[:id])
+      if(@session.present?)
+        render 'sessions/show'
+      else
+        @message = "No Sessions"
+        render nothing: true, layout: 'failure'
+      end
     end
-
   end
 
   def index

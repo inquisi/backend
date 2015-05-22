@@ -20,7 +20,7 @@ RSpec.describe 'Session API', type: :request do
         expect(JSON.parse(response.body)["data"]["session"]).to include("id")
         expect(JSON.parse(response.body)["data"]["session"]).to include("course_id")
         expect(JSON.parse(response.body)["data"]["session"]).to include("active")
-
+        expect(JSON.parse(response.body)["data"]["session"]).to include("allow_anonymous")
       end
 
       #EXPECTED ERRORS
@@ -113,6 +113,16 @@ RSpec.describe 'Session API', type: :request do
       expect(s['date']).to eql(session.date.to_s)
       expect(s['active']).to eql(session.active)
       
+    end
+
+    it "should look up a session by it's anon token if `anonymous` == true" do
+      user = create(:student_with_courses_with_sessions)
+      course = user.courses.first
+      session = course.sessions.create!(name: 'testSession', date: Date.today, allow_anonymous: true)
+      get "/sessions/#{session.token}", {anonymous: true}
+
+      body = JSON.parse(response.body)
+      expect(body['data']['session']['id']).to eql session.id
     end
   end
 
