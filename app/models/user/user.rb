@@ -1,22 +1,24 @@
 class User < ActiveRecord::Base
-	has_secure_password
-	
 	self.inheritance_column = 'role'
 
-	validates 	:first_name, :last_name, presence: true
-	validates 	:email, uniqueness: true, email: true
-	validates 	:role, inclusion: { in: ['Student', 'Instructor'], message: "is required."}
+	POSSIBLE_ROLES = ['Student', 'Instructor', 'AnonymousStudent']
+	
+	validates 	:role, inclusion: { in: POSSIBLE_ROLES, message: "is required."}
 
-	before_validation 	:capitalize_role
+	before_validation 	:transform_role
 	before_save 		:generate_token
 
 	def generate_token
 		self.token = SecureRandom.uuid
 	end
 
-	def capitalize_role
+	def transform_role
 		if(self.role)
-			self.role = self.role.capitalize
+			POSSIBLE_ROLES.each do |role|
+				if(role.casecmp(self.role) == 0)
+					self.role = role
+				end
+			end
 		end
 	end
 

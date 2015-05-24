@@ -112,7 +112,7 @@ FactoryGirl.define do
     name        "Inquisi"
   end
 
-  factory :user do
+  factory :user, class: RegisteredUser do
     first_name    "Cody"
     last_name     "Sehl"
     email         "cody.sehl@gmail.com"
@@ -125,6 +125,11 @@ FactoryGirl.define do
     factory :user_with_token do
       token "token"
     end
+  end
+
+  factory :anonymous_student, class: AnonymousStudent do
+    role "AnonymousStudent"
+    name "Anonymous Jeff"
   end
 
     #Start of Student Factories

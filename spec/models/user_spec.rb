@@ -36,16 +36,16 @@ RSpec.describe User, type: :model do
     expect(user.token).not_to eql(nil)
   end
 
-  it "should require role to be either 'student' or 'instructor'" do
-    user = build(:user)
+  it "should require role not to be blank" do
+    user = build(:user, role: '')
     expect(user.save).to be false
     expect(user.errors.full_messages.first).to eql "Role is required."
   end
 
-  it "should capitalize role" do
-    user = build(:student, role: 'student')
+  it "should transform role with correct characters to role with correct characters and capitalization" do
+    user = build(:student, role: 'anonymousstudent')
     expect(user.save).to be true
-    expect(user.role).to eql "Student"
+    expect(user.role).to eql "AnonymousStudent"
   end
   
 end

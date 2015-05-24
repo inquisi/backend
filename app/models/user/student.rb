@@ -1,4 +1,4 @@
-class Student < User
+class Student < RegisteredUser
 	#Courses that a student belong to
 	has_and_belongs_to_many :courses, foreign_key: :user_id
 
