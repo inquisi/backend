@@ -165,6 +165,8 @@ GEM
     redis (3.2.1)
     redis-objects (1.2.0)
       redis (>= 3.0.2)
+    render_anywhere (0.0.11)
+      rails (>= 3.0.7)
     rspec (3.2.0)
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
@@ -229,6 +231,7 @@ DEPENDENCIES
   rack-cors
   rails (= 4.2)
   rake
+  render_anywhere
   rspec
   rspec-rails
   timecop

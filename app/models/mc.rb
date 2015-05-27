@@ -1,4 +1,6 @@
+require 'render_anywhere'
 class MC < Question
+	include RenderAnywhere
 	has_many :answers, class_name: "McAnswer" , foreign_key: :question_id
 	has_many :responses, through: :answers
 
@@ -18,5 +20,14 @@ class MC < Question
 
 		return answer.responses.create!(user_id: student_id)
 	end
-	
+
+	def as_json
+		JSON.parse(render(
+						'questions/_question.jbuilder', 
+						locals: { 
+							question: self, 
+						}, 
+						layout: false ), 
+					symbolize_names: true)
+	end
 end

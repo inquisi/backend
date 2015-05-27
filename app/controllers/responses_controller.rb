@@ -113,7 +113,7 @@ class ResponsesController < ApplicationController
 	    	@user 		 = 	User.find_by_token(params[:token])
 	    	@answer 	 =	@question.answers.find(params[:mc_answer_id])
 	    	@response 	 = 	@answer.responses.find(params[:id])
-			if(@response.present? )
+			if(@response.present?)
 		  		render 'responses/show'
 		  	else
 		  		@message = "No Responses"

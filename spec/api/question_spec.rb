@@ -149,9 +149,7 @@ RSpec.describe 'Question API', type: :request do
 
     end
 
-    #Checking the answer output aswell
-    it ' should return the array of answers with the question' do
-
+    it 'should return an array of answers and responses with the question' do
       user = create(:instructor_with_courses_with_sessions_with_questions)
       course = user.courses.first
       session = course.sessions.first
@@ -169,7 +167,7 @@ RSpec.describe 'Question API', type: :request do
       expect(q['id']).to eql(question.id)
       expect(q['category']).to eql(question.category)
       expect(q['answers']).to eql(['question_id' => answer.question_id, 'name' => answer.name, 'correct' => answer.correct, 'order' => answer.order, 'id' => answer.id])
-    
+      expect(q['responses']).to eql([])
     end
   end
 
