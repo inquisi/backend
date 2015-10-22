@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
 
   def update
 
-    @user = User.find_by_token(params[:token])
+    @user = Instructor.find_by_token(params[:token])
     @session = @user.sessions.find(params[:id])
 
     @session.assign_attributes(params.permit(:name, :date, :course_id, :active))
@@ -88,7 +88,7 @@ class SessionsController < ApplicationController
   end
 
   def activate
-    @user = User.find_by_token(params[:token])
+    @user = Instructor.find_by_token(params[:token])
     @session = @user.sessions.find(params[:id])
     @session.active = params[:active]
 

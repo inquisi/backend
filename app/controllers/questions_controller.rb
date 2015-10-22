@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   
   def create
+    #Only MC for now
     @question = MC.new(name: params[:name], session_id: params[:session_id], order: params[:order], active: params[:active])
 
     if @question.save
@@ -37,7 +38,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    @user = User.find_by_token(params[:token])
+    @user = Instructor.find_by_token(params[:token])
     @question = @user.questions.find(params[:id])
     @question.assign_attributes(params.permit(:name, :cateogry, :session_id, :order))
 
@@ -62,7 +63,7 @@ class QuestionsController < ApplicationController
 
   def deleteAll
 
-    user = User.find_by_token(params[:token])
+    user = Instructor.find_by_token(params[:token])
     courses = user.courses
     q = courses.first.questions
     #Iterate thru sessions?
@@ -81,7 +82,7 @@ class QuestionsController < ApplicationController
 
 
   def activate
-    @user = User.find_by_token(params[:token])
+    @user = Instructor.find_by_token(params[:token])
     @question = @user.questions.find(params[:id])
     @question.assign_attributes(params.permit(:active))
 

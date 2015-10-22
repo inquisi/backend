@@ -40,7 +40,7 @@ class CoursesController < ApplicationController
 
   def update
     
-    @user = User.find_by_token(params[:token])
+    @user = Instructor.find_by_token(params[:token])
     @course = @user.courses.find(params[:id])
     @course.assign_attributes(params.permit(:name, :start, :finsih, :user_id))
 
