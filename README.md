@@ -5,6 +5,10 @@
 This project requires the following:
 
     - Ruby
+    -nginx
+    -mysql
+    -gulp (for testing)
+    NO LONGER USE DOCKER
     - Docker
     - Docker Compose
 
