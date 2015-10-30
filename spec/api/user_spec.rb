@@ -59,6 +59,25 @@ RSpec.describe 'User API', type: :request do
     end
   end
 
+  describe '/logout' do
+
+    #CREATE EXPECTED SUCCESS
+    it 'should return a blank token json if login successful' do
+      user = create(:student)
+      post '/logout', attributes_for(:user).extract!(:token)
+
+      expect(JSON.parse(response.body)).to include("status")
+      expect(JSON.parse(response.body)).to include("message")
+      expect(JSON.parse(response.body)).to include("data")
+      expect(JSON.parse(response.body)["data"]).to include("user")
+      expect(JSON.parse(response.body)["data"]["user"]).to include("token")
+      t = JSON.parse(response.body)['data']['user']['token']
+      #Verify its been "nulled"
+      expect(0).to eql t
+    end
+
+  end
+
   describe 'signup and login' do
 
     #CREATE EXPECTED SUCCESS

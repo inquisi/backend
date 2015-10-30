@@ -18,7 +18,7 @@ class QuestionsSocketController < WebsocketRails::BaseController
 		end
 
 		begin
-			response = @question.respond(@user.id, message[:answer_id])
+			response = @question.respond(@user.id, message[:answer_id]) #answer_id : The answer the selected
 			WebsocketRails[connection_store[:session_channel]].trigger("question.respond".to_sym, response.as_json)
 			trigger_success
 			return
