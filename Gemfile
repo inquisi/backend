@@ -24,4 +24,6 @@ group :development, :test do
   gem 'byebug'
   gem 'timecop'
   gem 'awesome_print'
+  gem 'activerecord-session_store'
+  
 end
