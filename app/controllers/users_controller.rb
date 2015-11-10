@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     @user = User.find_by_email(params[:email])
     #Make a user_session
     if(@user.present? and @user.authenticate(params[:password]))
-      @user.save # should generate new token
+      @user.save # should generate new token ??
       ##Create a session
       render 'users/token'
     else
