@@ -14,7 +14,10 @@ class UsersController < ApplicationController
   def login
 
     @user = User.find_by_email(params[:email])
+    #Make a user_session
     if(@user.present? and @user.authenticate(params[:password]))
+      @user.save # should generate new token
+      ##Create a session
       render 'users/token'
     else
       @message = "Email or password is incorrect"
@@ -24,6 +27,18 @@ class UsersController < ApplicationController
   end
 
   def logout
+    #End a user session
+    @user = User.find_by_token(params[:token])
+    #logout
+    #@user.delete_token 
+    #if the server changes token value without updating client-> effective logout
+    @user.save
+    if(@user.present?)
+      render 'users/logout'
+    else
+      @message = "Email or password is incorrect"
+      render nothing: true, layout: 'failure'
+    end
 
   end
 

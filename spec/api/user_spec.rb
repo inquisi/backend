@@ -62,10 +62,15 @@ RSpec.describe 'User API', type: :request do
   describe '/logout' do
 
     #CREATE EXPECTED SUCCESS
-    it 'should return a blank token json if login successful' do
+    it 'should return a blank token json if logout successful' do
       user = create(:student)
-      post '/logout', attributes_for(:user).extract!(:token)
-
+#login
+      post '/login', attributes_for(:user).extract!(:email, :password)
+      expect(JSON.parse(response.body)["data"]["user"]).to include("token")
+      tok = JSON.parse(response.body)['data']['user']['token']
+#logout
+      post '/logout', token: tok
+    
       expect(JSON.parse(response.body)).to include("status")
       expect(JSON.parse(response.body)).to include("message")
       expect(JSON.parse(response.body)).to include("data")
@@ -77,20 +82,19 @@ RSpec.describe 'User API', type: :request do
     end
 
   end
+# NO longer the assumption
+  # describe 'signup and login' do
 
-  describe 'signup and login' do
+  #   #CREATE EXPECTED SUCCESS
+  #   it 'should return a different token' do
+  #     user_hash = attributes_for(:user_with_password_confirmation).merge(attributes_for(:student))
+  #     post '/signup', user_hash
+  #     signup_token = JSON.parse(response.body)['data']['user']['token']
+  #     post '/login', attributes_for(:user).extract!(:email, :password)
+  #     login_token = JSON.parse(response.body)['data']['user']['token']
 
-    #CREATE EXPECTED SUCCESS
-    it 'should return the same token' do
-      user_hash = attributes_for(:user_with_password_confirmation).merge(attributes_for(:student))
-      post '/signup', user_hash
-      signup_token = JSON.parse(response.body)['data']['user']['token']
-      post '/login', attributes_for(:user).extract!(:email, :password)
-      login_token = JSON.parse(response.body)['data']['user']['token']
-
-      expect(signup_token).to eql login_token
-    end
-  end
+  #   end
+  # end
 
   #SHOW
   describe '/user' do

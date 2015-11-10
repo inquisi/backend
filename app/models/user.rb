@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
 		self.token = SecureRandom.uuid
 	end
 
+	# def delete_token
+	# 	self.token = null
+	# end
+
 	def capitalize_role
 		if(self.role)
 			self.role = self.role.capitalize
